@@ -1,0 +1,71 @@
+﻿@{
+    Layout = "~/Views/Shared/Work/_NewsPaperCorrectLayout.cshtml";
+}
+@model WorkParam
+<div id="_paper_panel" data-bind="if: paper, visible: paper" style="display:none">
+    <div class="testQues" id="testQues">
+        <div class="main testT  mt1 cf">
+            <div class="tit fl">
+                <h4 data-bind="text:paper().title"></h4>
+                <p>你写作业用时：<span id="timer"></span></p>
+            </div>
+            <div class="score fl tc">
+                <span class="scoreNum"><i id="_totalScore">@Model.UnitWork.ActualScore.ToRound()</i>分</span>
+            </div>
+        </div>
+    </div>
+    <div class="main">
+        <div class="testCont">
+            <!--ko template:{ name: 'paperTemplate', data: paper, afterRender: afterRender } --><!-- /ko -->
+        </div>
+    </div>
+    <div class="testContrlBox">
+        <a href="javascript:;" class="goUp"></a>
+    </div>
+    <div id="manual-mark" class="manual-mark cf" style="display:none">
+        <p class="fl">该题回答：</p>
+        <span class="mark fl">
+            <em data-bind="click: function(){ setCorrectScore(1) }, css:{ 'curr': lastCorrectQuestion().assess() == 1 }"><a href="javascript:;" class="mark-right"></a></em><i class="mark-line"></i>
+            <em data-bind="click: function(){ setCorrectScore(3) }, css:{ 'curr': lastCorrectQuestion().assess() == 3 }"><a href="javascript:;" class="mark-hRight"></a></em><i class="mark-line"></i>
+            <em data-bind="click: function(){ setCorrectScore(2) }, css:{ 'curr': lastCorrectQuestion().assess() == 2 }"><a href="javascript:;" class="mark-miss"></a></em>
+        </span>
+        <p class="fl">
+            得分：<span><input type="text" maxlength="5" class="vm inp-score" data-bind="value: lastCorrectQuestion().itemScore"><input type="button" class="vm btn-confirm" data-bind="click: saveCorrect" value="确定"></span>
+        </p>
+    </div>
+</div>
+<script type="text/html" id="jiandaTemplate">
+    <div class="work-t cf" data-bind="html: stem"></div>
+    <div class="work-con" data-bind="html:convertVideo(userAnswer)"></div>
+</script>
+@section scripts{
+    <script type="text/javascript">
+        require(["ko", "paper"], function (ko, paper) {
+            ko.applyBindings(new paper.viewModel.correctView(settingOptions), document.getElementById("_paper_panel"));
+        });
+
+        var settingOptions = {
+            id: "@(Model.WorkResource.VersionId)",
+            doId: "@(Model.UnitWork.DoId)",
+            moduleId: "e9430760-9f2e-4256-af76-3bd8980a9de4",
+            isShowAnswer: '@Model.IsCan',
+            isShowThinking: false,//解题思路
+            isShowQuestionVideo: false,//解题视频
+            afterRender: function () {
+                $('a.goUp').live("click", function () {
+                    $('html,body').animate({ scrollTop: 0 }, 300);
+                });
+                $("#timer").timer({ startTimeLine: "@Model.UnitWork.WorkLong" });
+                $(window).scroll(function () {
+                    if ($(this).scrollTop() < 118) {
+                        $("#testQues").removeClass("testQuesFiex").addClass("testQues");
+                    } else {
+                        $("#testQues").removeClass("testQues").addClass("testQuesFiex");
+                    }
+                })
+            }
+        };
+    </script>
+}
+
+

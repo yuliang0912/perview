@@ -1,0 +1,33 @@
+﻿@{
+    Layout = Model.Layout;
+}
+@model ResourceParam
+<div id="_knowledge_panel" class="work-wrapper-dx area" data-bind="if: knowledge">
+    <section class="work-quesBox" data-bind="with: knowledge">
+        <div class="work-t" style="padding: 20px;">
+            <h4 class="f18 tc" data-bind="text:name"></h4>
+            <div class="t2em" data-bind="html:content"></div>
+        </div>
+        <nav class="work-quesT" data-bind="visible: questions().list().length > 0">
+            <h3 class="t"><i></i>知识点精炼</h3>
+        </nav>
+        <div data-bind="template: { name: 'questionListTemplate', data: questions}">
+        </div>
+    </section>
+
+    <footer class="work-footer">
+        <div class="area">
+            <div class="fl signBar">
+                <a data-bind="click: correctQuestion,visible:viewType() == 1" class="sub-btn">提交并查看答案</a>
+                <a href="javascript:;" onclick="ciwong.colsePage()" class="w-btn ">关闭页面</a>
+            </div>
+        </div>
+    </footer>
+</div>
+@section scripts{
+<script type="text/javascript">
+	require(["ko", "knowledge"], function (ko, knowledge) {
+		ko.applyBindings(new knowledge.viewModel.preView({ id: "@(Model.VersionId)" }), document.getElementById("_knowledge_panel"));
+	});
+</script>
+}

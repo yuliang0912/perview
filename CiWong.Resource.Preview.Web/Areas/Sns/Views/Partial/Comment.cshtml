@@ -1,0 +1,57 @@
+﻿<script type="text/html" id="newsComment">
+    <p class="msgT st f14">本文评论 (<em data-bind="text:comentCount"></em>条)</p>
+    <div class="p20 st">
+        <div class="editor_area">
+            <textarea class="textarea" onkeyup="CompareWordCount('#txtcont','#spantip')" onfocus="if(value=='说点什么吧......') {value=''}" onblur="if(value=='') {value='说点什么吧......'}" id="txtcont">说点什么吧......</textarea>
+            <p class="tr"><span id="spantip" style="float:left;display:inline-block;padding-top:8px;">可以输入140字</span><a class="btn-red mt10" href="javascript:void(0)" data-bind="click:SaveComent">发表</a> </p>
+        </div>
+        <ul class="commList mt10" data-bind="foreach:ComentList">
+            <li>
+                <a class="user" href="javascript:void(0)">
+                    <img data-bind="attr:{ 'src':$data.com_userphoto}"></a>
+                <p class="f14"><a href="javascript:void(0)" data-bind="text:$data.com_user_name"></a></p>
+                <p class="gray"><i data-bind="text:$data.commentdate"></i></p>
+                <p class="f14" data-bind="html:$data.com_content"></p>
+                <div class="reply mt10">
+                    <i class="reply-arrow"></i>
+                    <div class="replyEdit">
+                        <div class="replyEditCont cf">
+                            <input type="text" class="inp-t fl" data-bind="attr:{ 'id':'reply_'+$data.comment_id}"><a class="btn-min" href="#" data-bind="click:$parent.SaveReplay">发表</a>
+                        </div>
+                    </div>
+                    <ul class="replyList mt10" p="1" data-bind="foreach:$data.replys,attr:{ 'id':'ul'+$data.comment_id, 'style':'height:'+oheight()+'px'}">
+                        <li>
+                            <a class="userPic" href="javascript:void(0)">
+                                <img data-bind="attr:{ 'src':$data.reply_userphoto }"></a>
+                            <p><a href="javascript:void(0)" data-bind="text:$data.reply_user_name+':'"></a><span data-bind="html:$data.reply_content,attr:{ 'title':$data.reply_content}"></span></p>
+                            <p class="gray" data-bind="text:$data.replydate"></p>
+                        </li>
+                    </ul>
+                    <a href="javascript:void(0)" style="display: block; width: 100%; text-align: center;" data-bind="click:$parent.getMore,visible:subreplys().length>8,attr:{ 'id':'aRep_'+ $data.comment_id}">显示更多</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="page_mini" id="pagination"></div>
+</script>
+
+<script>
+    function CompareWordCount(txtId, spanId) {
+        var msgbox = $(txtId);
+        var msglen = $.trim(msgbox.val()).length;
+        if (msgbox.val() == "说点什么吧......") {
+            msglen = 0;
+        }
+        var msgtip = $(spanId);
+        msgtip.empty();
+        var tip;
+        if (msglen <= 140) {
+            tip = "还可以输入<em>" + (140 - msglen) + "</em>字";
+            msgtip.removeClass("formerror");
+        } else {
+            tip = "已经超过<em style=\"color:#ff4700;\">" + (Math.abs(140 - msglen) > 100 ? "很多" : Math.abs(140 - msglen)) + "</em>字";
+            msgtip.addClass("formerror");
+        }
+        msgtip.html(tip);
+    }
+</script>

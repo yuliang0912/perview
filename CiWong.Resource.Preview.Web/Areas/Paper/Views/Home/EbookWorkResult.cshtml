@@ -1,0 +1,40 @@
+﻿@{
+    Layout = Model.Layout;
+}
+@model WorkParam
+<div id="_paper_panel" class="work-wrapper-dx area" data-bind="if:paper, visible: paper" style="display:none">
+    <input type="hidden" id="hiddScore" value="@Model.UnitWork.ActualScore.ToRound()" />
+    <div class="main">
+        <div class="testCont" data-bind="template:{ name: 'paperTemplate', data: paper, afterRender: afterRender }"></div>
+    </div>
+    <footer class="work-footer">
+        <div class="area">
+            <div class="fl signBar">
+                <a href="javascript:;" onclick="ciwong.colsePage()" class="w-btn ">关闭页面</a>
+            </div>
+        </div>
+    </footer>
+</div>
+@section scripts{
+    <script type="text/javascript">
+        require(["ko", "paper"], function (ko, paper) {
+            ko.applyBindings(new paper.viewModel.resultView(settingOptions), document.getElementById("_paper_panel"));
+        });
+
+        var settingOptions = {
+            id: "@(Model.WorkResource.VersionId)",
+            doId: "@(Model.UnitWork.DoId)",
+            isShowAnswer: true,
+            isShowThinking: '@Model.IsCan',//解题思路
+            isShowQuestionVideo: '@Model.IsCan',//解题视频
+            afterRender: function () {
+                $('a.goUp').live("click", function () {
+                    $('html,body').animate({ scrollTop: 0 }, 300);
+                });
+                $("#_ebook_top hgroup h1").text(this.paper().title);
+                var score =parseInt($("#hiddScore").val());
+                $("#_ebook_top hgroup").after('<div class="score"><p>总得分<span>{0}</span>分</p></div>'.format(parseFloat(score.toFixed(2))));
+            }
+        };
+    </script>
+}

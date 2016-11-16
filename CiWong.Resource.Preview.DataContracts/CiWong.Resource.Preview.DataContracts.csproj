@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C498F420-F363-491B-86E2-A2129EC39D6A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CiWong.Resource.Preview.DataContracts</RootNamespace>
+    <AssemblyName>CiWong.Resource.Preview.DataContracts</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\CiWong.Resource.Preview.DataContracts.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\CiWong.Resource.Preview.DataContracts.XML</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Answer\FileAnswer.cs" />
+    <Compile Include="Answer\FlowReadAnswerEntity.cs" />
+    <Compile Include="Answer\IAnswer.cs" />
+    <Compile Include="Answer\ReadAnswerEntity.cs" />
+    <Compile Include="Business\ILearnBase.cs" />
+    <Compile Include="Answer\QuestionAnswer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resource\ComentContract.cs" />
+    <Compile Include="Resource\ExaminationContract.cs" />
+    <Compile Include="Resource\QuestionContract.cs" />
+    <Compile Include="Resource\ResourceBase.cs" />
+    <Compile Include="Resource\SpeekingApiContract.cs" />
+    <Compile Include="Business\SupportContract.cs" />
+    <Compile Include="UserContract.cs" />
+    <Compile Include="Value\PaginationResult.cs" />
+    <Compile Include="Value\ResourceModuleOptions.cs" />
+    <Compile Include="Value\ReturnResult.cs" />
+    <Compile Include="Work\DoWorkBaseContract.cs" />
+    <Compile Include="Work\FileWorksContracts.cs" />
+    <Compile Include="Work\IndepPracticeContract.cs" />
+    <Compile Include="Work\PublishRecordContract.cs" />
+    <Compile Include="Work\UnitSummaryContract.cs" />
+    <Compile Include="Work\UnitWorksContract.cs" />
+    <Compile Include="Work\WorkAnswerContract.cs" />
+    <Compile Include="Work\WorkBaseContract.cs" />
+    <Compile Include="Work\WorkCensusContract.cs" />
+    <Compile Include="Work\WorkFilePackageContract.cs" />
+    <Compile Include="Work\WorkFileResourceContract.cs" />
+    <Compile Include="Work\WorkResourceContract.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

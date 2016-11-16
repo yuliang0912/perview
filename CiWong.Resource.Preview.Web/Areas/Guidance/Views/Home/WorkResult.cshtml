@@ -1,0 +1,61 @@
+﻿@{
+    Layout = Model.Layout;
+}
+@model WorkParam
+<div id="_guidance_panel" class="work-wrapper-dx area" data-bind="if: guidance">
+    <div class="testQues" id="testQues" style="display:none">
+        <div class="main testT  mt1 cf" style="width:100%">
+            <div class="tit fl" style="width:940px">
+                <p>你写作业用时：<span id="timer"></span></p>
+            </div>
+        </div>
+    </div>
+    <section class="work-quesBox" data-bind="visible: guidance().stepList.length > 0,with: guidance" style="display: none">
+        <div class="read-step" style="margin-top: -60px">
+            <ul class="tepList cf" style="padding-left: 0;" data-bind="foreach: stepList" id="_step_change">
+                <li>
+                    <i class="ico"></i>
+                    <p class="qt"><em data-bind="text: '步骤'+ ($index() + 1)"></em><i class="arrow a-t"></i><i class="arrow a-in-t"></i></p>
+                </li>
+            </ul>
+        </div>
+        <div data-bind="foreach: stepList">
+            <div data-bind="visible: $index() == 0, attr:{ id: 'step_' + $index() }">
+                <div class="work-t read-com" style="padding: 20px;">
+                    <h4 class="f18 tc" data-bind="text:name"></h4>
+                    <div class="t2em" data-bind="html:content"></div>
+                </div>
+                <nav class="work-quesT" data-bind="visible:questions().list().length > 0">
+                    <h3 class="t"><i></i>练一练</h3>
+                </nav>
+                <div data-bind="template: { name: 'questionListTemplate', data: questions, afterRender: $root.afterRender }">
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="work-footer">
+        <div class="area">
+            <div class="fl signBar">
+                <a href="javascript:;" onclick="ciwong.colsePage()" class="w-btn ">关闭页面</a>
+            </div>
+        </div>
+    </footer>
+</div>
+@section scripts{
+    <script type="text/javascript">
+        require(["ko", "guidance"], function (ko, guidance) {
+            ko.applyBindings(new guidance.viewModel.resultView(settingOptions), document.getElementById("_guidance_panel"));
+        });
+
+        var settingOptions = {
+            id: "@(Model.WorkResource.VersionId)",
+            doId: "@(Model.UnitWork.DoId)",
+            isShowAnswer: true,
+            isShowThinking: true,//解题思路
+            isShowQuestionVideo: false,//解题视频
+            afterRender: function () {
+                $("#timer").timer({ startTimeLine: "@Model.UnitWork.WorkLong" });
+            }
+        };
+    </script>
+}

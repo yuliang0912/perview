@@ -1,0 +1,123 @@
+﻿@{
+    var baseParam = ViewBag.baseParam as BaseRequestParam;
+    Layout = baseParam.Layout;
+}
+<div id="dv_synctrain_paper">
+    <div class="main trainT mt1 tc" data-bind="with:TrainData">
+        <h4 data-bind="text:name"></h4>
+        <p class="st" data-bind="text:content"></p>
+    </div>
+    <div class="main mt1">
+        <div class="trainNavBar">
+            <ul class=" tc cf" data-bind="foreach:btnTypeList">
+                <li data-bind="css:{ 'curr':$root.btype()== id },attr:{id:'model_'+$data.id},click:$root.btnmodechange"><span><h4 data-bind="text:$data.bname"></h4><p data-bind="text:$data.tip"></p></span></li>
+            </ul>
+        </div>
+        <div class="trainCont p20">
+            <div class="trainContIn">
+                <div class="trainBox">
+                    <p class="lessonBar" data-bind="with:TrainData">
+                        <!--ko if:  parts[0] && parts[0].id == 'syncTrainClassHour' -->
+                        <!--ko foreach:parts[0].list-->
+                        <a data-bind="text:$data.name,click:$data.getQuestion,attr:{id:'ks_'+$index()},css:{'curr':$index()==0}"></a>
+                        <!--/ko-->
+                        <!--/ko-->
+                    </p> 
+                    <div class="trainBoxBar" data-bind="with:TrainData">
+                        <!--ko if: parts[1] && parts[1].id == 'syncTrainSpecial' -->
+                        <!--ko foreach:parts[1].list-->
+                        <a data-bind="text:$data.name,click:$data.getQuestion,attr:{id:'zt_'+$index()}"></a>
+                        <!--/ko-->
+                        <!--/ko-->
+                    </div>                  
+                    <!--先讲后练开始-->
+                    <div class="trainBoxMain" id="train_First">
+                        <div class="cf work-wrapper-train" id="first_explain">
+                            <article class="work-quesCon" data-bind="html:$data.firstCont"></article>
+                            <p class="tc mt30"><a href="javascript:void(0)" class="btn-big" data-bind="click:btnClickAll" id="btnfirst">做练习</a></p>
+                        </div>
+                        <div class="cf work-wrapper-train" id="first_question" style="display:none;">
+                            <section class="work-quesBox">
+                                <!--ko template: { name: 'questionListTemplate', data:questionModules() } -->
+                                <!--/ko-->
+                            </section>
+                            <p class="tc mt30"><a href="javascript:void(0);" class="btn-big mr20" data-bind="click:btnClickAll" id="btnfirstsubmit">提交</a><a href="javascript:void(0);" class="btn-big" data-bind="click:btnClickAll" id="btnfirstback">返 回</a></p>
+                        </div>
+                        <div class="cf work-wrapper-train" id="first_answer" style="display:none;">
+
+                            <section class="work-quesBox">
+                                <!--ko template: { name: 'questionListTemplate', data:questionModules() } -->
+                                <!--/ko-->
+                            </section>
+                            <p class="tc mt30"><a href="javascript:void(0);" class="btn-big" data-bind="click:btnClickAll" id="btnfirstansback">返 回</a></p>
+                        </div>
+                    </div>
+                    <!--先讲后练结束-->
+                    <!--先练后讲开始-->
+                    <div class="trainBoxMain" id="train_Second" style="display:none;">
+                        <div class="cf work-wrapper-train" id="second_question">
+                            <section class="work-quesBox">
+                                <!--ko template: { name: 'questionListTemplate', data:questionModules() } -->
+                                <!--/ko-->
+                            </section>
+                            <p class="tc mt30"><a href="javascript:void(0);" class="btn-big mr20" data-bind="click:btnClickAll" id="btnsecondsubmit">提交</a></p>
+                        </div>
+
+                        <div class="cf work-wrapper-train" id="second_answer" style="display:none;">
+                            <!-- 单选题Begin -->
+                            <section class="work-quesBox">
+                                <!--ko template: { name: 'questionListTemplate', data:questionModules() } -->
+                                <!--/ko-->
+                            </section>
+                            <p class="tc mt30"><a href="javascript:void(0);" class="btn-big" data-bind="click:btnClickAll" id="btnsecondexplain">看讲解</a></p>
+                        </div>
+                        <div class="cf work-wrapper-train" id="second_explain" style="display:none;">
+                            <article class="work-quesCon" data-bind="html:$data.firstCont"></article>
+                            <p class="tc mt30"><a href="javascript:void(0);" class="btn-big" data-bind="click:btnClickAll" id="btnsecondback">返回</a></p>
+                        </div>
+                    </div>
+                    <!--先练后讲结束-->
+                    <!--边讲边练开始-->
+                    <div class="trainBoxMain" id="train_Third" style="display:none;">
+                        <div class="cf work-wrapper-train">
+                            <div class="trainW520 fl" id="third_explain">
+                                <article class="work-quesCon" data-bind="html:$data.firstCont"></article>
+                            </div>
+                            <div class="trainW520 fr" id="third_question">
+                                <section class="work-quesBox">
+                                    <!--ko template: { name: 'questionListTemplate', data:questionModules() } -->
+                                    <!--/ko-->
+                                </section>
+                                <!-- 单选题End -->
+                            </div>
+                            <div class="trainW520 fr" id="third_answer" style="display:none;">
+                                <section class="work-quesBox">
+                                    <!--ko template: { name: 'questionListTemplate', data:questionModules() } -->
+                                    <!--/ko-->
+                                </section>
+                            </div>
+                        </div>
+                        <p class="tc mt30">
+                            <a href="javascript:void(0);" class="btn-big" data-bind="click:btnClickAll" id="btnthirdsubmit">提 交</a>
+                            <a href="javascript:void(0);" class="btn-big" data-bind="click:btnClickAll" style="display:none;" id="btnthirdagain">再练一次</a>
+                        </p>
+                    </div>
+                    <!--边讲边练结束-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ @Html.Partial("~/Areas/Question/Views/Shared/Template/_Part.cshtml")
+ 当前获取到的版本ID  @Model <br />
+ @Html.Scripts("default/scripts", "ciwong.resource.preview.question.js", "json2.js")
+ @Html.Scripts("NewsPaper/scripts", "ciwong.resource.preview.synctrain.js")
+ <script type="text/javascript">
+        $(function () {
+            var viewModel = new ciwong.resources.synctrain.viewModel.preView({ id: '5010410468663950697',type:1 });// 单选 多选 判断
+            //var viewModel = new ciwong.resources.synctrain.viewModel.preView('5092201180599431325');//天空题
+            ko.applyBindings(viewModel, document.getElementById("dv_synctrain_paper"));
+            $("#ks_0").trigger("click");
+        });
+    </script>
+

@@ -1,0 +1,109 @@
+﻿@{
+    Layout = Model.Layout;
+}
+
+@model ResourceParam
+<style>
+    .commList li ul {
+        overflow: hidden;
+    }
+</style>
+<div id="_news_panel" data-bind="if: news, visible: news" style="display:none">
+    <div class="main cf mt1" data-bind="if: news().images">
+        <div class="bigNews" data-bind="with: news().images[0]">
+            <!--ko if: parts && parts.length > 0 && parts[0].list -->
+            <a href="javascript:;" data-bind="attr: { 'id': version_id }, click: $parent.showArticle, with: parts[0].list[0]">
+                <img data-bind="attr:{ 'src': url }" />
+            </a>
+            <!--/ko-->
+            <div class="txt">
+                <h4><a class="dlgLink" href="javascript:;" data-bind="text:name, click: $parent.showArticle"></a></h4>
+                <p data-bind="html: ciwong.encoder.htmlDecode(content)"></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="main cf mt1">
+        <div class="picNews fl rel">
+            <!-- ko if: news().video -->
+            <div class="videoNews" data-bind="with:news().video[0]">
+                <div class="videoOnly" style="height: 260px;" data-bind="with:parts[1].list[0]" id="divVideo">
+                    <script type="text/javascript" data-bind="attr:{ 'src':getPlayerUrl(source_id,name,cover_url) }"></script>
+                </div>
+                @if (!Model.IsCan)
+                {
+                    <div class="opeVipNewsBg"></div><!---遮罩层---->
+                    <div class="tc opeVipNews vipNews yh">
+                        <h2>购买书本</h2>
+                        <h4>可免费享受持续更新的视频新闻!</h4>
+                        <p class="mt20"><a href="/jump/buy?packageId=@Model.Package.PackageId" target="_blank" class="btn">立即购买</a></p>
+                        @*<p class="mt10"><a href="http://epaper.ciwong.com/Book/Book/Member" target="_blank">了解全部会员特权 &gt;&gt;</a></p>*@
+                    </div>
+                }
+            </div>
+
+            <!-- /ko-->
+            <div class="newsBox mt1" data-bind="if: news().images && news().images.length > 1">
+                <h4 class="newsT">图片新闻</h4>
+                <ul class="newsList mt1" data-bind="foreach: news().images">
+                    <li class="cf" data-bind="if: $index() > 0">
+                        <a href="javascript:;" data-bind="attr: { 'id': version_id }, click: $parent.showArticle, with: parts[0].list[0]">
+                            <img data-bind="attr:{ 'src': url }" />
+                        </a>
+                        <div class="txt">
+                            <div class="txtIn">
+                                <h4><a href="javascript:;" data-bind="text:name, click: $parent.showArticle"></a></h4>
+                                <p data-bind="html: ciwong.encoder.htmlDecode(content)"></p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="fr txtNews">
+            <!-- ko if: news().report -->
+            <h4 class="newsT">新闻速递</h4>
+            <ul class="txtNewsList" data-bind="foreach: news().report">
+                <!-- ko if: $index() < 2 -->
+                <li>
+                    <div class="cont">
+                        <h4><a href="javascript:;" data-bind="attr: { 'id': version_id }, text:name, click: $parent.showArticle"></a></h4>
+                        <p data-bind="html: ciwong.encoder.htmlDecode(content)"></p>
+                    </div>
+                </li>
+                <!-- /ko-->
+            </ul>
+            <!-- /ko-->
+            <!-- ko if: news().words -->
+            <h4 class="newsT mt20">趣闻</h4>
+            <ul class="txtNewsList" data-bind="foreach: news().words">
+                <li>
+                    <div class="cont">
+                        <h4><a href="javascript:;" data-bind="attr: { 'id': version_id }, text:name, click: $parent.showArticle"></a></h4>
+                        <p data-bind="html: ciwong.encoder.htmlDecode(content)"></p>
+                    </div>
+                </li>
+            </ul>
+            <!-- /ko-->
+        </div>
+    </div>
+    <!--ko template: { afterRender: afterRender } -->
+    <!--/ko-->
+</div>
+@section scripts{
+    @Html.Partial("~/Areas/Sns/Views/Partial/Support.cshtml")
+    @Html.Partial("~/Areas/Sns/Views/Partial/Share.cshtml")
+    @Html.Partial("~/Areas/Sns/Views/Partial/Comment.cshtml")
+    <script type="text/javascript">
+        require(["ko", "news"], function (ko, news) {
+            ko.applyBindings(new news.viewModel.preView({ id: "@Model.VersionId" }), document.getElementById("_news_panel"));
+        })
+
+        function getPlayerUrl(sourceId, title, conver) {
+            return "/Content/Default/scripts/sewisePlayer/SewiseSubtitles.js?autostart=false&logo=/content/default/images/vplaylogo.png&server=vod&sourceid=" + sourceId + "&buffer=5&poster=" + (conver || "") + "&skin=vodOrange&title=" + encodeURIComponent(title) + "&claritybutton=disable&lang=zh_CN";
+        }
+        _czc.push(["_setCustomVar", "自主练习", "时文", 1]);
+    </script>
+    @Html.Scripts("default/scripts", "/haici/huaci.js")
+}

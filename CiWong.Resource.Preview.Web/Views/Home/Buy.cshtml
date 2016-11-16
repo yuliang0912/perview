@@ -1,0 +1,19 @@
+﻿@{
+	Layout = Model.Layout;
+}
+@model ResourceParam
+<div class="main">
+	<div class="buyingTips cf">
+		<img src="/Content/default/images/tipsimg.jpg" alt="" class="fl">
+		<p class="txt yh">
+			@(Model.PackagePermission == null ? "亲，您还没有购买该商品哦！" : "亲，您的使用期已经结束了哦！")<br />如要使用，请先购买！
+		</p>
+		<p><a href="/jump/buy?packageId=@Model.PackageId" class="btn-1 yh">立即购买</a></p>
+	</div>
+</div>
+<script type="text/javascript">
+	$("#nw_loading").hide();
+	$(function () {
+		$("#newspaper_foot").toggle();
+	})
+</script>

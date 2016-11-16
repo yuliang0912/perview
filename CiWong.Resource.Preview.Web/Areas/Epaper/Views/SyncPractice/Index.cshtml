@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "同步讲练预览";
+    Layout = "~/Views/Shared/_EpaperLayout.cshtml";
+}
+
+<div id="dv_synctrain_paper" data-bind="if: papers, visible: papers" style="display:none">
+    <!-- ko with:papers -->
+    <h1 class="topTit" data-bind="html:name"></h1>
+    <!-- /ko -->
+    <div class="boxMain" data-bind="with:papers">
+        <ul class="lessonTab cf">
+            <!--ko if: parts[0] && parts[0].id == 'syncTrainClassHour' -->
+            <!--ko foreach:parts[0].list -->
+			<li data-bind="text:$data.name,click:$data.getQuestion,attr:{'id':version_id,'title':$data.name}"></li>
+            <!--/ko-->
+            <!--/ko-->
+            <!--ko if: parts[1] && parts[1].id == 'syncTrainSpecial' -->
+            <!--ko foreach:parts[1].list -->
+			<li data-bind="text:$data.name,click:$data.getQuestion,attr:{'id':version_id,'title':$data.name}"></li>
+            <!--/ko-->
+            <!--/ko-->
+        </ul>
+		<!--ko template:{ afterRender: $root.afterRender } --><!--/ko-->
+        <div class="newsBox" data-bind="html:$root.CurrCont"></div>
+        <section class="work-quesBox" data-bind="template: { name: 'questionListTemplate', data:$root.questionModules }"></section>
+    </div>
+</div>
+<script type="text/javascript">
+	require(["ko", "epapersyncpractice"], function (ko, epapersyncpractice) {
+		ko.applyBindings(new epapersyncpractice.viewModel.preView({
+			id: '@Model.VersionId', trainmodel: 2, workmodel: 1, viewtype: 1, isShowThinking: false,
+			isShowQuestionVideo: false,
+			afterRender: function () {
+				var sversionId = '@Request.QueryString["sversionId"]';
+				$("#" + sversionId).click();
+			}
+		}), document.getElementById("dv_synctrain_paper"));
+	});
+
+    _czc.push(["_setCustomVar", "自主练习", "同步讲练", 1]);
+</script>

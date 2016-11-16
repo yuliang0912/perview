@@ -1,0 +1,67 @@
+﻿@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+
+	var baseParam = ViewBag.baseParam as ResourceParam;
+
+	ViewBag.Title = ViewBag.Title ?? "电子书_" + baseParam.Package.BookName;
+}
+
+@section header{
+	@Html.Styles("default/css", "bookstyle.css?t=20150319")
+	@Html.Styles("question/css", "question.css?t=20150319")
+}
+<div class="mainwrap">
+    <div class="workCatalog" id="_ebook_catalogues">
+        <a class="cataBtn">目录</a>
+        <div class="cateList">
+            <ul data-bind="foreach:catalogues">
+                <li>
+					<h4 data-bind="text:name,click: $root.showModules,css: ($data.children.length == 0 && $data.modules.length == 0) ? 'cateListDisabled' : ''"></h4>
+                    <!--ko template: { name: "catalogueTemplate" } -->
+                    <!--/ko-->
+                </li>
+            </ul>
+        </div>
+        <div class="catecont" data-bind="foreach:currModules,visible:currModules().length > 0" style="display:none">
+            <h4><a data-bind="text: module_name, attr:{ 'href' : '/jump/preview?packageId=@(baseParam.PackageId)&cid={0}&moduleId={1}'.format(package_catalogue_id,module_id) }"></a></h4>
+        </div>
+    </div>
+	<div class="commend-listwrap">
+		<header class="work-Header badHead" id="_ebook_top">
+			<hgroup class="area"><h1></h1></hgroup>
+		</header>
+		<p class="loading-content tc" id="nw_loading">
+			<img src="/content/default/images/enter-loading.gif" alt="loading..." />
+			<span>请稍等，正在加载中......</span>
+		</p>
+		@RenderBody()
+		<div class="contrlBox">
+			<a href="javascript:;" class="goUp"></a>
+		</div>
+	</div>
+</div>
+@RenderSection("scripts", false)
+<script type="text/javascript">
+	require(["ko", "ebook"], function (ko, ebook) {
+		$(function () {
+		    ko.applyBindings(new ebook.viewModel.preView({ packageId: "@(baseParam.PackageId)" }), document.getElementById("_ebook_catalogues"));
+		})
+	});
+
+	$('a.goUp').live("click", function () {
+		$('html,body').animate({ scrollTop: 0 }, 300);
+	});
+
+	var isHover = false;
+	$('#_ebook_catalogues').hover(
+		function () {
+			$(this).closest('.workCatalog').find('.cateList').show();
+		},
+		function () {
+			var cuurBox = $(this).closest('.workCatalog').find('.cateList,.catecont');
+			setTimeout(function () {
+				if (isHover == false) { cuurBox.hide(); }
+			}, 100)
+		}
+	);
+</script>

@@ -1,0 +1,60 @@
+﻿@{
+	Layout = Model.Layout;
+}
+@model WorkParam
+<div id="_paper_panel" data-bind="if: paper, visible: paper" style="display:none">
+	<div class="testQues" id="testQues">
+		<div class="main testT  mt1 cf">
+			<div class="tit fl">
+				<h4 data-bind="text:paper().title"></h4>
+				<p>你写作业用时：<span id="timer"></span></p>
+			</div>
+			<div class="score fl tc" id="_score">
+				<span class="scoreNum"><i>@Model.UnitWork.ActualScore.ToRound()</i>分</span>
+			</div>
+		</div>
+	</div>
+	<div class="main">
+		<div class="testCont">
+			@if (!string.IsNullOrEmpty(Model.UnitWork.Comment))
+			{
+				<table class="commentBox yh">
+					<tbody>
+						<tr>
+							<td>@Model.UnitWork.Comment</td>
+						</tr>
+					</tbody>
+				</table>
+			}
+			<!--ko template:{ name: 'paperTemplate', data: paper, afterRender: afterRender } --><!-- /ko -->
+		</div>
+	</div>
+	<div class="testContrlBox">
+		<a href="javascript:;" class="goUp"></a>
+	</div>
+</div>
+<script type="text/html" id="jiandaTemplate">
+	<div class="work-t cf" data-bind="html: stem"></div>
+	<div class="work-con" data-bind="html:convertVideo(userAnswer)"></div>
+</script>
+@section scripts{
+<script type="text/javascript">
+	require(["ko", "paper"], function (ko, paper) {
+		ko.applyBindings(new paper.viewModel.resultView(settingOptions), document.getElementById("_paper_panel"));
+	});
+
+	var settingOptions = {
+		id: "@(Model.WorkResource.VersionId)",
+		doId: "@(Model.UnitWork.DoId)",
+		moduleId: "e9430760-9f2e-4256-af76-3bd8980a9de4",
+		afterRender: function () {
+			$('a.goUp').live("click", function () {
+				$('html,body').animate({ scrollTop: 0 }, 300);
+			});
+			$("#timer").timer({ startTimeLine: "@Model.UnitWork.WorkLong" });
+		}
+	};
+</script>
+}
+
+

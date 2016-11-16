@@ -1,0 +1,139 @@
+﻿@{
+    Layout = Model.Layout;
+}
+@model ResourceParam
+<div id="dv_synctrain_paper" data-bind="if: papers, visible: papers" style="display:none">
+	<div class="main trainT mt1 tc" data-bind="with:papers">
+		<h4 data-bind="text:name"></h4>
+		<p class="st" data-bind="text:content"></p>
+	</div>
+	<div class="main mt1">
+		<div class="trainNavBar ovh">
+			<ul class=" tc cf" data-bind="foreach:TrainModelList">
+				<li data-bind="css:{ 'curr':$root.trainmodel()== id },attr:{id:'model_'+$data.id},click:$root.trainmodelChange">
+					<span>
+						<h4 data-bind="text:bname"></h4>
+						<p data-bind="text:tip"></p>
+					</span>
+				</li>
+			</ul>
+		</div>
+		<div class="trainCont p20">
+			<div class="trainContIn">
+				<!--ko if: papers().parts[0] && papers().parts[0].id == 'syncTrainClassHour' -->
+					<!--ko template:{ name: 'syncTrainClassHourTemplate', data: papers().parts[0], afterRender: afterRender }  --><!--/ko-->
+				<!--/ko-->
+				<div class="trainBox" data-bind="attr:{'style':leftcss}">
+					<div class="trainBoxBar" data-bind="with:papers">
+						<!--ko if: parts[1] && parts[1].id == 'syncTrainSpecial' -->
+						<!--ko foreach:parts[1].list -->
+						<a data-bind="text:$data.name,click:$data.getQuestion,attr:{'id':id,'title':$data.name}"></a>
+						<!--/ko-->
+						<!--/ko-->
+					</div>
+					<div class="trainBoxMain">
+						<div class="cf work-wrapper-train">
+							<div data-bind="css:{'trainW520 fl':trainmodel()==3},visible:((trainmodel()<3 && viewtype()==0)||(trainmodel()==3))" style="display: none">
+								<article class="interpretive m10 cf" data-bind="html:$data.CurrCont"></article>
+								<p class="tc mt30" data-bind="visible:(trainmodel()==1)"><a href="javascript:void(0)" class="btn-big" data-bind="text:btnTip,click:function(){ btnDoWork(1,1);}" id="btnfirst"></a></p>
+								<p class="tc mt30" data-bind="visible:(trainmodel()==2 && viewtype()==0)"><a href="javascript:void(0);" class="btn-big" data-bind="click:function(){btnDoWork(2,($data.userAnswers().length>0?2:1))}" id="btnsecondback">返回</a></p>
+							</div>
+							<div data-bind="css:{'trainW520 fr':trainmodel()==3},visible:((trainmodel()<3 &&viewtype()>0)||(trainmodel()==3))" style="display: none">
+								<section class="work-quesBox" data-bind="template: { name: 'questionListTemplate', data:questionModules }"></section>
+								<p class="tc mt30" data-bind="visible:(trainmodel()==2)">
+									<a href="javascript:void(0);" class="btn-big mr20" data-bind="click:submitWork,visible:(trainmodel()==2 && userAnswers().length==0)" id="btnsecondsubmit">提交</a>
+									<a href="javascript:void(0);" class="btn-big" data-bind="click:function(){ btnDoWork(2,0) },visible:( trainmodel()==2 && userAnswers().length>0)" id="btnsecondexplain">看讲解</a>
+								</p>
+								<p class="tc mt30" data-bind="visible:(trainmodel()==1)"><a href="javascript:void(0);" class="btn-big mr20" data-bind="click:submitWork,visible:(trainmodel()==1 && userAnswers().length==0)">提交</a><a href="javascript:void(0);" class="btn-big" data-bind="click:function(){btnDoWork(1,0)},visible:(trainmodel()==1)" id="btnfirstback">返 回</a></p>
+							</div>
+						</div>
+						<p class="tc mt30" data-bind="visible:(trainmodel()==3)" style="display: none">
+							<a href="javascript:void(0);" class="btn-big" data-bind="click:submitWork,visible:(trainmodel()==3 && userAnswers().length==0)" id="btnthirdsubmit">提 交</a>
+							<a href="javascript:void(0);" class="btn-big" data-bind="click:function(){ btnDoWorkAgain(3,0)},visible:(trainmodel()==3 && userAnswers().length>0)" id="btnthirdagain">再练一次</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/html" id="syncTrainClassHourTemplate">
+	<div class="lessonBarBox">
+		<div class="lessonBarList">
+			<ul class="lessonBar cf" style="width: 2110px;" data-bind="foreach:list">
+				<li data-bind="css:{ 'curr':$index() ==0 },click: getQuestion, attr:{ 'id': id }"><a data-bind="text: name, attr:{ 'title':name}"></a></li>
+			</ul>
+		</div>
+		<a href="javascript:;" class="prev"></a>
+		<a href="javascript:;" class="next"></a>
+	</div>
+</script>
+@section scripts{
+<script type="text/javascript">
+	require(["ko", "synctrain"], function (ko, synctrain) {
+	    ko.applyBindings(new synctrain.viewModel.preView({
+	        id: '@Model.VersionId', trainmodel: 1, workmodel: 1, viewtype: 0, isShowThinking: '@(Model.IsCan)',
+	        isShowQuestionVideo: '@(Model.IsCan)'
+	    }), document.getElementById("dv_synctrain_paper"));
+	});
+
+	function afterRender() {
+		caseScroll('.lessonBarBox', '.lessonBarBox ul', 'li', 905, 181, '.lessonBarBox .prev', '.lessonBarBox .next');
+	}
+
+	function caseScroll(objOutBox, objCon, obj, scrollW, objW, prev, next) {
+		var moveObj = $(objCon);
+		var len = moveObj.find(obj).length;
+		var scrollTotal = scrollW / objW;
+		var modVal = moveObj.find(obj).length % scrollTotal;
+		var orderNum = parseInt(len / scrollTotal);
+		var isMove = false;
+
+		if (len > scrollTotal) {
+			if (modVal != 0) {
+				orderNum = orderNum + 1;
+			}
+		}
+
+		if (orderNum == 0) {
+			var ulWidth = (orderNum + 1) * scrollW;
+		} else {
+			var ulWidth = orderNum * scrollW;
+		}
+		moveObj.width(ulWidth);
+
+		var nextIdx = 0;
+		function leftRun() {    //向左滚动
+			isMove = true;
+			if (nextIdx < orderNum - 1) {
+				nextIdx++;
+				moveObj.stop().animate({ marginLeft: "-=" + scrollW }, 800, function () { isMove = false; });
+			} else {
+				nextIdx = 0;
+				moveObj.stop().animate({ marginLeft: 0 }, 800, function () { isMove = false; });
+			}
+		};
+
+		function rightRun() {//向右滚动 
+			isMove = true;
+			if (nextIdx > 0 && nextIdx < orderNum) {
+				nextIdx--;
+				moveObj.stop().animate({ marginLeft: "+=" + scrollW }, 800, function () { isMove = false; });
+			} else {
+				nextIdx = orderNum - 1;
+				moveObj.stop().animate({ marginLeft: -scrollW * nextIdx }, 800, function () { isMove = false; });
+			}
+		};
+
+		if (orderNum > 0) {
+			$(prev).click(function () { if (!isMove) { rightRun() } });
+			$(next).click(function () { if (!isMove) { leftRun() } });
+		}
+		if (len <= 5) {
+			$(prev).hide();
+			$(next).hide();
+		}
+	}
+	_czc.push(["_setCustomVar", "自主练习", "同步讲练", 1]);
+</script>
+}

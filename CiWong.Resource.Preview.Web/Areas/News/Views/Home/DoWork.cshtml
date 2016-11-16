@@ -1,0 +1,93 @@
+﻿@{
+    Layout = Model.Layout;
+}
+@model WorkParam
+<div class="main mt1" id="_article_panel" data-bind="if: article, visible: article" style="display:none">
+    <div class="p20" style="background: #fff" data-bind="with: article">
+        <h4 class="newsDlgT tc" data-bind="text:name"></h4>
+        <div class="newsCont mt20">
+            <div class="tc mt20" data-bind="if: parts.length > 0,visible: parts.length > 0" style="display: none">
+                <!--ko if: parts[0].list.length > 0  -->
+                <img data-bind="attr:{ 'src': parts[0].list[0].url }" />
+                <!--/ko-->
+                <!--ko if: parts[1].list.length > 0  -->
+                @*<div id="divVideo" style="height: 500px;" data-bind="with:parts[1].list[0]">
+                        <script type="text/javascript" data-bind="attr:{ 'src':getPlayerUrl(source_id,name,cover_url) }"></script>
+                    </div>*@
+
+                <div class="videoNews rel">
+                    <div class="videoOnly" style="height: 260px;" data-bind="with:parts[1].list[0]" id="divVideo">
+                        <script type="text/javascript" data-bind="attr:{ 'src':getPlayerUrl(source_id,name,cover_url) }"></script>
+                    </div>
+                    @if (!Model.IsCan)
+                    {
+                        <div class="opeVipNewsBg" style="width:100%"></div><!---遮罩层---->
+                        <div class="tc opeVipNews vipNews yh" style="width:100%">
+                            <h2>开通会员</h2>
+                            <h4>可免费享受持续更新的视频新闻!</h4>
+                            <p class="mt20"><a href="http://pay.ciwong.com/Service/note?typeid=25" target="_blank" class="btn">立即开通</a></p>
+                            <p class="mt10"><a href="http://epaper.ciwong.com/Book/Book/Member" target="_blank">了解全部会员特权 &gt;&gt;</a></p>
+                        </div>
+                    }
+                </div>
+                <!--/ko-->
+            </div>
+            <div class="mt20"><p data-bind="html:ciwong.encoder.htmlDecode(content)"></p></div>
+            <div class="timerBox cf yh" data-bind="visible: $root.viewType() == 1" style="display:none">
+                <span class="fl time">
+                    <h4>阅读计时</h4>
+                    <p><em id="timer">00:00:00</em></p>
+                </span>
+                <span class="fr btn">
+                    @if (!Model.IsCan)
+					{
+						<a href="/jump/buy?packageId=@Model.Package.PackageId" target="_blank" title="立即购买">立即购买</a>
+					}
+					else
+					{
+                        <a data-bind="click: $root.submitWork">我读完了</a>
+                    }
+                </span>
+            </div>
+        </div>
+    </div>
+    <!--ko template: { afterRender: afterRender } -->
+    <!--/ko-->
+</div>
+<div id="Jihuajiyi" style="display: none"></div>
+@Html.Scripts("default/scripts", "/haici/huaci.js")
+@section scripts{
+    <script type="text/javascript">
+        require(["ko", "article", "dialog"], function (ko, article) {
+            ko.applyBindings(new article.viewModel.preView(settingOptions), document.getElementById("_article_panel"));
+        });
+        var timer = null;
+        var settingOptions = {
+            id: "@(Model.WorkResource.VersionId)",
+            viewType: "@(Model.workStatus == 3 ? 2 : 1)",
+            afterRender: function () {
+                if (settingOptions.viewType == 1) {
+                    timer = $("#timer").timer().start();
+                } else {
+                    $("#timer").timer({ startTimeLine: "@(Model.workStatus == 3 ? Model.UnitWork.WorkLong : 0)" });
+                }
+            },
+            submitWork: function (data, event) {
+                var model = this;
+                var postData = {
+                    workLong: timer.getTime()
+                };
+                ciwong.ajax.postJSON("/news/submitwork?doWorkId=@(Model.DoWorkBase.DoWorkID)&contentId=@(Model.WorkResource.ContentId)", postData, function (data) {
+                    timer.stop();
+                    model.viewType(2);
+                    $.succeed("作业提交成功!");
+                }, null, null, true, function () { ciwong.ajax.isPreventRequest = true; });
+            }
+        };
+
+        function getPlayerUrl(sourceId, title, conver) {
+            conver = conver || "";
+            return "/Content/Default/scripts/sewisePlayer/SewiseSubtitles.js?autostart=false&logo=/content/default/images/vplaylogo.png&server=vod&sourceid=" + sourceId + "&buffer=5&poster=" + conver + "&skin=vodOrange&title=" + title + "&claritybutton=disable&lang=zh_CN";
+        }
+    </script>
+}

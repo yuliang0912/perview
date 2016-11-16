@@ -1,0 +1,548 @@
+@charset "utf-8";
+/*Author:lilong QQ:124627783*/
+html{ _background-image:url(about/blank); filter:expression(document.execCommand("BackgroundImageCache", false, true)); height:100%;}
+body,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,input,textarea,p,tr,th,td{ padding:0; margin:0;}
+i,em { font-style:normal; padding:0; margin:0;}
+body{ font-family: "Helvetica Neue", Helvetica, Arial, freesans, sans-serif; color:#666; font-size:12px; height:100%; position:relative；}
+h1,h2,h3,h4,h5,h6{ font-size:100%; font-weight:normal;}
+input[type="button"], input[type="submit"],button{ cursor:pointer; noFocusLine:expression(this.onFocus=this.blur()); outline:none; }
+input[type="text"],textarea,select {outline:none;}
+textarea {resize:none;}
+table {	border-collapse:collapse; border-spacing:0; border:none;}
+ul,ol{list-style:none;}
+img { border:none; margin:0; padding:0; vertical-align:middle; }
+a{text-decoration:none; cursor:pointer; noFocusLine:expression(this.onFocus=this.blur()); outline:none; color:#666;}
+a:hover { text-decoration: underline; color:#e6343c;}
+.gray { color:#999;}
+.blue{ color:#03a8f5}
+
+/*浮动相关*/
+.fl{float:left; _display:inline;}
+.fr{float:right; _display:inline;}
+.cf:after,.cf:before {content:""; display:table;}
+.cf:after {clear:both;}
+.cf{zoom:1}
+.cb { clear:both; height:0px; overflow:hidden;}
+
+.f12{ font-size:12px;}
+.f14{ font-size:14px;}
+.fb{ font-weight:bold}
+.st{ font-family:"宋体",arial;}
+.yh {font-family:"microsoft yahei","simhei","simsun"; }
+.tr{ text-align:right;}
+.tc{ text-align:center;  }
+.tl{ text-align:left;}
+
+.mt1{ margin-top:1px;}
+.mt10{ margin-top:10px;}
+.mt20{ margin-top:20px;}
+.ml15{ margin-left:15px;}
+.ml20{ margin-left: 20px;}
+.mr20{ margin-right: 20px;}
+.p20{ padding:20px;}
+.pt20{ padding-top: 20px;}
+
+.main{ margin-left:auto; margin-right:auto}
+
+.top{ height:35px; background:#e6343c;  position: relative; z-index: 4;  box-shadow:0 0 4px #555;  }
+.top-l,.top-r{ width: 10px; height: 40px; display:block; _display: none; overflow: hidden; background:url(../images/topS-bg.png) no-repeat; position: absolute; bottom: 0; }
+.top-l{ background-position: 0 0; left: -10px;}
+.top-r{ background-position:-10px 0; right: -10px;}
+.titTop,.topCrumbs{ height:35px; line-height:35px; font-size:16px; color:#fff}
+.topCrumbs{ font-size:12px;}
+.topCrumbs a,.topCrumbs a:hover{ color:#fff}
+.arrowD{ display:inline-block; width:0; height:0; overflow:hidden;	border-width:5px 5px 0;	border-style:solid;	border-right-color:transparent;	border-left-color:transparent;	border-bottom-color:transparent; _border-style:solid dashed dashed dashed; margin:0 0 0 10px; vertical-align:middle; }
+.menu{ position: relative; z-index:10;color:#fff; font-size:14px; background-color:transparent; filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#B2dc2025, endColorstr=#B2dc2025)\9; background-color:rgba(220, 32, 37, 0.7);}
+:root .menu{filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr='#B2dc2025', EndColorStr='#B2dc2025');}
+.menu .tit{ height:35px; line-height:35px;  border-right:solid 1px  #ee454f; cursor:pointer; display: block;}
+.menu .tit .txt{ height:35px; line-height:35px; width: 225px; overflow: hidden; display: block; vertical-align:middle;}
+.menu .tit .arrowD{ *margin-top: 18px;}
+
+.menuBox{ z-index:11; box-shadow:0 0 4px #555; display:none; position:absolute; left:0; top:34px; color: #fff; background-color:rgba(230, 52, 60, .9); background: #e6343c\9; zoom:1; overflow: hidden;}
+.menuBox p a{ height:55px; line-height:55px; width:100%; display:block; color:#fff; }
+.menuBox p a:hover,.menuBox-wk li:hover,.menuBox p.curr{ color:#fff; text-decoration:none; background-color:transparent; filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#19000000, endColorstr=#19000000)\9; background-color:rgba(0, 0, 0, .1); zoom:1}
+.menuBox p a span{ width:200px; display:inline-block; padding:0 0 0 40px}
+.menuBox p a span em{ font-size:12px; font-weight:400;}
+.menuBox p.curr a{ color: #f7ce3e;}
+
+.ico-menu,.ico-go{ background:url(../images/pageBar.png) no-repeat; display:inline-block; vertical-align:middle;}
+.ico-menu{ width:14px; height:10px; background-position:-740px 0; margin:18px 10px 0 15px;}
+.ico-go{ width:19px; height:19px; background-position:-760px 0;}
+.menuBox2{padding: 0 0 12px;   }
+.menuBox2 li{ height: 22px; line-height: 22px; width: 164px;  padding:10px; border-radius: 10px; cursor: pointer; color: #686868;  text-align: center; float: left; _display: inline; background-color:transparent; filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#E5ffffff, endColorstr=#E5ffffff)\9; background-color:rgba(255, 255, 255, .9); zoom:1;}
+.menuBox2 li.curr{ background-color:#fff; color: #cb2e35;}
+
+.menu-wk .ico-menu {margin:13px 10px 0 15px;}
+.menu-wk .tit .txt{  width: 205px; height:35px; overflow: hidden; _display: inline; vertical-align:middle;}
+
+.menuBox-wk{ width:450px; height:292px; overflow-y: auto; font-family:Arial, Helvetica, sans-serif;  }
+.menuBox-wk ul{position:relative; zoom:1; display: block;}
+.menuBox-wk li{ line-height:23px; border-bottom: dashed 1px #a90008; color: #fff; font-size: 14px; padding:13px 120px 13px  30px; position:relative; zoom:1 }
+.menuBox-wk .btn{ height:30px; line-height:30px; font-size:14px; font-weight:800; display:inline-block; padding:0 10px; border-radius:2px; position:absolute; right:20px; top:50%; margin-top:-15px;}
+.menuBox-wk .btn:hover{ text-decoration:none}
+.btnDoing{ color:#fff; background:#00d933;}
+.btnDoing:hover{ color:#fff}
+.btnTodo{ color:#df282d; background:#fcd000;}
+.btnTodo:hover{ color:#df282d}
+
+.pageBar{ width:673px; height:17px; background:url(../images/pageBar.png) 0 0 no-repeat; margin:14px 0 0 0; overflow:hidden;}
+.pageBar .bar{ margin-left:-147px;}
+.pageBar .bar a{ float:left; width:17px; height:17px; margin-left:147px; display:inline;} 
+.pageBar .bar a span{width:17px; height:17px; display: inline-block;}
+.pageBar .bar a.curr span{  background:url(../images/pageBar.png) -700px 0 no-repeat;}
+.pageBar .bar a.curr span.f{ background-position:-680px 0;}
+.pageBar .bar a.curr span.l{ background-position:-720px 0;}
+
+/*新闻弹窗内容*/
+.shareBox .arrow,.reply-arrow,.btn-big{display:inline-block; background:url(../images/bg.png) no-repeat; }
+.newsDlgT{ font-size:32px;  color:#11262e;}
+.newsWordNum{ color:#666; border-bottom: solid 1px #eee; padding-bottom: 20px; margin-bottom: 20px;}
+
+.newsV{ width:570px; margin:20px auto 0;}
+.newsCont{ font-size:18px; color:#2d2d2d; line-height:36px;}
+.btn-big,.btn-red,.btn-min{display:inline-block; text-align:center; color:#fff; font-family:"microsoft yahei","simhei","simsun";}
+.btn-big{ width:194px;  padding:0 0 7px 0; height:44px; line-height:44px;  font-size:18px; background-position:0 -60px;}
+.btn-big:hover,.btn-red:hover,.btn-min:hover{ color:#fff; text-decoration: none;}
+.btn-red { height:35px; line-height:35px; padding:0 33px; font-size:14px; background:#e6343c}
+.btn-min{height:28px; line-height:28px; padding:0 23px; background:#e6343c}
+.msgT{ height:37px; line-height:37px; background:#e6343c; color:#fff; padding-left:20px; border-top:solid 1px #7d7245}
+.textarea{width:99.9%; height:100px; padding:5px; border:solid 1px #d8d8d8; background:#fff; border-radius:3px; font-size:14px; line-height:20px; overflow-y:auto; outline-style:none; color:#666}
+
+.commList li{ min-height:54px; _height:54px; padding:0 0 20px 75px; line-height:22px;}
+.commList li .user{ width:50px; height:50px; padding:2px; border-radius:27px; box-shadow:0 2px 1px #ccc; float:left; margin-left:-65px; display:inline;}
+.commList li .user img{ width:50px; height:50px; border-radius:25px;}
+.commList li p {word-break: break-all;}
+.reply{ border:solid 1px #e3e3e3; position:relative;}
+.reply-arrow{ width:16px; height:9px; background-position:-10px -30px; position:absolute; left:23px; top:-9px;}
+.replyEdit{ padding:10px; background:#f3f3f3;}
+.replyEditCont{ height:28px; border:solid 1px #e3e3e3; background:#fff;}
+.inp-t{ width:723px; _width:720px;  height:20px; line-height:20px; outline:0; border:0; padding:4px;}
+.replyList li{ min-height:38px; _height:38px; padding:0 0 10px 80px;}
+.replyList li .userPic{ width:34px; height:34px; padding:2px; border-radius:19px; box-shadow:0 2px 1px #ccc; float:left; margin-left:-60px; display:inline;}
+.replyList li .userPic img{ width:34px; height:34px; border-radius:17px;} 
+
+.page_mini{ text-align: center; overflow:hidden; zoom:1; line-height:30px; height:30px; font-family:Arial, Helvetica, sans-serif; }
+.page_mini b{ font-weight:bold; color:#e6343c}
+.page_mini a,.page_mini b{ padding:0 2px;}
+
+/*同步训练*/
+.trainT{ color:#fff}
+.trainT h4{ font-size:24px; line-height:40px; padding:5px 20px; background:#6dc4dc;  font-family:"microsoft yahei","simhei","simsun";}
+.trainT p{ line-height:27px; padding:0 20px; background:#0d90b5; border-top:solid 2px #0c81a3}
+.trainNavBar {overflow:hidden;}
+.trainNavBar ul{ margin-left:-1px; width:1200px;}
+.trainNavBar li{ float:left;  display:inline; margin:0 0 0 1px; color:#fff; cursor:pointer;}
+.trainNavBar li span{  height:58px; background:#e6363d; display:block; margin-bottom:1px;}
+.trainNavBar li h4{  font-size:18px; line-height:28px; padding-top:5px; font-family:"microsoft yahei","simhei","simsun";}
+.trainNavBar li p{ font-size:14px; font-family:Tahoma, Geneva, sans-serif;}
+.trainNavBar li.curr span{height:59px; margin-bottom:0; }
+.trainNavBar li.curr span,.trainCont,.testCont{background-color:transparent; filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#B2f7ce3e, endColorstr=#B2f7ce3e)\9; background-color:rgba(247, 206, 62, .7); zoom:1}
+.trainContIn{ padding:0 0 10px 0; width:100%; background-color:transparent;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#33e7b100, endColorstr=#33e7b100)\9; background-color:rgba(231, 177, 0, .2); zoom:1}
+.lessonBarBox{ position: relative;}
+.lessonBarBox .prev,.lessonBarBox .next{ width: 27px; height: 38px; display: inline-block; background:url(../images/arrow-bg.png) no-repeat; position: absolute;}
+.lessonBarBox .prev{ background-position: 0 0; }
+.lessonBarBox .next{ background-position: -30px 0; }
+.lessonBarList{ width:905px; margin:0 auto; overflow: hidden; }
+.lessonBar{  width: 9999px; word-wrap:break-word; word-break:break-all;}
+.lessonBar li{ width: 180px;  margin:0 1px 0 0; float: left; display: inline;; background:#fff;}
+.lessonBar li a{  background:#fff; padding:0 5px; width: 170px; overflow: hidden; text-align: center; display:block;}
+
+.trainBoxBar{ width:54px; float:left; display:inline;}
+.trainBoxBar a{ width:23px; text-align:center; display:block; font-size:16px; line-height:36px; background:#fff; margin-bottom:1px;}
+.lessonBar a,.trainBoxBar a{color:#1e1e1e;}
+.lessonBar li a:hover,.lessonBar li.curr a,.trainBoxBar a:hover,.trainBoxBar a.curr{ text-decoration:none; color:#e6343c}
+.trainBoxBar a.curr{ width:23px;}
+.trainBoxMain{ background:#fff; padding:10px;  min-height:1000px;}
+.trainW520{ width:49%; height:1000px;  border:solid 1px #dbdbdb; overflow-y: auto; position: relative;}
+
+/*同步测试*/
+.testQues,.testQuesFiex{width:100%; z-index:2; font-family:"microsoft yahei","simhei","simsun";}
+.testQues{position:relative; }
+.testQuesFiex{ position:fixed; left:0; top:-1px;  _position:absolute; _margin:0; _top:expression(documentElement.scrollTop-1);}
+.testT,.testT a,.testT a:hover{ color:#fff}
+.testT .tit{height:94px; background:#33322e; padding:10px 0 0 20px; font-size:24px; line-height:50px; background-color:transparent; filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#CC000000, endColorstr=#CC000000)\9; background-color:rgba(0, 0, 0, .8); zoom:1;}
+.testT .tit p{ line-height:20px;}
+.testT .score{ height:104px; background:#e84c3d}
+.testT .scoreNum{ display:block;}
+.testT .scoreNum i{margin:0 5px;}
+.testT .score a{ font-size:34px; line-height:104px;}
+
+.testContrlBox {position:fixed; bottom:10px; left:50%; _position:absolute; _top:expression(documentElement.scrollTop+documentElement.clientHeight-this.offsetHeight-10); z-index:2;}
+.testContrlBox .goUp,.work-switch,.time-pause,.time-continue{ display:block; width:27px; height:27px; opacity:0.5; filter:Alpha(opacity=50); background:url(../images/work-ico.png) no-repeat;}
+.testContrlBox .goUp{ background-position:0 -90px;}
+.work-switch{ background-position:0 0;}
+.time-pause{ background-position:0 -30px;}
+.time-continue{background-position:0 -60px;}
+.testContrlBox .goUp:hover,.work-switch:hover,.time-pause:hover,.time-continue:hover{ opacity:1; filter:Alpha(opacity=100);}
+
+/*听说训练 9.17*/
+.speakContBar li a,.tagChoose{ background:url(../images/speak-bg.png) no-repeat;}
+.speakCont{background-color:transparent; filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#19000000, endColorstr=#19000000)\9; background-color:rgba(0, 0, 0, .1); zoom:1;}
+.speakContBar{ width:131px; float:left; display:inline; margin-left:-131px;}
+.speakContBar li{ width:130px; height:107px; float:left; margin-bottom:1px;}
+.speakContBar li.curr{ width:131px;}
+.speakContBar li a{ width:100%; height:100%; display:block;}
+.speakContBar li a.a1{ background-position:0 0}
+.speakContBar li a.a2{ background-position:-140px 0}
+.speakContBar li a.a3{ background-position:-280px 0}
+.speakContBar li.curr a.a1{ background-position:0 -120px}
+.speakContBar li.curr a.a2{ background-position:-140px -120px}
+.speakContBar li.curr a.a3{ background-position:-280px -120px}
+.speakMain{min-height:500px; _height:500px; _float: left; padding:5px; background:#fff}
+.speakT{  line-height: 43px; padding: 30px 0;  font-size:20px; font-family: "microsoft yahei"; border-bottom: solid 1px #858585; margin-bottom: 10px;}
+.repeatList li,.lnk-preview,.repeatList .btn{background: url(../images/repeat-bg.png) no-repeat;}
+.repeatList li{ width: 714px; height: 79px;  padding:8px 0 8px 300px;  margin-bottom: 6px;}
+.repeatList li .txt{ width: 260px; float: left; margin-left:-280px; display: inline;  line-height: 22px; }
+.repeatList li .txt .tit{ height: 44px; overflow: hidden; font-size: 14px;}
+.lnk-preview{ height: 18px; line-height: 18px; padding-left:25px; background-position: -200px -100px;  display: inline-block;}
+.repeatList .btn{ width: 195px; height: 76px; line-height: 76px; text-align: center; padding:0 2px 3px 0; font-size: 20px; color: #e6343c; background-position: 0 -100px; display: inline-block; margin-right: 18px; }
+.repeatList .btn:hover{ color: #e6343c; text-decoration: none;}
+.previewList li{ background: #eee; padding:5px 10px; margin-bottom: 20px;}
+.speakSlassify { margin:2px 0 0 -2px;}
+.speakSlassify img{ float:left; margin-left:2px;}
+.repeatBox{ padding:154px 0 0;  height:318px; background:url(../images/repeat-bg.jpg) no-repeat top center;}
+.repeatChk{ height:134px; background:url(../images/repeat-go-bg.jpg) no-repeat 0 0}
+.repeatChkBox{ width:825px; height:130px;}
+.repeatGo{ width:190px; height:130px; background-position:-420px 30px;}
+.btnGo{ height:60px; line-height:60px; display:inline-block; padding:0 80px; background:#e6343c; font-size:24px; color:#fff; border-radius:5px;}
+.btnGo:hover{ color:#fff; text-decoration:none; opacity:0.9}
+
+.t_elli{ text-overflow:ellipsis; white-space:nowrap; word-wrap:normal; overflow:hidden;}
+.tagChoose{ width:269px; height:42px; position:relative; cursor:pointer; color:#fff; background-position:0 -110px; padding:0 0 0 10px; margin:45px 0 0 80px; float:left; display:inline; font-family:Arial, Helvetica, sans-serif; }
+.tagChoose .tagInfo { width:210px; height:42px;  line-height:42px;  }
+.txtlist { display:none; position:absolute; top:41px; left:0; width:279px; padding:0 0 5px; border-radius:0 0 2px 2px; background:#222;}
+.txtlist a { display:block; height:24px; padding:0 10px; line-height:24px; overflow:hidden; color:#fff; overflow:hidden; }
+.txtlist a:hover { background:#f2f2f2; text-decoration:none; color:#e6343c }
+
+/*微技能*/
+.skillT{ height:104px; line-height:104px; font-size:30px; color:#fff; background-color:transparent; filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#CC000000, endColorstr=#CC000000)\9; background-color:rgba(0, 0, 0, .8); zoom:1;}
+.skillCont{ border:solid 1px #e4e4e4; background:#fff; border-top:0;}
+.skillCont .tit{ line-height:30px; padding:20px 50px 50px;}
+.red{ color:#e6343c;}
+.skillNum{ height:37px; padding:5px 0; border:solid 1px #e4e4e4; border-width:1px 0;}
+.skillNum a{ height:37px; line-height:37px; padding:0 5px; display:inline-block; color:#202020;}
+.skillNum a:hover{ color:#f15d2d; text-decoration:none;}
+.skillNum .curr a{ background:#f15d2d; color:#fff}
+.skillNum .curr a:hover{ color:#fff}
+.skillCont .read-con{ border:0;}
+.skillNum span{ position:relative; margin:0 8px; display:inline-block;}
+.skillNum span i{ position:absolute; left:0; top:-30px;}
+
+/*新闻图片宽度限制*/
+.newsCont img{max-width:900px;  height:auto; width:expression(this.width > 900 ? "900px" : this.width)}
+
+/*插件下载提示*/
+.download,.myVoice{ padding:40px 0; margin-top:-50px;   background-color:transparent; filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#66ffffff, endColorstr=#66ffffff)\9; background-color:rgba(255, 255, 255, .4); zoom:1;}
+.download h4{ line-height:40px; font-size:20px; color:#333;}
+.download p{ line-height:40px; font-size:16px;}
+/*我的声音*/
+.myVoice .tit{ font-size: 16px; padding: 10px; border-bottom: solid 2px #e6343c; color: #333}
+.voiceTb{ width: 100%; text-align: center; font-size:16px; margin: 20px 0; color: #000}
+.voiceTb a{ color: #000}
+.voiceTb td{ padding: 5px; height: 20px; line-height: 20px;}
+
+/*操作提示*/
+.tipsBg{position:absolute; z-index:2; left:0; top:0; display:none; width:100%; height:100%;
+background-color:transparent; filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#B2000000, endColorstr=#B2000000)\9;
+background-color:rgba(0, 0, 0, .7)}
+.tipsCont{ width: 710px; position: absolute; left: 50%; top:0; margin-left: -580px; z-index: 5;}
+.tipsCont .tips1,.tipsCont .tips2,.tipsCont .btn{ display: inline-block; background:url(../images/tips-bg.png) no-repeat; _background:url(../images/tips-bg-ie6.png) no-repeat; } 
+.tipsCont .tips1{ width: 287px; height: 130px; background-position: 0 0; margin: 3px 0 0}
+.tipsCont .tips2{ width: 270px; height:140px; background-position: 0 -130px;}
+.tipsCont .btn{ width: 163px; height: 48px; background-position: 0 -270px; margin: 150px 0 0 450px;}
+
+/*加载提示 余亮*/
+.loading-content{position:absolute;top:50%;left:50%;margin-left:-63px;margin-top:-43px;}
+.loading-content img{display:block;margin:0 auto;}
+.loading-content span{display:block;color:#a5a5a5;line-height:30px;}
+
+/*新闻弹窗 2014.8.23*/
+.mainwrap{position:relative;}
+.commend-epbody-inner,.ep-area{width:980px;margin:0 auto;*zoom:1}
+.commend-epbody-inner{padding:25px 0;background:#fff}
+.ep-content-main{float:left;_display:inline;padding-right:20px}
+.ep-content-side{overflow:hidden;float:right;_display:inline;width:300px;padding:0;display:none}
+.epmask{display:none; -index:2;width:100%;position:absolute;top:0;left:0;height:100%;_height:1000px;background-color:transparent; filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#E5000000, endColorstr=#E5000000)\9; background-color:rgba(0, 0, 0, .9); zoom:1;}
+.commend-showep .epmask{display:block}
+
+.ep-close{display:none;visibility:hidden;position:fixed;top:38px;left:50%; _position:absolute; _top:expression(documentElement.scrollTop +38); margin-left: 475px; cursor:pointer;width:32px;height:32px;z-index:99; background:url(../images/ep-close.png) no-repeat 0 0;  }
+.ep-close:hover{background-position: 0 -38px}
+.commend-showep .ep-close {display: block;}
+.commend-listwrap,.commend-epwrap{width:100%}
+.commend-epwrap .mainarea{background:0}
+.commend-showep .rightbar,.commend-showep .commend-listwrap{position:fixed;z-index:0;_position:absolute;padding-top:0}
+.commend-showep .commend-listwrap{_display:none}
+.commend-showep .commend-epwrap{display:block;position:relative;z-index:99}
+.commend-epbody{position:relative;padding:0;margin:0 auto;z-index:3}
+.commend-epbody-inner{min-height:1000px;_height:1000px}
+.ep-content-bg{opacity:0;*filter:alpha(opacity=0);filter:alpha(opacity=0)\0;background:#fff;transition:opacity 600ms linear;-webkit-transition:opacity 600ms linear;-o-transition:opacity 600ms linear;-moz-transition:opacity 600ms linear;-ms-transition:opacity 600ms linear}
+.commend-showep .commend-epbody-inner{background-color:#fff;background-repeat:no-repeat;background-position:center 200px;background-image:url(../images/loading.gif);-webkit-box-shadow:0 1px 6px rgba(0,0,0,0.8);-ms-box-shadow:0 1px 6px rgba(0,0,0,0.8);-o-box-shadow:0 1px 6px rgba(0,0,0,0.8);-moz-box-shadow:0 1px 6px rgba(0,0,0,0.8);box-shadow:0 1px 6px rgba(0,0,0,0.8)}
+.commend-eploaded .ep-content-bg{opacity:1;*filter:alpha(opacity=100);filter:alpha(opacity=100)\0}
+.commend-eploaded .commend-epbody-inner{background-image:none}
+.commend-showep .commend-epbody-inner{-webkit-box-shadow:none;-ms-box-shadow:none;-o-box-shadow:none;-moz-box-shadow:none;box-shadow:none}
+.commend-epbody .ep-content-side{display:none}
+.btn-close{display:block;-webkit-transform:scale(1.2)}
+.topbar .ep-content-side-inner{position:relative}
+
+/*sidetools 2014.8.26*/
+.sidetools,.shareBox{background: #000; border-radius: 4px; }
+.sidetools{ width: 52px; padding: 15px 0; color: #fff; position:fixed;top:100px; left:50%; _position:absolute; _top:expression(documentElement.scrollTop) +100; margin-left: 500px; _margin-left: 50px;  z-index: 99}
+.sidetools a{ color: #fff;  display: inline-block;}
+.sidetools a:hover{ color: #fff; text-decoration: none;}
+.sidetools a p{ line-height: 25px;}
+
+.ico-like,.ico-liked,.ico-msg,.ico-share,.ico-weibo,.ico-qq,.ico-qzone,.ico-qqweibo{display:inline-block;  background:url(../images/share-ico.png) no-repeat;}
+.ico-like,.ico-liked,.ico-msg,.ico-share{ width:22px; height:21px; }
+.ico-like{ background-position:0 0}
+.ico-liked{ background-position:0 -30px}
+.ico-msg{ background-position:0 -60px}
+.ico-share{ background-position:0 -90px}
+.likeBtn{ width:52px;  position:relative; z-index:99;}
+.addOne{ position:absolute; top:20px; left:15px; font-size:24px; color:#f00; font-family:"microsoft yahei"; display:none; }
+.share{ position:relative;}
+.shareBox{ padding:8px 6px; width: 120px; height: 24px; position: absolute; right:5px; top:-10px;}
+.ico-weibo,.ico-qq,.ico-qzone,.ico-qqweibo,.ico-weixin{ width:24px; height:24px; margin:0 3px; float: left;}
+.ico-weibo{ background-position:0 -120px}
+.ico-qq{ background-position:0 -150px}
+.ico-qzone{ background-position:0 -180px}
+.ico-qqweibo{ background-position:0 -210px}
+
+/*pageMenu 2014.9.17*/
+.pageMenu{font-size: 14px;}
+.pageMenu a{ color: #fff; font-weight: 800;}
+.pageMenu .menuBar li{ float: left; display: inline; position: relative;}
+.pageMenu .menuBar li .sub{ position: absolute; left: 0; top: 24px; background: #fff; width: 300px; padding:10px 10px 0; border-radius: 0 5px 5px; display: none;}
+.pageMenu .menuBar li .sub a{ height: 30px; line-height: 30px; width: 100%; display: block; overflow: hidden; border-bottom: dashed 1px #ddd; color: #666; font-weight: 400; }
+.pageMenu .menuBar li .sub a:hover{ color: #e6343c}
+.pageMenu .menuBar li.hover .sub{ display: block;}
+.pageMenu .menuBar li a.fir{ height: 28px; line-height: 28px; display: inline-block; padding:0 17px; }
+.pageMenu .menuBar li a.fir:hover{ color: #fff}
+.pageMenu .menuBar li.curr a.fir,.pageMenu .menuBar li.hover a.fir,.pageMenu .menuBar li a.fir:hover { background: #fff; color: #e6343c; border-radius: 5px;}
+.pageMenu .hdfx{ height: 35px; line-height: 35px; display: inline-block; background: #8dd31e; text-align: center;}
+.pageMenu .hdfx:hover{ color: #fff}
+
+.previeT{ font-size: 20px; padding: 20px;}
+.previewords{ margin-left: -50px;}
+.previewords span{ display: inline; float: left; width: 200px; height: 53px; line-height: 53px; background: #f8f8f8; border-radius: 5px; border: solid 1px #eee; font-size: 18px; text-align: center;  margin: 0 0 30px 50px;}
+
+/*续费提示*/
+.buyTip{ position: fixed; right:5px; top: 0; _position: absolute; z-index:5; _top: expression(documentElement.scrollTop+"px")}
+.buyTip a,.faqTip{ width: 80px;  background:url(../images/buyTip-bg.png) no-repeat; display: block;}
+.buyTip .renew{ height:129px; padding-top: 130px;  background-position: 0 0; font-size: 24px; font-weight: 800; color: #0096ff; text-align: center;}
+.buyTip .renew:hover{ color:#0096ff; text-decoration: none; }
+.buyTip .buy{ height:147px; background-position: -90px 0 }
+.faqTip{ width: 42px;  height:96px; background-position: right -150px;   position: fixed; right:10px; bottom:0;  _position: absolute; _top: expression(documentElement.scrollTop+documentElement.clientHeight-this.offsetHeight-0); _margin-top: 0; _bottom: auto}
+
+/*header 2014.10.13*/
+.header{ height: 83px;  background: #fbf6e0; color: #fff; z-index: 4; position:relative;}
+.header-dido{ background:url(../images/header-dido.png) no-repeat top center;}
+.header-ew{ background:url(../images/header-ew.png) no-repeat top center;}
+.header .grade{ font-size: 96px; font-family: Arial; line-height: 83px; margin:0 8px 0 15px; }
+.header .edition{ font-size: 12px;}
+.header .area{ line-height: 83px; font-size: 16px; width: 113px;}
+.header .service{ width: 198px; position: absolute; right: 10px;}
+.service .tel,.service .onl{background:url(../images/service-bg.png) no-repeat; display: inline-block; vertical-align:   }
+.service .tel{ width: 198px; height: 23px; background-position: 0 0}
+.service .onl{ width: 92px; height: 22px; background-position: 0 -30px}
+
+/*timerBox 2014.10.20*/
+.timerBox{ width: 225px; height: 53px; padding:0 15px 7px; background:url(../images/timer-bg.png) 0 0 no-repeat; color: #fff; margin: 20px auto;}
+.timerBox .time { width: 80px;}
+.timerBox .time h4{ line-height: 25px; font-size: 12px; }
+.timerBox .time p{ height: 18px; line-height: 18px; font-size: 14px;}
+.timerBox .time p em{height: 18px; line-height: 18px; padding: 0 2px; display: inline-block; background: #574444; border-radius: 2px;}
+.timerBox .btn a,.timerBox .btn em{ width: 140px; height: 53px; line-height: 53px; display: inline-block; color: #fff; font-size: 24px; text-align: center;}
+.timerBox .btn a:hover,.timerBox .btn em{color:#ff0; text-decoration: none;}
+
+.buyingTips{ background: #fff; min-height: 215px; _height: 215px}
+.buyingTips img{ margin-left: -210px}
+.buyingTips .txt{ color: #333; font-size: 24px; line-height: 48px; padding: 30px 0}
+.btn-1{ width: 200px; height: 51px; display: inline-block; line-height: 51px; padding-bottom: 14px; text-align: center; font-size:24px; color: #fff;background:url(../images/timer-bg.png) 0 -70px no-repeat; }
+.btn-1:hover{ color: #fff; text-decoration: none;}
+
+/*trainCon 2014.11.5*/
+.trainTit .closed,.btn-2,.trainMenu li .dot,.trainList .preview,.trainBtn{ background:url(../images/trainBg.png) no-repeat; display: inline-block; }
+.trainCon{  background: #424242;}
+.trainConIn{ min-height: 630px; _height: 630px; background: #d7d7d7; padding: 10px;}
+.trainChoice{ padding: 10px; min-height: 610px; _height: 610px; background:url(../images/trainChoiceBg.jpg) no-repeat right bottom #fff;}
+.trainTit{ height: 62px; line-height: 62px; font-size: 18px; color: #d90e0e; position: relative; background: #fffcda; border: solid 1px #ffd997;}
+.trainTit .closed{ width: 16px; height: 16px; overflow: hidden; background-position: -140px 0; position: absolute; top: 10px; right: 10px;}
+.trainTit .closed:hover{ background-position: -140px -20px}
+.btn-2{ width: 208px; height: 71px; line-height: 68px; font-size: 32px; text-align: center; color: #fff; margin: 0 55px; background-position: 0 -90px;}
+.btn-2:hover{ color: #fff; text-decoration: none;}
+
+.trainMenu{ padding: 30px 20px 30px 30px; font-size: 16px;}
+.trainMenu a,.trainMenu a:hover{ color: #adadad; text-decoration: none;}
+.trainMenu li{ border-left: solid 1px #fff; line-height: 25px; padding:0 0 20px 30px;}
+.trainMenu li p{padding:5px 0; position:relative;}
+.trainMenu li .dot{ width: 35px; height: 35px;  background-position: 0 -50px; position: absolute; left: -48px; top: 50%; _top:0; margin-top: -18px;  _margin-top:0;}
+.trainMenu li.curr .dot{background-position: 0 -0;}
+.trainTit2{ height: 92px; line-height: 92px; font-size: 32px; }
+.trainList li{height:81px; background: #fff; border-bottom: solid 1px #acacac; margin-top: 15px; font-size: 14px; }
+.trainList li .txt{ float: left; display: inline;}
+.trainList .preview{ height: 24px; line-height: 24px; padding-left:34px; background-position: -160px 0;  display: inline-block;}
+.trainList .tit{ line-height: 24px; height: 48px; overflow: hidden; margin-bottom: 10px;}
+.trainBtn{ width: 81px; height: 81px; line-height: 81px; background-position: -50px 0; color: #fff; text-align: center;}
+.trainBtn:hover{ color: #fff; text-decoration: none; opacity:.9}
+
+/*commentBox 2014.11.8*/
+.commentBox{ width: 100%; background: #4eacc6;}
+.commentBox td{ height: 61px; padding-right: 10px; background:url(../images/commentBox-bg.png) no-repeat left center; color: #fff; padding-left: 200px; line-height: 24px;  }
+.myVoice{ margin-top: 0}
+.repeatBox .commentBox { margin-top: -30px;}
+
+/*correct 2014.11.12*/
+.correctBtn,.imgUpload,.correctList li .adopted,.correctList li .more a,.correctList li .comm .dot{background:url(../images/correct.png) no-repeat; display: inline-block; }
+.correctBtn{ width: 42px; height: 88px; background-position: 0 0; position: fixed; left:50%; bottom:200px; _position: absolute; _top: expression(documentElement.scrollTop+documentElement.clientHeight-this.offsetHeight-200);}
+.correctT{ font-size: 18px; color: #000}
+.textarea{ width: 98.8%}
+.imgUpload{ width: 16px; height: 15px; background-position: -50px -60px;}
+.correctList li{ border:solid 1px #eee; margin-bottom: 20px; position:relative;}
+.correctList li .user{margin:0 15px 20px; padding: 20px 0 10px 60px; border-bottom:dashed 1px #e5e5e5; min-height: 50px; _height:50px}
+.correctList li .user img{ width: 50px; height: 50px; border-radius: 25px; float: left; display: inline; margin-left: -60px;}
+.correctList li .adopted{ width: 46px; height: 47px; background-position: -50px 0; position: absolute; left: 0; top: 0}
+.correctList li .more a{ height: 20px; line-height: 20px; color: #7297b9; display: inline-block;; margin-left: 15px; padding-left: 20px;}
+.correctList li .more a:hover{ color: #7297b9; text-decoration: none;}
+.correctList li .more a.like{ background-position: -110px 0}
+.correctList li .more a.rep{ background-position: -110px -20px}
+.correctList li .more a.adopt{ background-position: -110px -40px}
+.correctList li .more a.refuse{ background-position: -110px -60px}
+.correctList li .cont{ padding: 0 15px 15px; line-height: 24px;}
+.correctList li .cont img{ max-width: 900px;  height:auto;  _width:expression(this.width > 900 ? "900px" : this.width)}
+.correctList li .comm{ margin: 10px 15px 0; padding-top: 10px; border-top: solid 1px #ccc; position: relative;}
+.correctList li .comm .dot{ width: 7px; height: 5px; overflow: hidden; background-position: -50px -80px; position: absolute; left: 20px; top:-5px; _top:-4px;}
+.correctList li .comm p{ line-height: 20px; margin-bottom: 10px;}
+.correctList li .comm a,.correctList li .comm a:hover{color: #7297b9; text-decoration: none;}
+.correctList li .inp-t{ width:838px;  _width:795px; }
+
+/*practice 2014.11.17*/
+.practice{padding:10px;   background-color:transparent; filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#66000000, endColorstr=#66000000)\9; background-color:rgba(0, 0, 0, .4); zoom:1;}
+:root .practice{filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr='#66000000', EndColorStr='#66000000');}
+.practice .speakT{ color: #fff; border-bottom: solid 1px #fff;}
+.practiceBox{ background: #f8f8f8; padding: 10px 10px 200px;}
+.practiceBox .trainTit{ background: #f8f8f8; padding: 80px 0; border:0;}
+.btnPractice{ width: 126px; height: 126px; background:url(../images/trainBg.png) no-repeat 0 -170px; display: inline-block; font-size: 24px; text-align: center; line-height: 126px; color: #fff}
+.btnPractice:hover{ color: #fff; text-decoration: none; opacity: .9 }
+
+/*pauseDlg 2014.11.24*/
+.pauseDlg{ padding: 40px; width: 360px; background: #fff}
+.pauseDlg h4{ color: #474747; font-size: 30px; padding:10px 0 50px;}
+.pauseDlg .btn{ width: 219px; height: 65px; display: inline-block; background:url(../images/pauseBtn.png) no-repeat;}
+
+/*xixinTip*/
+.xixinTip{ width: 75px; background: #fbfbfb; padding: 5px 2px; border:solid 1px #cbcbcb; position: fixed; right:5px; top: 270px; _position: absolute; z-index:5; _top: expression(documentElement.scrollTop+270+"px")}
+.xixinTip .txt{ line-height: 20px; padding: 5px;}
+.xixinTip .btn{ width: 100%; height: 26px; line-height: 26px; color: #fff; background: #77ab08; display: block; text-align: center;}
+.xixinTip .btn:hover{ color: #fff}
+.green,.green:hover{ color: #77ab08}
+
+/*批改提示*/
+.markTipBg{ width: 100%; height: 100%; position:fixed; left: 0; top: 0; _position: absolute; z-index: 99; background-color:transparent; filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#33000000, endColorstr=#33000000)\9; background-color:rgba(0, 0, 0, .2); zoom:1;}
+:root .markTipBg{filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr='#33000000', EndColorStr='#33000000');}
+.markTip{ position:fixed; left: 50%; _position: absolute; margin-left: -200px; z-index: 100; width: 340px; padding:20px 30px; background: #fffcda; border:solid 1px #e9c381; border-radius: 5px;}
+.markTip .txt{ font-size: 16px; line-height: 32px;}
+.markTip .txt strong{ color: #e84c3d}
+.markTip .btn{ height:33px; line-height: 33px; display: inline-block; padding: 0 15px; background: #fff2ce; border: solid 1px #e2cd93; color: #000; font-size: 14px; border-radius: 4px;  }
+.markTip .btn:hover{ text-decoration: none; color: #000}
+.tipCLose{width:32px;height:32px; background:url(../images/ep-close.png) no-repeat 0 -38px; position:absolute; right: -10px; top: -10px; }
+
+/*听写*/
+.dictation{ padding: 15px; background: #fff; border-bottom: solid 1px #acacac; min-height: 500px; _height: 500px;}
+.dicT{ font-size: 16px;  padding: 0 10px 10px; border-bottom:dashed 1px #d2d2d2; color: #333}
+.dicT .btn{ height: 29px; line-height: 29px; padding: 0 13px; background: #e33d44; color: #fff; border-radius: 2px; font-size: 14px; font-weight: 800;}
+.dicT .btn:hover{ color: #fff; text-decoration: none;}
+.dicWord{ margin-left: -20px;}
+.dicWord i{ float: left; height: 43px; line-height: 43px; width: 142px; overflow: hidden; border: solid 1px #b5b5b5; background: #f7f7f7; font-size: 14px; text-align: center; border-radius: 2px; margin: 25px 0 0 25px; }
+.dicSentences p{ font-size: 14px; line-height: 1.6em; padding-top: 1em}
+.dicTips{ font-size: 18px; background: #4caee2; border-radius: 3px; color: #fff; height: 64px; line-height: 64px; padding: 0 20px}
+.ico-dicPlay,.line-dicTips{ display: inline-block; background:url(../images/dicBg.png) no-repeat; vertical-align: middle;}
+.ico-dicPlay{ width: 33px; height: 32px; background-position: 0 0; margin: 0 20px;}
+.line-dicTips{ width: 2px; height: 57px; background-position: -40px 0}
+.dicTips .num{ font-size: 36px; margin: 0 5px; vertical-align: middle; color: #fff000}
+.mClick{ font-size: 18px;}
+
+.dicQuesBox{ padding: 20px 0 0 	90px; min-height:490px; _height: 490px; }
+.quesTit{ width:70px; text-align:center; margin-left: -90px;}
+.btnUp,.btnDown,.listTitNum .miss,.listTitNum .right,.dic-miss,.dic-right{background:url(../images/dicTitnum.png) no-repeat;}
+.btnUp,.btnDown{ width:22px; height:22px; display:inline-block; }
+.btnUp{ background-position:0 0px;}
+.btnUp:hover{background-position:-25px 0px;}
+.btnDown{ background-position:-50px -0;}
+.btnDown:hover{background-position:-75px -0;}
+
+.listTitNum {margin:0 0 10px; overflow:hidden;}
+.listTitNum li{ width:30px; height:30px; margin:10px auto 0; cursor: pointer;  line-height:30px; text-align:center; font-size:16px; background:#e1e1e1; color:#4d4d4d;}
+.listTitNum .miss{ color:#e2744b; background-position:-100px 0;}
+.listTitNum .right{color:#577907; background-position:-135px 0;}
+.listTitNum .curr{ background:#70dfe7; color:#06688a;}
+
+.mt60{ margin-top: 60px;}
+.inp-t2{ width: 300px; height: 22px; line-height: 22px; padding: 10px 5px; border: solid 1px #e0e0e0; font-size: 18px; border-radius: 3px; margin: 40px 0 60px; color: #666}
+.btnBlue,.btnRed{ width: 145px; height: 40px; line-height: 40px; display: inline-block; background: #4caee2; color: #fff; font-size: 18px; text-align: center; border-radius: 3px;}
+.btnRed{ background: #e6343c}
+.btnBlue:hover,.btnRed:hover{ color: #fff; text-decoration: none; }
+.dicPic{ border: solid 1px #eaeaea; margin-top: 100px;}
+.dicTotal span{ font-size: 18px; margin-right: 25px;}
+.blue{ color: #4caee2}
+.green{ color: #8dd31e}
+.orange{ color: #e7820f}
+.table-01{ width: 100%; text-align: center; font-size: 18px; color: #666}
+.table-01 th{ height: 40px; background:#f8eee7; font-weight: 400}
+.table-01 td{ height:60px; border-bottom: dashed 1px #d7d7d7;}
+.dic-miss,.dic-right{ width: 30px; height: 23px; display:inline-block; background-position: -210px 0}
+.dic-right{ background-position: -170px 0}
+
+/*2015.3.3新增*/
+.opeVipPra .closed,.ico-clock{ display: inline-block; background:url(../images/opeVipIco.png) no-repeat;}
+
+.opeVipPra{ padding: 10px 20px 10px 10px; border: solid 1px #ffd58d; background: #fffcd6; color: #e32c33 ;position: relative;}
+.btnOpeVip{ display: inline-block; height: 26px; line-height: 26px; border-radius: 3px; background: #4a0; color: #fff; padding: 0 15px;}
+.btnOpeVip:hover{ color: #fff; text-decoration: none; }
+.opeVipPra .closed{ width: 10px; height: 10px; position: absolute; right: 10px; top: 12px; background-position: -20px 0}
+.testTit{ border: solid 1px #ffd58d; background: #fffcd6; padding: 6px 6px 6px 140px; font-size: 16px; margin-bottom: 10px; min-height: 96px; _height: 96px;}
+.testTit img{ float: left; margin-left: -120px; display: inline;}
+.testTit p{ height: 39px; line-height: 39px; padding-top: 5px;}
+.testTit .tit{ color: #d50a0a}
+.testTit .btn{ height: 39px; line-height: 39px; display: inline-block; padding: 0 35px; color: #fff; font-weight: 800; background: #3eaa0d; border-radius: 5px;}
+.testTit .btn:hover{ color:#fff;text-decoration: none; opacity: .9}
+.testTit .btn2{ background: #e33d44}
+.ico-clock{ width: 16px; height: 20px;  vertical-align: -4px; *vertical-align:middle; margin-right:10px;}
+
+.rel{ position: relative;}
+.opeVipTest,.opeVipTestBg,.opeVipNews,.opeVipNewsBg{ position: absolute; right: 0; top: 0; height: 90px; padding: 14px 10px 0 85px;}
+.opeVipTestBg,.opeVipNewsBg{ background:#000; opacity:0.8; filter:alpha(opacity=80);}
+.opeVipTest img{ float: left; margin-left: -60px; display: inline;}
+
+.vipNews h2{ color: #fffc00; font-size: 30px;}
+.vipNews h4{ font-size: 24px; color: #fff}
+.videoNews .vipNews a,.videoNews .vipNews a:hover,.vipNews a,.vipNews a:hover{ color: #fff}
+.videoNews .vipNews p{ font-size: 14px;}
+.vipNews .btn{ height: 70px; line-height: 70px; padding: 0 45px; background: #4a0; color: #fffc00; display: inline-block; border-radius: 5px; font-size: 24px;}
+.vipNews .btn:hover{ color: #fffc00; text-decoration: none;}
+
+.opeVipDlg h4{ font-size: 16px; }
+.opeVipDlg h2{ color: #4a0; font-size: 24px}
+.opeVipDlg .btn{ height: 50px; line-height: 50px; display: inline-block; padding: 0 45px; background: #4a0; color: #fff; font-size: 16px; border-radius: 5px;}
+.opeVipDlg .btn:hover{ text-decoration: none; color: #fff; opacity: .9}
+
+.vipNewsPopBg,.vipNewsPop{width: 100%; position: fixed;  left: 0; _position: absolute;}
+.vipNewsPopBg{ top: 0;  _top:expression(documentElement.scrollTop+"px"); background:#000; opacity:0.8; filter:alpha(opacity=80); height: 100%; z-index: 10;}
+.vipNewsPop{ z-index: 11; top: 50%; margin-top: -95px; _top:expression(documentElement.scrollTop+"px"); _margin-top: 200px;}
+
+.correctTips{ width:147px; height: 74px; padding:30px 0 0 50px; line-height: 24px;   background:url(../images/correctTips.jpg) no-repeat; position: absolute; top: 0; }
+.correctTips em{ margin-right: 50px;}
+
+.trainW520 .work-quesCon .answer{ padding:0 }
+.trainW520 .work-quesCon .answer .tit{ width: 100%; float: none; margin-left: 0}
+.answerV{ color: #fd5f00; padding-right: 30px; background:url(../images/answerV.jpg) right center no-repeat; }
+
+.musicBox{ width: 575px; }
+.musicBox img{ width: 575px; height: 350px; }
+.lyric{ width: 300px; height: 600px; overflow-x: hidden; overflow-y: auto; position: relative;}
+
+.musicOne{ line-height: 24px; height: 48px; overflow: hidden; font-size: 14px; padding-left: 30px;}
+.ico-music,.musicOne i{  background:url(../images/musicOne.png) no-repeat;}
+.ico-music{width: 22px; height: 23px;}
+.musicOne i{ width: 17px; height: 17px; background-position: -25px 0; margin:5px 0 0 -30px;}
+.picNews .newsT{ line-height: 50px;}
+.txtNews .newsT{ line-height: 30px;}

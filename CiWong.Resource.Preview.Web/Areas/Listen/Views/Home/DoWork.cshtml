@@ -1,0 +1,85 @@
+﻿@{
+    Layout = Model.Layout;
+}
+@model WorkParam
+<div class="main mt1" id="_listen_panel" style="display:none">
+    @*<div class="practice">
+            <h2 class="tc speakT">@Model.WorkResource.ResourceName</h2>
+            <div class="practiceBox">
+                <h4 class="trainTit trainTit2 yh tc"><img src="/Content/Default/images/face3.jpg" alt="" class="mr10">请佩戴好麦克风 开始听说模考作业</h4>
+                <p class="tc"><a href="javascript:;" data-bind="click: start" class="btnPractice yh" title="开始练习">做作业</a></p>
+                <p class="tc f14 gray mt20">点击按钮立即开始做作业</p>
+            </div>
+        </div>*@
+
+    <div class="trainCon cf">
+        <div class="trainConIn">
+            @if (!Model.IsCan)
+            {
+                <div class="trainChoice" style="background:white">
+                    <div class="testTit cf ovh">
+                        <img src="/content/default/images/face4.jpg" alt="">
+                        <p class="tit">完全按照中考听说考试题型和考试模式设置，两种训练方式自由切换</p>
+                        <p><i class="ico-clock"></i><em class="f14">购买后才能答题喔！</em><a href="/jump/buy?packageId=@Model.Package.PackageId" target="_blank" class="btn ml20">立即购买</a></p>
+                    </div>
+                    <div id="_paper_panel" data-bind="if:paper,visible: paper">
+                        <!--ko template:{ name: 'paperTemplate', data: paper, afterRender: afterRender } --><!-- /ko -->
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="trainChoice">
+                    <h2 class="tc speakT">@Model.WorkResource.ResourceName</h2>
+                    <div class="practiceBox">
+                        <h4 class="trainTit trainTit2 yh tc"><img src="/Content/Default/images/face3.jpg" alt="" class="mr10">请佩戴好麦克风 开始听说模考作业</h4>
+                        <p class="tc"><a href="javascript:;" data-bind="click: start" class="btnPractice yh" title="开始练习">做作业</a></p>
+                        <p class="tc f14 gray mt20">点击按钮立即开始做作业</p>
+                    </div>
+                </div>
+            }
+        </div>
+
+    </div>
+
+
+</div>
+@Html.Partial("~/Views/Shared/_download.cshtml")
+@section scripts{
+    <script type="text/javascript">
+        var optionSettings = {
+            UserInfo: { user_id: "@(Model.User.UserID)", user_name: "@(Model.User.UserName)" },
+            WorkInfo: { VersionId: "@Model.WorkResource.VersionId", ContentId: "@Model.WorkResource.ContentId", DoWorkId: "@Model.DoWorkBase.DoWorkID" }
+        };
+
+        var settingOptions = {
+            user_id: "@(Model.User.UserID)",
+            user_name: "@(Model.User.UserName)",
+            id: "@(Model.WorkResource.VersionId)",//版本ID
+            moduleId: "e9430760-9f2e-4256-af76-3bd8980a9de4",
+            afterRender: function () {
+                $('a.goUp').live("click", function () {
+                    $('html,body').animate({ scrollTop: 0 }, 300);
+                });
+                $("#resourceName").text(this.paper().title);
+            }
+        };
+
+
+
+        if ($("#_paper_panel").length == 1) {
+            require(["ko", "paper"], function (ko, paper) {
+                ko.applyBindings(new paper.viewModel.preView(settingOptions), document.getElementById("_listen_panel"));
+                $("#_listen_panel").show();
+            });
+        } else {
+            require(["ko", "listen"], function (ko, listen) {
+                ko.applyBindings(new listen.viewModel.doView(optionSettings), document.getElementById("_listen_panel"));
+                $("#_listen_panel").show();
+            });
+        }
+
+      
+
+    </script>
+}

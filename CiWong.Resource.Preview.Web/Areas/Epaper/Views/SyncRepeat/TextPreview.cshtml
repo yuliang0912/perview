@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "课文预览";
+    Layout = "~/Views/Shared/_EpaperLayout.cshtml";
+
+}
+
+<div id="_article_panel" data-bind="with: entity">
+    <h1 class="topTit" data-bind="html:name"></h1>
+    <div class="boxMain">
+        <div class="newsBox">
+            <!-- ko foreach:$data.sections -->
+            <!--ko foreach:sentences-->
+            <p data-bind="html:name== null ? '':name"></p>
+            @*<audio data-bind="attr:{'src':audio_url}" preload="metadata"></audio>*@
+            <!--/ko-->
+            <!--/ko-->
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    var OptionSettings = {
+        version_id: '@Model.VersionId ',/**课文版本ID**/
+        module_Id: '992a5055-e9d0-453f-ab40-666b4d7030bb'/**课文模块ID**/
+    };
+    require(["ko", "epapersyncrepeat"], function (ko, epapersyncrepeat) {
+        ko.applyBindings(new epapersyncrepeat.viewModel.preViewTextModel(OptionSettings));
+    });
+</script>

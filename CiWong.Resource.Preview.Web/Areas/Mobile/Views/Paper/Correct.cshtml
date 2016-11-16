@@ -1,0 +1,26 @@
+﻿@{
+    Layout = "~/Views/Shared/_MobileNewsPaperLayout.cshtml";
+}
+@model WorkParam
+<div class="testCont" data-bind="template:{ name: 'paperTemplate', data: paper, afterRender: afterRender }"></div>
+<p class="submit cf"><span class=" fl ml10 time">你写作业用时：<time id="timer">00:00:00</time></span><span class="score fr mr10" id="_totalScore">得分<i>@Model.UnitWork.ActualScore.ToRound()</i>分</span></p>
+@section scripts{
+    <script type="text/javascript">
+        require(["ko", "mobilepaper"], function (ko, paper) {
+            ko.applyBindings(new paper.viewModel.correctView(settingOptions));
+        });
+
+        var settingOptions = {
+            id: "@(Model.WorkResource.VersionId)",
+            doId: "@(Model.UnitWork.DoId)",
+        	isShowAnswer: '@(Model.IsCan ? 1 : 0)',
+        	isShowThinking: '@(Model.IsCan ? 1 : 0)',
+
+            afterRender: function () {
+                $("#timer").timer({ startTimeLine: "@Model.UnitWork.WorkLong" });
+            }
+        };
+    </script>
+}
+
+

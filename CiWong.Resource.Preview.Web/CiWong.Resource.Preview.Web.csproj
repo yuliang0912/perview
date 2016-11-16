@@ -1,0 +1,561 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7B858532-58E6-4B7D-AEBE-EF586DFF0968}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CiWong.Resource.Preview.Web</RootNamespace>
+    <AssemblyName>CiWong.Resource.Preview.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc, Version=3.3.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.Mvc5.3.3.3\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CApi.Client">
+      <HintPath>..\..\..\libs\CApi.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="CiWong.Framework, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\libs\CiWong.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="CiWong.Ques.API">
+      <HintPath>..\..\..\libs\CiWong.Ques.API.dll</HintPath>
+    </Reference>
+    <Reference Include="CiWong.Ques.Mapping, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\libs\CiWong.Ques.Mapping.dll</HintPath>
+    </Reference>
+    <Reference Include="CiWong.Security, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\libs\CiWong.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="CiWong.Tools.Package.DataContracts">
+      <HintPath>..\..\..\libs\CiWong.Tools.Package.DataContracts.dll</HintPath>
+    </Reference>
+    <Reference Include="CiWong.Tools.Workshop.DataContracts, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\libs\CiWong.Tools.Workshop.DataContracts.dll</HintPath>
+    </Reference>
+    <Reference Include="CiWong.Users">
+      <HintPath>..\..\..\libs\CiWong.Users.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\libs\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\libs\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp">
+      <HintPath>..\..\..\libs\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET MVC 4\Assemblies\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.2\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.2\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.20710.0\lib\net40\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20710.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\AutofacConfig.cs" />
+    <Compile Include="App_Start\JsonNetValueProviderFactory.cs" />
+    <Compile Include="Areas\Article\ArticleAreaRegistration.cs" />
+    <Compile Include="Areas\Article\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Courseware\CoursewareAreaRegistration.cs" />
+    <Compile Include="Areas\Courseware\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Epaper\Controllers\PaperController.cs" />
+    <Compile Include="Areas\Epaper\Controllers\SyncPracticeController.cs" />
+    <Compile Include="Areas\Epaper\Controllers\SyncRepeatController.cs" />
+    <Compile Include="Areas\Epaper\EpaperAreaRegistration.cs" />
+    <Compile Include="Areas\FollowRead\Controllers\HomeController.cs" />
+    <Compile Include="Areas\FollowRead\FollowReadAreaRegistration.cs" />
+    <Compile Include="Areas\Guidance\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Guidance\GuidanceAreaRegistration.cs" />
+    <Compile Include="Areas\Knowledge\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Knowledge\KnowledgeAreaRegistration.cs" />
+    <Compile Include="Areas\Listen\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Listen\ListenAreaRegistration.cs" />
+    <Compile Include="Areas\Mobile\Controllers\ListenController.cs" />
+    <Compile Include="Areas\Mobile\Controllers\PaperController.cs" />
+    <Compile Include="Areas\Mobile\Controllers\NewsController.cs" />
+    <Compile Include="Areas\Mobile\MobileAreaRegistration.cs" />
+    <Compile Include="Areas\News\Controllers\HomeController.cs" />
+    <Compile Include="Areas\News\NewsAreaRegistration.cs" />
+    <Compile Include="Areas\Paper\PaperAreaRegistration.cs" />
+    <Compile Include="Areas\Question\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Question\QuestionAreaRegistration.cs" />
+    <Compile Include="Areas\Sns\Controllers\PartialController.cs" />
+    <Compile Include="Areas\Sns\SnsAreaRegistration.cs" />
+    <Compile Include="Areas\SyncTrain\Controllers\HomeController.cs" />
+    <Compile Include="Areas\SyncTrain\SyncTrainAreaRegistration.cs" />
+    <Compile Include="Areas\TeachingPlan\Controllers\HomeController.cs" />
+    <Compile Include="Areas\TeachingPlan\TeachingPlanAreaRegistration.cs" />
+    <Compile Include="Attributes\LoginAuthorize.cs" />
+    <Compile Include="Attributes\WorkAuthorize.cs" />
+    <Compile Include="Codes\AuthorizeHelper.cs" />
+    <Compile Include="Codes\CustomerController.cs" />
+    <Compile Include="Codes\Extensions.cs" />
+    <Compile Include="Codes\HtmlHelperExtensions.cs" />
+    <Compile Include="Codes\ResourceController.cs" />
+    <Compile Include="Attributes\ResourceAuthorize.cs" />
+    <Compile Include="Codes\BaseRequestParam.cs" />
+    <Compile Include="Codes\RedirectHelper.cs" />
+    <Compile Include="Codes\WebAPI.cs" />
+    <Compile Include="Areas\Paper\Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\JumpController.cs" />
+    <Compile Include="Controllers\ResourceController.cs" />
+    <Compile Include="Controllers\WorkController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Content Include="Content\Audiojs\audio.js" />
+    <Content Include="Content\Audiojs\audio.min.js" />
+    <Content Include="Content\Audiojs\audiojs.swf" />
+    <Content Include="Content\Audiojs\bg.png" />
+    <Content Include="Content\Default\css\bookstyle.css" />
+    <Content Include="Content\Default\css\maxStyle.css" />
+    <Content Include="Content\Default\css\minStyle.css" />
+    <Content Include="Content\Default\images\bodyBg-1180.jpg" />
+    <Content Include="Content\Default\images\bodyBg-980.jpg" />
+    <Content Include="Content\Default\images\clock.png" />
+    <Content Include="Content\Default\images\correctTips.jpg" />
+    <Content Include="Content\Default\images\dicBg.png" />
+    <Content Include="Content\Default\images\dicTitnum.png" />
+    <Content Include="Content\Default\images\face4.jpg" />
+    <Content Include="Content\Default\images\header-bg-1180.png" />
+    <Content Include="Content\Default\images\header-bg-980.png" />
+    <Content Include="Content\Default\images\header-ew.png" />
+    <Content Include="Content\Default\images\header-xxb.jpg" />
+    <Content Include="Content\Default\images\header-yya-980.jpg" />
+    <Content Include="Content\Default\images\header-yya.jpg" />
+    <Content Include="Content\Default\images\hNotice.png" />
+    <Content Include="Content\Default\images\mark-bg.png" />
+    <Content Include="Content\Default\images\opeVipIco.png" />
+    <Content Include="Content\Default\images\xixin.jpg" />
+    <Content Include="Content\Default\images\xixinTip.jpg" />
+    <Content Include="Content\Default\images\hNotice.png" />
+    <Content Include="Content\Default\scripts\artDialog\skins\images\loading.gif" />
+    <Content Include="Content\Default\scripts\ciwong.resource.preview.correct.js" />
+    <Content Include="Content\Default\scripts\respond.min.js" />
+    <Content Include="Content\Default\css\style.css" />
+    <Content Include="Content\Default\images\01.jpg" />
+    <Content Include="Content\Default\images\02.jpg" />
+    <Content Include="Content\Default\images\03.jpg" />
+    <Content Include="Content\Default\images\arrow-bg.png" />
+    <Content Include="Content\Default\images\bg.png" />
+    <Content Include="Content\Default\images\bg\bg1.jpg" />
+    <Content Include="Content\Default\images\bg\wood.png" />
+    <Content Include="Content\Default\images\btn-big.png" />
+    <Content Include="Content\Default\images\buyTip-bg.png" />
+    <Content Include="Content\Default\images\commentBox-bg.png" />
+    <Content Include="Content\Default\images\correct.png" />
+    <Content Include="Content\Default\images\cover.jpg" />
+    <Content Include="Content\Default\images\dlg-bg.png" />
+    <Content Include="Content\Default\images\enter-loading.gif" />
+    <Content Include="Content\Default\images\ep-close.png" />
+    <Content Include="Content\Default\images\error.png" />
+    <Content Include="Content\Default\images\exam01.jpg" />
+    <Content Include="Content\Default\images\exam02.jpg" />
+    <Content Include="Content\Default\images\exam03.jpg" />
+    <Content Include="Content\Default\images\face.jpg" />
+    <Content Include="Content\Default\images\face2.jpg" />
+    <Content Include="Content\Default\images\face3.jpg" />
+    <Content Include="Content\Default\images\grade-bg.png" />
+    <Content Include="Content\Default\images\header-bg.png" />
+    <Content Include="Content\Default\images\header-dido.png" />
+    <Content Include="Content\Default\images\herard-tit.jpg" />
+    <Content Include="Content\Default\images\herder-tit-bg.png" />
+    <Content Include="Content\Default\images\home-rightNav.png" />
+    <Content Include="Content\Default\images\ico-play.png" />
+    <Content Include="Content\Default\images\ico.png" />
+    <Content Include="Content\Default\images\line-bg-25.png" />
+    <Content Include="Content\Default\images\line-bg.png" />
+    <Content Include="Content\Default\images\listening01.jpg" />
+    <Content Include="Content\Default\images\listening02.jpg" />
+    <Content Include="Content\Default\images\listening03.jpg" />
+    <Content Include="Content\Default\images\loading.gif" />
+    <Content Include="Content\Default\images\num-bg.png" />
+    <Content Include="Content\Default\images\pageBar.png" />
+    <Content Include="Content\Default\images\pauseBtn.png" />
+    <Content Include="Content\Default\images\repeat-bg.jpg" />
+    <Content Include="Content\Default\images\repeat-bg.png" />
+    <Content Include="Content\Default\images\repeat-go-bg.jpg" />
+    <Content Include="Content\Default\images\service-bg.png" />
+    <Content Include="Content\Default\images\share-bg.png" />
+    <Content Include="Content\Default\images\share-ico.png" />
+    <Content Include="Content\Default\images\share-tit.png" />
+    <Content Include="Content\Default\images\speak-bg.png" />
+    <Content Include="Content\Default\images\speakT-bg.jpg" />
+    <Content Include="Content\Default\images\timer-bg.png" />
+    <Content Include="Content\Default\images\tips-bg-ie6.png" />
+    <Content Include="Content\Default\images\tips-bg.png" />
+    <Content Include="Content\Default\images\tipsimg.jpg" />
+    <Content Include="Content\Default\images\topS-bg.png" />
+    <Content Include="Content\Default\images\train-work-bg.png" />
+    <Content Include="Content\Default\images\trainBg.png" />
+    <Content Include="Content\Default\images\trainChoiceBg.jpg" />
+    <Content Include="Content\Default\images\v.jpg" />
+    <Content Include="Content\Default\images\vplaylogo.png" />
+    <Content Include="Content\Default\images\work-bg-ie6.png" />
+    <Content Include="Content\Default\images\work-bg.png" />
+    <Content Include="Content\Default\images\work-ico.png" />
+    <Content Include="Content\Default\images\workCatalog-bg.png" />
+    <Content Include="Content\Default\scripts\artDialog\jquery.artDialog.min.js" />
+    <Content Include="Content\Default\scripts\artDialog\skins\default.css" />
+    <Content Include="Content\Default\scripts\artDialog\skins\images\dialog-icon.png" />
+    <Content Include="Content\Default\scripts\ciwong.resource.preview.article.js" />
+    <Content Include="Content\Default\scripts\ciwong.resource.preview.ebook.js" />
+    <Content Include="Content\Default\scripts\ciwong.resource.preview.extends.js" />
+    <Content Include="Content\Default\scripts\ciwong.resource.preview.guidance.js" />
+    <Content Include="Content\Default\scripts\ciwong.resource.preview.listen.js" />
+    <Content Include="Content\Default\scripts\ciwong.resource.preview.news.js" />
+    <Content Include="Content\Default\scripts\ciwong.resource.preview.paper.js" />
+    <Content Include="Content\Default\scripts\ciwong.resource.preview.question.js" />
+    <Content Include="Content\Default\scripts\ciwong.resource.preview.teachingplan.js" />
+    <Content Include="Content\Default\scripts\ciwong.resource.sns.js" />
+    <Content Include="Content\Default\scripts\ciwong.resource.preview.followread.js" />
+    <Content Include="Content\Default\scripts\ciwong.browser.helper.js" />
+    <Content Include="Content\Default\scripts\flash\audio-player-noswfobject.js" />
+    <Content Include="Content\Default\scripts\flash\audioplayer.js" />
+    <Content Include="Content\Default\scripts\flash\swfobject.js" />
+    <Content Include="Content\Default\scripts\haici\huaci.js" />
+    <Content Include="Content\Default\scripts\haici\huaci_com.js" />
+    <Content Include="Content\Default\scripts\html5.js" />
+    <Content Include="Content\Default\scripts\jquery.cookie.js" />
+    <Content Include="Content\Default\scripts\jquery-1.8.0.min.js" />
+    <Content Include="Content\Default\scripts\jquery.pagination.js" />
+    <Content Include="Content\Default\scripts\json2.js" />
+    <Content Include="Content\Default\scripts\knockout-3.0.1.js" />
+    <Content Include="Content\Default\scripts\require.js" />
+    <Content Include="Content\Default\scripts\sewisePlayer\SewiseSubtitles.js" />
+    <Content Include="Content\Default\scripts\ciwong.resource.preview.newspaper.js" />
+    <Content Include="Content\Default\scripts\ciwong.resource.preview.synctrain.js" />
+    <Content Include="Content\Default\scripts\ciwong.resource.preview.knowledge.js" />
+    <Content Include="Content\Epaper\css\default.css" />
+    <Content Include="Content\Epaper\js\ciwong.resource.preview.epaperarticle.js" />
+    <Content Include="Content\Epaper\js\ciwong.resource.preview.epapersyncpractice.js" />
+    <Content Include="Content\Epaper\js\ciwong.resource.preview.epapersyncrepeat.js" />
+    <Content Include="Content\Flash\audioplayer.swf" />
+    <Content Include="Content\Flash\audioplayer.js" />
+    <Content Include="Content\Flash\audioplayer.swf" />
+    <Content Include="Content\Flash\player.swf" />
+    <Content Include="Content\Flash\swfobject.js" />
+    <Content Include="Content\Mobile\css\question.css" />
+    <Content Include="Content\Mobile\images\line-bg-25.png" />
+    <Content Include="Content\Mobile\images\line-bg.png" />
+    <Content Include="Content\Mobile\images\mark-bg.png" />
+    <Content Include="Content\Mobile\images\work-bg.png" />
+    <Content Include="Content\Mobile\js\ciwong.resource.preview.mobilepaper.js" />
+    <Content Include="Content\Mobile\js\ciwong.resource.preview.mobilequestion.js" />
+    <Content Include="Content\Question\css\question.css" />
+    <Content Include="Content\Question\images\bg\wood.png" />
+    <Content Include="Content\Question\images\line-bg-25.png" />
+    <Content Include="Content\Question\images\line-bg.png" />
+    <Content Include="Content\Question\images\mark-bg.png" />
+    <Content Include="Content\Question\images\work-bg-ie6.png" />
+    <Content Include="Content\Question\images\work-bg.png" />
+    <Content Include="Global.asax" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Config\AppSettings.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Config\ConnectionStrings.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Config\Log4net.config" />
+    <Content Include="Config\SiteSettings.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Paper\Views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CiWong.Resource.Preview.Common\CiWong.Resource.Preview.Common.csproj">
+      <Project>{42bc0526-125c-4380-99bc-2b178dadb249}</Project>
+      <Name>CiWong.Resource.Preview.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CiWong.Resource.Preview.DataContracts\CiWong.Resource.Preview.DataContracts.csproj">
+      <Project>{c498f420-f363-491b-86e2-a2129ec39d6a}</Project>
+      <Name>CiWong.Resource.Preview.DataContracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CiWong.Resource.Preview.OutsideDate\CiWong.Resource.Preview.OutsideDate.csproj">
+      <Project>{e98452b2-2bfc-4fb8-a61f-6a7672ad4ad4}</Project>
+      <Name>CiWong.Resource.Preview.OutsideDate</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CiWong.Resource.Preview\CiWong.Resource.Preview.csproj">
+      <Project>{91e2467f-2cfb-41bf-abe0-6970bc58822b}</Project>
+      <Name>CiWong.Resource.Preview</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\News\Views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_Layout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Practice\_NewsPaperLayout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Sns\Views\Partial\Support.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Sns\Views\Partial\Comment.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Sns\Views\Partial\Share.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Work\_NewsPaperLayout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Paper\Views\Home\DoWork.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Paper\Views\Home\WorkResult.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\News\Views\Home\DoWork.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\SyncTrain\Views\Home\DoWork.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\SyncTrain\Views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\SyncTrain\Views\Home\WorkResult.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Practice\_EbookLayout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Practice\_EbookNoNavigation.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Guidance\Views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\TeachingPlan\Views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Knowledge\Views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Error.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Article\Views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Paper\Views\Home\EbookIndex.cshtml" />
+    <Content Include="packages.config" />
+    <Content Include="Areas\Courseware\Views\Home\Index.cshtml" />
+    <Content Include="Content\Default\scripts\ciwong.resource.preview.courseware.js" />
+    <Content Include="Areas\FollowRead\Views\Home\Index.cshtml" />
+    <Content Include="Areas\FollowRead\Views\Home\DoWork.cshtml" />
+    <Content Include="Areas\FollowRead\Views\Home\WorkResult.cshtml" />
+    <Content Include="Areas\Listen\Views\Home\DoWork.cshtml" />
+    <Content Include="Areas\Listen\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Listen\Views\Home\WorkResult.cshtml" />
+    <Content Include="Areas\FollowRead\Views\Home\EbookIndex.cshtml" />
+    <Content Include="Areas\Listen\Views\Home\EbookIndex.cshtml" />
+    <Content Include="Areas\FollowRead\Views\Home\EbookDoWork.cshtml" />
+    <Content Include="Areas\FollowRead\Views\Home\EbookWorkResult.cshtml" />
+    <Content Include="Areas\Listen\Views\Home\EbookDoWork.cshtml" />
+    <Content Include="Areas\Listen\Views\Home\EbookWorkResult.cshtml" />
+    <Content Include="Areas\Paper\Views\Home\Correct.cshtml" />
+    <Content Include="Areas\Listen\Views\Home\Correct.cshtml" />
+    <Content Include="Areas\Guidance\Views\Home\DoWork.cshtml" />
+    <Content Include="Areas\Guidance\Views\Home\WorkResult.cshtml" />
+    <Content Include="Areas\Paper\Views\Home\EbookDoWork.cshtml" />
+    <Content Include="Areas\Paper\Views\Home\EbookWorkResult.cshtml" />
+    <Content Include="Areas\Mobile\Views\web.config" />
+    <Content Include="Areas\Mobile\Views\Paper\Index.cshtml" />
+    <Content Include="Areas\Mobile\Views\Paper\Correct.cshtml" />
+    <Content Include="Areas\Mobile\Views\Paper\DoWork.cshtml" />
+    <Content Include="Areas\Mobile\Views\Paper\WorkResult.cshtml" />
+    <Content Include="Areas\Mobile\Views\News\DoWork.cshtml" />
+    <Content Include="Areas\Mobile\Views\Listen\Correct.cshtml" />
+    <Content Include="Areas\Mobile\Views\News\PreView.cshtml" />
+    <Content Include="Areas\Mobile\Views\Paper\Buy.cshtml" />
+    <Content Include="Areas\Mobile\Views\Paper\BuyWork.cshtml" />
+    <Content Include="Areas\Mobile\Views\Listen\WorkResult.cshtml" />
+    <Content Include="Areas\Paper\Views\Home\Videopreview.cshtml" />
+    <Content Include="Areas\Epaper\Views\SyncRepeat\WordPreview.cshtml" />
+    <Content Include="Areas\Epaper\Views\SyncRepeat\TextPreview.cshtml" />
+    <Content Include="Areas\Epaper\Views\SyncPractice\Index.cshtml" />
+    <Content Include="Areas\Epaper\Views\Paper\Index.cshtml" />
+    <Content Include="Areas\Epaper\Views\SyncRepeat\ArticlePreview.cshtml" />
+    <None Include="Properties\PublishProfiles\192.168.1.61.pubxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\PublishProfiles\Deploy.pubxml">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Views\Shared\Practice\_NewsPaperNoNavigation.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Home\Buy.cshtml" />
+    <Content Include="Views\Home\BuyWork.cshtml" />
+    <Content Include="Views\Shared\_download.cshtml" />
+    <Content Include="Views\Shared\Work\_EbookLayout.cshtml" />
+    <Content Include="Views\Shared\Work\_NewsPaperCorrectLayout.cshtml" />
+    <Content Include="Views\Shared\_NewsPaperLayout.cshtml" />
+    <Content Include="Views\Shared\_MobileNewsPaperLayout.cshtml" />
+    <None Include="Properties\PublishProfiles\RC.pubxml" />
+    <None Include="Properties\PublishProfiles\电子报本机.pubxml" />
+    <Content Include="Views\Shared\_EpaperLayout.cshtml" />
+    <None Include="Web.Deploy.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>51359</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://preview.ciwong.com</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://preview.ciwong.com</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

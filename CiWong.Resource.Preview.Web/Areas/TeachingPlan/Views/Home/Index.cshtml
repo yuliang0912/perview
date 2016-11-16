@@ -1,0 +1,31 @@
+﻿@{
+    Layout = Model.Layout;
+}
+@model ResourceParam
+<div id="_teaching_plan_panel" class="work-wrapper-dx area" data-bind="if: teachingplan">
+    <section class="work-quesBox" data-bind="visible: teachingplan().items.length > 0, template:{ afterRender: afterRender }" style="display: none">
+        <div class="read-step" style="margin-top: -60px">
+            <ul class="tepList cf" style="padding-left: 0;" data-bind="foreach: teachingplan().items" id="_step_change">
+                <li>
+                    <i class="ico"></i>
+                    <p class="qt"><em data-bind="text: '步骤'+ ($index() + 1)"></em><i class="arrow a-t"></i><i class="arrow a-in-t"></i></p>
+                </li>
+            </ul>
+        </div>
+        <div data-bind="foreach: teachingplan().items">
+            <div data-bind="visible: $index() == 0, attr:{ id: 'step_' + $index() }">
+                <div class="work-t read-com" style="padding: 20px;">
+                    <h4 class="f18 tc" data-bind="text:name"></h4>
+                    <div class="t2em" data-bind="html:content"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+@section scripts{
+<script type="text/javascript">
+	require(["ko", "teachingplan"], function (ko, teachingplan) {
+		ko.applyBindings(new teachingplan.viewModel.preView({ id: "@(Model.VersionId)" }), document.getElementById("_teaching_plan_panel"));
+	});
+</script>
+}

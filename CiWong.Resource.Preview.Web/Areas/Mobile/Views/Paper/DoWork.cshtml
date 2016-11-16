@@ -1,0 +1,77 @@
+﻿@{
+    Layout = "~/Views/Shared/_MobileNewsPaperLayout.cshtml";
+}
+@model WorkParam
+<div class="testCont" data-bind="template:{ name: 'paperTemplate', data: paper, afterRender: afterRender }"></div>
+<time class="timeTips" id="timer">00:00:00</time>
+@if ((Model.WorkResource.ModuleId == 5 && Model.PackageType == 3) || Model.IsCan)
+{
+    <p class="submit tc" style="z-index:5"><a href="javascript:;" data-bind="click:submitWork" class="btn-01">提交作业</a>@*<a href="javascript:;" class="btn-02">暂停答题</a>*@<span class="score" id="_totalScore"></span></p>
+}
+else
+{
+    <p class="submit tc" style="z-index:5"><a href="javascript:;" data-bind="click:OpenServise" class="btn-01">开通会员</a></p>
+}
+@section scripts{
+    <script type="text/javascript">
+        require(["ko", "mobilepaper"], function (ko, paper) {
+            ko.applyBindings(new paper.viewModel.preView(settingOptions));
+        });
+        var timer = null;
+        var settingOptions = {
+            id: "@(Model.WorkResource.VersionId)",
+            isShowAnswer: false,
+            isShowThinking: false,
+            afterRender: function () {
+                !timer && (function () {
+                    timer = $("#timer").timer().start();
+                })();
+                htmlEventHanlder();
+            },
+            submitWork: function () {
+                var model = this;
+                var userAnswers = model.getUserAnswer();
+                var postData = {
+                    workScore: model.paper().ref_score,
+                    content: JSON.stringify(userAnswers),
+                    questionCount: model.allSingleQuestions.length,
+                    workLong: timer.getTime() //新增做题时间
+                };
+                if (userAnswers.length != postData.questionCount) {
+                    $.confirm("您的题目还未全部完成,是否确定提交?", function () {
+                        postData.workLong = timer.getTime();
+                        postWork(postData);
+                    }, null);
+                } else {
+                    postWork(postData);
+                }
+            }
+        };
+
+        function postWork(postData) {
+            ciwong.ajax.postJSON("/paper/submitwork?doWorkId=@(Model.DoWorkBase.DoWorkID)&contentId=@(Model.WorkResource.ContentId)", postData, function (data) {
+                timer.stop();
+                $.succeed("作业提交成功!", function () {
+                    location.reload();
+                });
+            }, null, null, true, function () { ciwong.ajax.isPreventRequest = true; });
+        }
+
+        function htmlEventHanlder() {
+            $('.submit .btn-02').die().live('click', function () {
+                if ($(this).html() == '暂停答题') {
+                    timer.stop();
+                    $(this).html('继续答题');
+                } else {
+                    timer.start();
+                    $(this).html('暂停答题');
+                }
+            });
+        }
+    </script>
+}
+
+
+
+
+

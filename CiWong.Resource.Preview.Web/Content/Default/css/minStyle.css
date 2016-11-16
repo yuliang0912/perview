@@ -1,0 +1,113 @@
+﻿@charset "utf-8";
+/*Author:lilong QQ:124627783*/
+body{ background:url(../images/bodyBg-980.jpg) top center no-repeat #fff5c0; _background:url(../images/bodyBg-980.jpg)  top center repeat-y; background-attachment:fixed; }
+.main{ width:980px;}
+.foot{ height:70px; line-height:70px; color:#fff; background:#e6343c; font-size: 14px; width:980px; margin:1px auto 10px;}
+.menu{ width:270px; }
+.menuBox2{width:980px;  }
+.menuBox2 li{  margin: 20px 0  0 10px; }
+
+/*新闻*/
+.bigNews{ height:430px; overflow:hidden; padding:0 0 0 710px; margin-top: 1px; background-color:transparent; filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#b2fc6943, endColorstr=#b2fc6943)\9; background-color:rgba(252, 105, 67, .7)}
+.bigNews img{ float:left; margin-left:-710px; width:710px; height:430px;}
+.bigNews .txt{ padding:10px; height: 410px; overflow: hidden;}
+.bigNews h4{ font-size:22px; line-height:24px; margin-bottom: 10px;  }
+.bigNews,.bigNews a,.bigNews a:hover,.picNews,.picNews a,.picNews a:hover,.txtNews,.txtNews a,.txtNews a:hover{ color:#fff}
+.bigNews p{ font-size:14px; line-height:24px; text-indent:2em;}
+
+.picNews{ width:710px; overflow:hidden;}
+.txtNews{ width:239px; height:792px ; overflow:hidden; padding:15px; background-color:transparent; filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#B278bcaf, endColorstr=#B278bcaf)\9; background-color:rgba(120, 188, 175, .7);}
+.newsT{ font-size:24px; line-height:40px; font-family:"microsoft yahei";}
+.newsBox{padding:10px; background-color:transparent; filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#7Ffb2e0e, endColorstr=#7Ffb2e0e)\9; background-color:rgba(251, 46, 14, .5); zoom:1;}
+
+.newsList li{ padding:10px 0 15px 390px;}
+.newsList li img{ width:375px;  height:235px; float:left; margin-left:-390px;}
+.newsList li h4{ font-size:24px; margin-bottom:10px; height: 36px; line-height: 36px; overflow: hidden;}
+.newsList li p{ font-size:16px; line-height:24px;}
+.newsList li .txtIn{ height: 235px; overflow: hidden;}
+
+.videoNews {padding:10px 5px;  background-color:transparent; filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#66f7b23e, endColorstr=#66f7b23e)\9; background-color:rgba(247, 178, 62, .4); zoom:1 }
+.videoNews .cont{ padding:0 0 0 430px; height:210px; overflow:hidden;}
+.videoNews .video{ height:210px; width:410px; float:left; margin-left:-430px; display: inline;}
+.videoNews p{ font-size:14px; line-height:24px;}
+
+.txtNewsList li{  margin-top:10px; border-top: solid 1px #215c66; height:195px; overflow:hidden;}
+.txtNewsList li .cont{padding:15px 0 0; border-top:solid 1px #bfe2e4;}
+.txtNewsList li h4{ font-size:16px; margin-bottom:10px; line-height: 24px;}
+.txtNewsList li p {  line-height:24px; font-size:14px;}
+
+/*同步训练*/
+.trainNavBar { width:980px;}
+.trainNavBar li{width:326px; }
+.trainNavBar li span{ width:326px; }
+.trainCont{ padding: 10px;}
+.lessonBarBox .prev,.lessonBarBox .next{  top:3px ;}
+.lessonBarBox .prev{ left: -5px}
+.lessonBarBox .next{right: -5px}
+.lessonBarList{ height: 44px; }
+.lessonBar{ height: 44px;}
+.lessonBar li{height:43px; }
+.lessonBar li a{ height:43px; line-height:43px; }
+.lessonBar li.curr{ height:44px;}
+.trainBox{ padding:0 0 0 44px;}
+.trainBoxBar{margin:1px 0 0 -44px;}
+.trainBoxBar a{padding:40px 10px;}
+.trainBoxBar a.curr{padding:40px 11px 40px 10px;}
+
+/*同步测试*/
+.testT .tit{ width:810px;}
+.testT .tit p{ font-size:16px;}
+.testT .score{ width:150px;}
+.testT .scoreNum{ font-size:18px; padding-top:30px;}
+.testT .scoreNum i{ font-size:30px;}
+.testCont{ padding:5px 45px 5px 5px;}
+.testContrlBox { margin-left:455px;}
+
+/*听说训练 9.17*/
+.speakCont{ padding:10px 0 10px 131px;}
+.speakMain{_width: 839px;}
+
+/*pageMenu 2014.9.17*/
+.pageMenu{ width: 705px; }
+.pageMenu .menuBar li{ margin:4px 5px 0 0;}
+.pageMenu .hdfx{ width: 110px;}
+
+/*header 2014.10.13*/
+.header{background:url(../images/header-bg-980.png) no-repeat top center; margin-top: 10px;}
+.header-dido{ background:url(../images/header-dido-980.jpg) no-repeat top center;}
+.header-ew{ background:url(../images/header-ew-980.png) no-repeat top center;}
+.header-xxb{ background:url(../images/header-xxb-980.jpg) no-repeat top center;}
+.header-yya{ background:url(../images/header-yya-980.jpg) no-repeat top center;}
+.header .edition{  width: 100px; line-height: 40px;}
+.header .area{  margin-right:690px;}
+.header .service{  top:50px}
+.header .tc{ text-align: left;}
+.buyingTips{  padding: 200px 0 200px 480px; }
+
+/*trainCon 2014.11.5*/
+.trainCon{ padding: 0 0 0 270px;  }
+.trainL{ width: 270px; margin-left: -270px; _overflow: hidden;}
+.trainMenu li{_width: 170px;}
+.trainList li{ padding:20px 0 20px 400px; }
+.trainList li .txt{ margin-left: -390px; width: 390px;}
+.trainBtn{margin:0 13px 0 0; }
+
+/*commentBox 2014.11.8*/
+.commentBox td{ font-size: 14px;}
+
+/*correct 2014.11.12*/
+.correctBtn{ margin-left: 448px;}
+.quesFastWay{margin-left:455px;}
+
+.dicPic{ width: 398px; height: 265px;}
+.trainConIn .dicPic{ width: 248px; height: 165px;}
+
+.opeVipTest,.opeVipTestBg{ width: 57px;}
+.opeVipNews,.opeVipNewsBg{ width: 710px; height: 230px; padding:0 }
+.opeVipNews h2{ padding-top: 30px}
+.opeVipNews .btn{ height: 50px; line-height: 50px; padding: 0 35px;}
+
+.correctTips{right: 151px;}
+.work-quesCon .answer img{ max-width: 680px;  height:auto;  _width:expression(this.width > 680 ? "680px" : this.width)}
+.trainW520 .work-quesCon img{ max-width: 300px;  height:auto;  _width:expression(this.width > 300 ? "300px" : this.width)}
+

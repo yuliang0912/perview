@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "时文预览";
+    Layout = "~/Views/Shared/_EpaperLayout.cshtml";
+}
+
+<div id="_article_panel" data-bind="with: article">
+    <h2 class="topTit" data-bind="html:name"></h2>
+    <div class="boxMain">
+        @*<h2 class="newsTit" data-bind="html:name"></h2>*@
+        <div class="tc mt20" data-bind="if: parts.length > 0,visible: parts.length > 0" style="display: none">
+            <!--ko if: parts[0].list.length > 0  -->
+            <img data-bind="attr:{ 'src': parts[0].list[0].url }" />
+            <!--/ko-->
+            <!--ko if: parts[1].list.length > 0 -->
+            <div class="videoNews rel mt20" style="padding:20px">
+                <div id="divVideo" class="videoOnly" data-bind="with:parts[1].list[0]">
+                    <video data-bind="attr:{'src':http_mp4_url,'poster':cover_url}" width="100%" controls preload="metadata"></video>
+                </div>
+            </div>
+            <!-- /ko -->
+            <!--ko if: parts[2].list.length > 0 -->
+            <div class="videoNews rel mt20" data-bind="with:parts[2].list[0]" style="padding:20px">
+                @*<audio data-bind="attr:{'src':url}" preload="metadata">*@
+                <object type="application/x-shockwave-flash" data="/Content/Flash/player.swf" height="24" width="185">
+                    <param name="movie" value="/Content/Flash/player.swf">
+                    <param name="FlashVars" data-bind="attr:{'value':'titles=loading&amp;&amp;bg=0xf3f6f8&amp;leftbg=0xcef4da&amp;lefticon=0x647062&amp;voltrack:0xacb8aa&amp;volslider:0xc4d0c3&amp;rightbg=0x61d26a&amp;rightbghover=0x84e45e&amp;righticon=0xF2F2F2&amp;righticonhover=0xFFFFFF&amp;text=0x408d05&amp;track=0xFFFFFF&amp;border=0xffffff&amp;loader=0xc7e795&amp;tracker=0x6dae05&amp;soundFile='+url+ url.indexOf('http://img1.') > -1 ? '?filetype=mp3':''}">
+                    <param name=" quality" value="high">
+                    <param name="menu" value="false">
+                    <param name="wmode" value="transparent">
+                </object>
+                @*</audio>*@
+            </div>
+            <!-- /ko -->
+        </div>
+        <p class="dicWord cf " data-bind="html:content"></p>
+    </div>
+</div>
+
+<script type="text/javascript">
+    require(["ko", "epaperarticle"], function (ko, epaperarticle) {
+        ko.applyBindings(new epaperarticle.viewModel.preView({ id: '@Model.VersionId' }));
+    });
+</script>

@@ -1,0 +1,28 @@
+﻿@{
+    Layout = Model.Layout;
+}
+@model ResourceParam
+
+<div class="work-wrapper-dx area" id="_courseware_panel" data-bind="visible:coursewares().length > 0" style="display:none">
+	<section class="work-quesBox">
+		<div class="m20">
+			<table class="table_1 mt10">
+				<thead>
+					<tr><th>名称</th><th>操作</th></tr>
+				</thead>
+				<tbody data-bind="foreach:coursewares">
+					<tr><td data-bind="text: name + '.' + ext "></td><td><a data-bind="attr:{ 'href': getFileUrl($data) , 'target': '_blank' }, text: '去学习'"></a></td></tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
+</div>
+
+@section scripts{
+<script type="text/javascript">
+	require(["ko", "courseware"], function (ko, courseware) {
+		$("#_ebook_top hgroup h1").text("课件素材");
+		ko.applyBindings(new courseware.viewModel.preView({ packageId: "@Model.Package.PackageId", catalogueId: "@Model.TaskResultContent.PackageCatalogueId" }), document.getElementById("_courseware_panel"));
+	});
+</script>
+}

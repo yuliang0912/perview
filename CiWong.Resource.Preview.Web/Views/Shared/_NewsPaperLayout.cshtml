@@ -1,0 +1,28 @@
+﻿<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <link rel="dns-prefetch" href="//style.ciwong.net">
+    <link rel="dns-prefetch" href="//rimg2.ciwong.net">
+    <title>@(ViewBag.Title ?? "习网作业中心_电子作业_多媒体作业")</title>
+    <meta name="keywords" content="习网作业中心_电子作业_多媒体作业">
+    <meta name="description" content="习网作业中心_电子作业_多媒体作业">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0" />
+    @Html.Styles("default/css", "style.css?t=20150930")
+    @Html.Styles("default/css", "maxStyle.css?t=20150930")
+    @Html.Style("default/css", "minStyle.css?t=20150930", "media=\"screen and (max-width: 75em)\"")
+    @Html.Scripts("default/scripts", "require.js?v=1.0.0.11", "jquery-1.8.0.min.js")
+    <!--[if lt IE 9]>@Html.Scripts("default/scripts", "respond.min.js", "html5.js")<![endif]-->
+    <script type="text/javascript">
+        var _czc = _czc || [];
+        _czc.push(["_setAccount", "1253156366"]);
+    </script>
+</head>
+<body>
+    @RenderBody()
+    <script type="text/javascript">
+        var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+        document.write(unescape("%3Cspan style='display:none' id='cnzz_stat_icon_1253156366'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "w.cnzz.com/q_stat.php%3Fid%3D1253156366%26l%3D2' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</body>
+</html>

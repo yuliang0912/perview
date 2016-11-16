@@ -1,0 +1,83 @@
+﻿@{
+	Layout = Model.Layout;
+}
+@model WorkParam
+<div class="main mt1">
+	<div class="practice">
+		<h2 class="tc speakT">@Model.WorkResource.ResourceName</h2>
+		<div class="practiceBox">
+			@if (!string.IsNullOrEmpty(Model.UnitWork.Comment)) 
+			{ 
+			<table class="commentBox yh">
+				<tbody>
+					<tr>
+						<td>@Model.UnitWork.Comment</td>
+					</tr>
+				</tbody>
+			</table>
+			}
+			<div class="myVoice">
+				<h4 class="tit yh fb">我的最佳声音</h4>
+				<table class="voiceTb">
+					<tr>
+						<td>@Model.UnitWork.SubmitDate</td>
+						<td class="fb">@((Model.UnitWork.WorkLong / 60.0m).ToRound()) Min</td>
+						<td class="tl" width="400"><a>@Model.DoWorkBase.WorkName</a></td>
+						<td>@(Model.UnitWork.ActualScore.ToRound())分</td>
+						<td id="tbVoice"></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+@section scripts{
+<script type="text/javascript">
+	require(["ciwong", "./flash/audioplayer"], function (ciwong) {
+		var userAnswer;
+		ciwong.ajax.getJSON("/work/GetAnswer", { doId: "@Model.UnitWork.DoId", answerType: 1 }, function (data) {
+			userAnswer = data;
+		}, null, false).done(function () {
+			ciwong.colseLoading();
+		});
+
+		var videofile = "";
+		userAnswer && $.each(userAnswer, function (i, item) {
+			var answers = JSON.parse(item.answers);
+			answers && $.each(answers, function (i, an) {
+				var file = an.audio_url;
+				if (file != "" && file != undefined) {
+					if (file.indexOf("uploadfile") >= 0) {
+						videofile += file + ",";
+					}
+					else if (file.indexOf(".mp3") >= 0) {
+						videofile += file + ",";
+					} else {
+						videofile += file + ".mp3,"
+					};
+				}
+			});
+		});
+		var result = "--";
+		if (videofile != "") {
+			videofile = videofile.substring(0, videofile.length - 1);
+			result = CreatePlayer(videofile, "");
+		}
+		$("#tbVoice").html(result);
+	});
+	function CreatePlayer(url, title) {
+		var html = "-";
+		if (url != "") {
+			html = '<object type="application/x-shockwave-flash" data="/Content/Flash/audioplayer.swf" width="220" height="24" id="audioplayer7643">' +
+					   '<param name="movie" value="/Content/Flash/audioplayer.swf" />' +
+					   '<param name="FlashVars" value="playerID=7643&9dc41db04767&bg=0xf3f6f8&leftbg=0xcef4da&lefticon=0x647062&voltrack:0xacb8aa&volslider:0xc4d0c3&rightbg=0x61d26a&rightbghover=0x84e45e&righticon=0xF2F2F2&righticonhover=0xFFFFFF&text=0x408d05&slider=0x00BB00&track=0xFFFFFF&border=0xffffff&loader=0xc7e795&tracker=0x6dae05&soundFile=' + url + '" />' +
+					   '<param name="quality" value="high" />' +
+					   '<param name="menu" value="false" />' +
+					   '<param name="wmode" value="transparent" />' +
+					   '<embed src="/Content/Flash/audioplayer.swf?soundFile=' + url + '" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="220" height="24" /></embed>' +
+				   '</object>';
+		}
+		return html;
+	}
+</script>
+}

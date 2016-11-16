@@ -1,0 +1,41 @@
+﻿@{
+    Layout = Model.Layout;
+}
+@model ResourceParam
+<div id="_paper_panel" class="work-wrapper-dx area" data-bind="if:paper, visible: paper" style="display:none">
+	<div class="main">
+		<div class="testCont" data-bind="template:{ name: 'paperTemplate', data: paper, afterRender: afterRender }"></div>
+	</div>
+	<footer class="work-footer">
+		<div class="area">
+			<div class="fl signBar">
+				<a data-bind="click: correctQuestion,visible:viewType() == 1" class="sub-btn">提交并查看答案</a>
+				<a href="javascript:;" onclick="ciwong.colsePage()" class="w-btn ">关闭页面</a>
+			</div>
+		</div>
+	</footer>
+</div>
+@section scripts{
+<script type="text/javascript">
+    var settingOptions = {
+    	id: "@(Model.VersionId)",
+        isShowAnswer: true,
+        isShowThinking: '@Model.IsCan',//解题思路
+        isShowQuestionVideo: '@Model.IsCan',//解题视频
+    	afterRender: function () {
+    		$("#_ebook_top hgroup h1").text(this.paper().title);
+    	},
+    	correctComplete: function (data) {
+    		var score = 0;
+    		$.each(data, function () {
+    			score += this.score;
+    		})
+    		$("#_ebook_top hgroup").after('<div class="score"><p>总得分<span>{0}</span>分</p></div>'.format(parseFloat(score.toFixed(2))));
+    	}
+    };
+	require(["ko", "paper"], function (ko, paper) {
+		ko.applyBindings(new paper.viewModel.preView(settingOptions), document.getElementById("_paper_panel"));
+	});
+
+</script>
+}

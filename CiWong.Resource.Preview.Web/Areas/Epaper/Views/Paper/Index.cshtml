@@ -1,0 +1,88 @@
+﻿@{
+    ViewBag.Title = "试卷预览";
+    Layout = "~/Views/Shared/_EpaperLayout.cshtml";
+}
+
+<div id="_paper_panel" data-bind="if: paper, visible: paper" style="display:none">
+    <!-- ko with:paper -->
+    <h1 class="topTit" data-bind="html:title"></h1>
+    <!-- /ko -->
+    <div class="boxMain">
+        <section class="work-quesBox" data-bind="template: { name: 'paperTemplate', data:paper , afterRender: afterRender}"></section>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    require(['ko', 'paper'], function (ko, paper) {
+        ko.applyBindings(new paper.viewModel.preView(settingOptions), document.getElementById("_paper_panel"));
+    });
+
+    var settingOptions = {
+        id: "@(Model.VersionId)",
+        isShowAnswer: true,
+        moduleId: '@(ViewBag.ModuleId)',
+        isShowThinking: false,//解题思路
+        isShowQuestionVideo: false,//解题视频
+        afterRender: function () {
+            if (this.viewType() == 1) { timer = $("#timer").timer().start(); htmlEventHanlder(); } else { timer.stop(); }
+        },
+        correctComplete: function (data) {
+            var score = 0;
+            $.each(data, function () { score += this.score; })
+            $("#_score").html('<span class="scoreNum"><i>{0}</i>分</span>'.format(parseFloat(score.toFixed(2))));
+        }
+    };
+    function htmlEventHanlder() {
+        var lis = $('#_paper_panel .quesFastWay ul.numList').empty(),
+            numTog = $('.quesFastWay .tog');
+
+        for (var i = 1, j = $('div.testCont article.work-quesCon').length; i <= j; i++) {
+            lis.append('<li><a href="javascript:;">' + i + '</a></li>');
+        }
+
+        lis.find("li").click(function () {
+            var i = $(this).index(),
+                y = $('div.testCont article.work-quesCon').eq(i).offset().top - 104;
+            $('html,body').animate({ scrollTop: y }, 200);
+        });
+
+        numTog.live('click', function () {
+            if ($(this).hasClass("shrink")) {
+                lis.hide();
+                $(this).removeClass("shrink").attr("title", "展开题型列表");
+            } else {
+                lis.show();
+                $(this).addClass("shrink").attr("title", "收起题型列表");
+            }
+        });
+
+        $('a.goUp').live("click", function () {
+            $('html,body').animate({ scrollTop: 0 }, 300);
+        });
+
+        $("#_timer_tools span").die().live("click", function () {
+            timer.stop();
+            $.content('<div class="tc pauseDlg yh"><h4>当前已暂停答题</h4><a href="javascript:void(0);" id="_timer_tools_continue" class="btn" title="点击继续答题"></a></div>', function () {
+                timer.start();
+                $("#_timer_tools span").toggle();
+            });
+            $("div.d-mask").css({ "filter": "alpha(opacity=80)", "opacity": ".8" });
+            $("#_timer_tools span").toggle();
+        });
+
+        $("#_timer_tools_continue").die().live("click", function () {
+            $.dialog.list["content"].close();
+        });
+
+
+        $(window).scroll(function () {
+            if ($(this).scrollTop() < 118) {
+                $("#testQues").removeClass("testQuesFiex").addClass("testQues");
+            } else {
+                $("#testQues").removeClass("testQues").addClass("testQuesFiex");
+            }
+        })
+    }
+
+</script>

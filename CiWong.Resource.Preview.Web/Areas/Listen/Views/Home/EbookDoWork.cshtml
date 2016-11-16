@@ -1,0 +1,35 @@
+﻿@{
+	Layout = Model.Layout;
+}
+@model WorkParam
+<div class="work-wrapper-dx area" id="_listen_panel" style="display:none">
+	<div class="practice">
+		<h2 class="tc speakT">@Model.WorkResource.ResourceName</h2>
+		<div class="practiceBox">
+			<h4 class="trainTit trainTit2 yh tc"><img src="/Content/Default/images/face3.jpg" alt="" class="mr10">请佩戴好麦克风 开始听说模考作业</h4>
+			<p class="tc"><a href="javascript:;" data-bind="click: start" class="btnPractice yh" title="开始练习">做作业</a></p>
+			<p class="tc f14 gray mt20">点击按钮立即开始做作业</p>
+		</div>
+	</div>
+	<footer class="work-footer">
+		<div class="area">
+			<div class="fl signBar">
+				<a href="javascript:;" onclick="ciwong.colsePage()" class="w-btn ">关闭页面</a>
+			</div>
+		</div>
+	</footer>
+</div>
+@Html.Partial("~/Views/Shared/_download.cshtml")
+@section scripts{
+<script type="text/javascript">
+	var optionSettings = {
+		UserInfo: { user_id: "@(Model.User.UserID)", user_name: "@(Model.User.UserName)" },
+		WorkInfo: { VersionId: "@Model.WorkResource.VersionId", ContentId: "@Model.WorkResource.ContentId", DoWorkId: "@Model.DoWorkBase.DoWorkID" }
+	};
+	require(["ko", "listen"], function (ko, listen) {
+		ko.applyBindings(new listen.viewModel.doView(optionSettings), document.getElementById("_listen_panel"));
+		$("#_listen_panel").show();
+	});
+	$("#_ebook_top hgroup h1").html("@Model.WorkResource.ResourceName");
+</script>
+}

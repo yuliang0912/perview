@@ -1,0 +1,23 @@
+﻿@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+
+	ViewBag.Title = ViewBag.Title ?? "习网多媒体学习平台";
+}
+@section header{
+	@Html.Styles("default/css", "bookstyle.css?t=20150319")
+}
+<header class="work-Header badHead" id="_ebook_top">
+	<hgroup class="area"><h1></h1></hgroup>
+</header>
+@RenderBody()
+<div class="contrlBox">
+	<a href="javascript:;" class="goUp"></a>
+</div>
+@RenderSection("scripts", false)
+<script type="text/javascript">
+	$(function () {
+		$('a.goUp').live("click", function () {
+			$('html,body').animate({ scrollTop: 0 }, 300);
+		});
+	});
+</script>

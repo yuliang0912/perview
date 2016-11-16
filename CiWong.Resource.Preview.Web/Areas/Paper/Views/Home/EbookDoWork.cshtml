@@ -1,0 +1,106 @@
+﻿@{
+    Layout = Model.Layout;
+}
+@model WorkParam
+<div id="_paper_panel" class="work-wrapper-dx area" data-bind="if:paper, visible: paper" style="display:none">
+    <div class="testQues" id="testQues" style="display:none">
+        <div class="main testT  mt1 cf">
+            <div class="tit fl">
+                <h4 data-bind="text:paper().title"></h4>
+                <p>
+                    你写作业用时：
+                    <span id="timer">00:00:00</span>
+                    <i data-bind="visible: viewType()== 1" id="_timer_tools">
+                        <span class="timeSet"><i></i><em>暂停计时</em></span>
+                        <span class="timeSet continue" style="display:none"><i></i><em>继续答题</em></span>
+                    </i>
+                </p>
+            </div>
+            <div class="score fl tc" id="_score">
+                <a data-bind="click:submitWork">交作业</a>
+            </div>
+        </div>
+        <div class="quesFastWay" data-bind="visible: viewType()== 1">
+            <a href="javascript:;" class="tog" title="展开题型列表"></a>
+            <ul class="numList"></ul>
+            <a href="javascript:;" class="up"></a>
+        </div>
+    </div>
+    <div class="main">
+        <div class="testCont" data-bind="template:{ name: 'paperTemplate', data: paper, afterRender: afterRender }"></div>
+    </div>
+    <footer class="work-footer">
+        <div class="area">
+            <div class="fl signBar">
+                @if (Model.IsCan)
+                {
+                    <a data-bind="click: submitWork,visible:viewType() == 1" class="sub-btn">提交并查看答案</a>
+				}
+				else
+				{
+					<a href="/jump/buy?packageId=@Model.Package.PackageId" target="_blank" class="sub-btn">立刻购买</a>
+				}
+                <a href="javascript:;" onclick="ciwong.colsePage()" class="w-btn ">关闭页面</a>
+            </div>
+        </div>
+    </footer>
+</div>
+@section scripts{
+    <script type="text/javascript">
+        var settingOptions = {
+            id: "@(Model.WorkResource.VersionId)",
+            afterRender: function () {
+                timer = $("#timer").timer().start();
+                htmlEventHanlder();
+                $("#_ebook_top hgroup h1").text(this.paper().title);
+            },
+            submitWork: function () {
+                var model = this;
+                var userAnswers = model.getUserAnswer();
+                var postData = {
+                    workScore: model.paper().ref_score,
+                    content: JSON.stringify(userAnswers),
+                    questionCount: model.allSingleQuestions.length,
+                    workLong: timer.getTime()
+                };
+                if (userAnswers.length != postData.questionCount) {
+                    $.confirm("您的题目还未全部完成,是否确定提交?", function () {
+                        postData.workLong = timer.getTime();
+                        postWork(postData)
+                    }, null);
+                } else {
+                    postWork(postData);
+                }
+            }
+        };
+
+        function postWork(postData) {
+            ciwong.ajax.postJSON("/paper/submitwork?doWorkId=@(Model.DoWorkBase.DoWorkID)&contentId=@(Model.WorkResource.ContentId)", postData, function (data) {
+                timer.stop();
+                $.succeed("作业提交成功!", function () { location.reload(); });
+            }, null, null, true, function () { ciwong.ajax.isPreventRequest = true; });
+        }
+
+        var timer = null;
+        function htmlEventHanlder() {
+            $("#_timer_tools span").die().live("click", function () {
+                timer.stop();
+                $.content('<div class="tc pauseDlg yh"><h4>当前已暂停答题</h4><a href="javascript:void(0);" id="_timer_tools_continue" class="btn" title="点击继续答题"></a></div>', function () {
+                    timer.start();
+                    $("#_timer_tools span").toggle();
+                });
+                $("div.d-mask").css({ "filter": "alpha(opacity=80)", "opacity": ".8" });
+                $("#_timer_tools span").toggle();
+            });
+
+            $("#_timer_tools_continue").die().live("click", function () {
+                $.dialog.list["content"].close();
+            });
+        }
+
+        require(["ko", "paper"], function (ko, paper) {
+            ko.applyBindings(new paper.viewModel.preView(settingOptions), document.getElementById("_paper_panel"));
+        });
+
+    </script>
+}

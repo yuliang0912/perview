@@ -1,0 +1,22 @@
+﻿<script type="text/html" id="ShareTemplate">
+    <a href="javascript:void(0)" class="ico-share"></a>
+    <span style="display: none;" class="shareBox cf">
+        <!--ko foreach: ShareList -->
+		<a data-bind="attr:{ 'title':tip ,'class': cls },click: $parent.share"></a>
+        <!--/ko-->
+    </span>
+</script>
+<script>
+    $(function () {
+        showShare();//显示分享
+    });
+
+    //显示分享
+    function showShare() {
+        $('.ico-share').live("mouseover",
+           function () { $("#share .shareBox").show(); }
+       );
+       $(".shareBox").live("mouseout", function () { $("#share .shareBox").hide(); }).live("mouseover", function () { $("#share .shareBox").show(); });;
+    }
+</script>
+

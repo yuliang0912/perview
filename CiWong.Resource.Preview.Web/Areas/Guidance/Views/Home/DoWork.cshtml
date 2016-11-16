@@ -1,0 +1,110 @@
+﻿@{
+    Layout = Model.Layout;
+}
+@model WorkParam
+<div id="_guidance_panel" class="work-wrapper-dx area" data-bind="if: guidance">
+    <div class="testQues" id="testQues" style="display:none">
+        <div class="main testT  mt1 cf" style="width:100%">
+            <div class="tit fl" style="width:670px">
+                <p>
+                    你写作业用时：
+                    <span id="timer">00:00:00</span>
+                    <i data-bind="visible: viewType()== 1" id="_timer_tools">
+                        <span class="timeSet"><i></i><em>暂停计时</em></span>
+                        <span class="timeSet continue" style="display:none"><i></i><em>继续答题</em></span>
+                    </i>
+                </p>
+            </div>
+            <div class="score fl tc" id="_score">
+                <a data-bind="click:submitWork">交作业</a>
+            </div>
+        </div>
+    </div>
+    <section class="work-quesBox" data-bind="visible: guidance().stepList.length > 0,with: guidance" style="display: none">
+        <div class="read-step" style="margin-top: -60px">
+            <ul class="tepList cf" style="padding-left: 0;" data-bind="foreach: stepList" id="_step_change">
+                <li>
+                    <i class="ico"></i>
+                    <p class="qt"><em data-bind="text: '步骤'+ ($index() + 1)"></em><i class="arrow a-t"></i><i class="arrow a-in-t"></i></p>
+                </li>
+            </ul>
+        </div>
+        <div data-bind="foreach: stepList">
+            <div data-bind="visible: $index() == 0, attr:{ id: 'step_' + $index() }">
+                <div class="work-t read-com" style="padding: 20px;">
+                    <h4 class="f18 tc" data-bind="text:name"></h4>
+                    <div class="t2em" data-bind="html:content"></div>
+                </div>
+                <nav class="work-quesT" data-bind="visible:questions().list().length > 0">
+                    <h3 class="t"><i></i>练一练</h3>
+                </nav>
+                <div data-bind="template: { name: 'questionListTemplate', data: questions, afterRender: $root.afterRender }">
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="work-footer">
+        <div class="area">
+            <div class="fl signBar">
+                <a data-bind="click: submitWork" class="sub-btn">提交作业</a>
+                <a href="javascript:;" onclick="ciwong.colsePage()" class="w-btn ">关闭页面</a>
+            </div>
+        </div>
+    </footer>
+</div>
+@section scripts{
+    <script type="text/javascript">
+        require(["ko", "guidance"], function (ko, guidance) {
+            ko.applyBindings(new guidance.viewModel.preView(settingOptions), document.getElementById("_guidance_panel"));
+        });
+
+        var settingOptions = {
+            id: "@(Model.WorkResource.VersionId)",
+            afterRender: function () {
+                timer = $("#timer").timer().start();
+                htmlEventHanlder();
+            },
+            submitWork: function () {
+                var model = this;
+                var userAnswers = model.getUserAnswer();
+                var postData = {
+                    workLong: timer.getTime(),
+                    content: JSON.stringify(userAnswers),
+                    questionCount: model.allSingleQuestions()
+                };
+                if (userAnswers.length != postData.questionCount) {
+                    $.confirm("您的题目还未全部完成,是否确定提交?", function () {
+                        postData.workLong = timer.getTime();
+                        postWork(postData)
+                    }, null);
+                } else {
+                    postWork(postData);
+                }
+            }
+        };
+
+        function postWork(postData) {
+            ciwong.ajax.postJSON("/Guidance/submitwork?doWorkId=@(Model.DoWorkBase.DoWorkID)&contentId=@(Model.WorkResource.ContentId)", postData, function (data) {
+                timer.stop();
+                $.succeed("作业提交成功!", function () { location.reload(); });
+            }, null, null, true, function () { ciwong.ajax.isPreventRequest = true; });
+        }
+
+        var timer = null;
+        function htmlEventHanlder() {
+            $("#_timer_tools span").die().live("click", function () {
+                timer.stop();
+                $.content('<div class="tc pauseDlg yh"><h4>当前已暂停答题</h4><a href="javascript:void(0);" id="_timer_tools_continue" class="btn" title="点击继续答题"></a></div>', function () {
+                    timer.start();
+                    $("#_timer_tools span").toggle();
+                });
+                $("div.d-mask").css({ "filter": "alpha(opacity=80)", "opacity": ".8" });
+                $("#_timer_tools span").toggle();
+            });
+
+            $("#_timer_tools_continue").die().live("click", function () {
+                $.dialog.list["content"].close();
+            });
+        }
+    </script>
+}

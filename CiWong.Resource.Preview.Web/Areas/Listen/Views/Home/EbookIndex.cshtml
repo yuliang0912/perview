@@ -1,0 +1,58 @@
+﻿@{
+    Layout = Model.Layout;
+}
+@model ResourceParam
+@Html.Styles("question/css", "question.css")
+<div class="work-wrapper-dx area" id="_listen_panel" style="display:none">
+    <div class="trainCon cf">
+        <div class="trainL fl">
+            <ul class="trainMenu">
+                @if (null != Model.CategoryContent)
+                {
+                    foreach (var item in Model.CategoryContent.ResultContents.Where(t => t.ModuleId == 15))
+                    {
+                        <li data-version="@item.ResourceVersionId"><p><a href="javascript:;" class="dot"></a><a href="/listen?packageId=@item.PackageId&cid=@item.PackageCatalogueId&versionId=@item.ResourceVersionId">@(item.ResourceName)</a></p></li>
+                    }
+                }
+                else
+                {
+                    <li data-version="@Model.VersionId"><p><a href="javascript:;" class="dot"></a><a href="javascript:;" id="resourceName"></a></p></li>
+                }
+            </ul>
+        </div>
+        <div class="trainConIn">
+            <div class="trainChoice">
+                <h4 class="trainTit yh tc" id="listen_tips">完全按照中考听说考试题型和考试模式设置，两种训练方式自由切换 <a href="javascript:;" class="closed"></a></h4>
+                <div style="display:none" id="listen_content">
+                    <p class="tc" style="padding:50px 0;"><img src="/content/default/images/face.jpg" alt=""></p>
+                    <!--ko template: { name: 'listenTemplate'} --><!--/ko-->
+                </div>
+                <div class="tc mt20" id="listen_loading">
+                    <img src="/content/default/images/enter-loading.gif" alt="loading..." />
+                    <span>请稍等，正在加载中......</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="work-footer">
+        <div class="area">
+            <div class="fl signBar">
+                <a href="javascript:;" onclick="ciwong.colsePage()" class="w-btn ">关闭页面</a>
+            </div>
+        </div>
+    </footer>
+</div>
+@Html.Partial("~/Views/Shared/_download.cshtml")
+@section scripts{
+    <script type="text/javascript">
+        require(["ko", "listen"], function (ko, listen) {
+            ko.applyBindings(new listen.viewModel.preView({ id: "@(Model.VersionId)", user_id: "@(Model.User.UserID)", user_name: "@(Model.User.UserName)" }), document.getElementById("_listen_panel"));
+            $("ul.trainMenu li[data-version=@Model.VersionId]").addClass("curr");
+        });
+
+        $("#listen_tips a").click(function () {
+            $("#listen_tips").hide();
+        });
+        _czc.push(["_setCustomVar", "电子书-自主练习", "听力模考", 1]);
+    </script>
+}

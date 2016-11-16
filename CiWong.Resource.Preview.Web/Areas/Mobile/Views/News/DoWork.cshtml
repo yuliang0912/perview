@@ -1,0 +1,113 @@
+﻿@{Layout = "~/Views/Shared/_MobileNewsPaperLayout.cshtml";}
+@model WorkParam
+@Html.Styles("Mobile/css", "question.css")
+<style>
+    .rel {position: relative;}
+    .yh {font-family: "microsoft yahei","simhei","simsun";}
+    .opeVipNews {position: absolute;right: 0;top: 0;width: 100%;height: 100%;background-color: rgba(0,0,0,0.8);text-align: center;color: #fff;}
+    .opeVipNews a {color: #fff;}
+    .opeVipNews h2 {color: #fffc00;font-size: 30px;padding-top: 100px;}
+    .opeVipNews h4 {font-size: 24px;}
+    .opeVipNews .btn {height: 70px;line-height: 70px;padding: 0 45px;background: #4a0;border-radius: 5px;display: inline-block;font-size: 24px;color: #fff;}
+</style>
+<div class="main mt1" id="_article_panel" data-bind="if: article, visible: article" style="display:none;padding:20px">
+    <div class="p20" style="background: #fff" data-bind="with: article">
+        <h4 class="newsT tc" data-bind="text:name"></h4>
+        <div class="newsCont mt20 testCont">
+            <div class="tc mt20" data-bind="if: parts.length > 0,visible: parts.length > 0" style="display: none">
+                <!--ko if: parts[0].list.length > 0  -->
+                <img data-bind="attr:{ 'src': parts[0].list[0].url }" />
+                <!--/ko-->
+                <!--ko if: parts[1].list.length > 0  -->
+                @*<div id="divVideo" style="height: 500px;" data-bind="with:parts[1].list[0]">
+                        <script type="text/javascript" data-bind="attr:{ 'src':getPlayerUrl(source_id,name,cover_url) }"></script>
+                    </div>*@
+                <div class="videoNews rel">
+                    <div id="divVideo" class="videoOnly" style="height: 500px;" data-bind="with:parts[1].list[0]">
+                        <script type="text/javascript" data-bind="attr:{ 'src':getPlayerUrl(source_id,name,cover_url) }"></script>
+                    </div>
+                    @if (!Model.IsCan)
+                    {
+                        <div class="opeVipNewsBg"></div><!---遮罩层---->
+                        <div class="tc opeVipNews yh">
+                            <h2>开通会员</h2>
+                            <h4>可免费享受持续更新的视频新闻!</h4>
+                            <p class="mt20"><a href="javascript:void(0)" data-bind="click:$root.OpenServise" class="btn">立即开通</a></p>
+                        </div>
+                    }
+                </div>
+                <!--/ko-->
+            </div>
+            <div id="videoContext" style="border-bottom: 1px dashed gray;"></div>
+            <div class="mt20"><p data-bind="html:ciwong.encoder.htmlDecode(content)"></p></div>
+        </div>
+        <p class="submit tc" data-bind="visible: $root.viewType() == 1">
+            @if (!Model.IsCan)
+            {
+                <a href="javascript:;" data-bind="click:$root.OpenServise" class="btn-01">开通会员</a>
+            }
+            else
+            {
+                <a href="javascript:;" data-bind="click:$root.submitWork" class="btn-01">我读完了</a><em id="timer" data-bind="visible: $root.viewType() == 1"></em>
+            }
+        </p>
+    </div>
+    <!--ko template: { afterRender: afterRender } -->
+    <!--/ko-->
+</div>
+@section scripts{
+    <script type="text/javascript">
+        require(["ko", "article", "dialog"], function (ko, article) {
+            ko.applyBindings(new article.viewModel.preView(settingOptions), document.getElementById("_article_panel"));
+        });
+        var timer = null;
+        var settingOptions = {
+            id: "@(Model.WorkResource.VersionId)",
+            viewType: "@(Model.workStatus == 3 ? 2 : 1)",
+            afterRender: function () {
+                if (settingOptions.viewType == 1) {
+                    !timer && (function () {
+                        timer = $("#timer").timer().start();
+                    })();
+                } else {
+                    $("#timer").timer({ startTimeLine: "@(Model.workStatus == 3 ? Model.UnitWork.WorkLong : 0)" });
+                }
+            },
+            submitWork: function (data, event) {
+                var model = this;
+                var postData = {
+                    workLong: timer.getTime()
+                };
+                ciwong.ajax.postJSON("/news/submitwork?doWorkId=@(Model.DoWorkBase.DoWorkID)&contentId=@(Model.WorkResource.ContentId)", postData, function (data) {
+                    timer.stop();
+                    model.viewType(2);
+                    $.succeed("作业提交成功!", function () {
+                        //提交作业后回调android或ios客户端的方法并传递其所需的分数等参数
+                        var agentInfo = window.navigator.userAgent;
+                        if (agentInfo.indexOf("Android") > -1) {
+                            window.WebLoad.getSumitState(1); //int state获取提交状态  0：提交失败；1：提交成功;
+                        } else if (agentInfo.indexOf("iPhone") > -1 || agentInfo.indexOf("iPad") > -1 || agentInfo.indexOf("iPod") > -1) {
+                            //var url = "ciwong_jingsai://" + 1; //iphone调用
+                            //document.location.href = url; //iPhone调用
+                        }
+                    });
+                }, null, null, true, function () { ciwong.ajax.isPreventRequest = true; });
+            }
+        };
+
+        function getPlayerUrl(sourceId, title, conver) {
+            conver = conver || "";
+            return "/Content/Default/scripts/sewisePlayer/SewiseSubtitles.js?autostart=false&logo=/content/default/images/vplaylogo.png&server=vod&sourceid=" + sourceId + "&buffer=5&poster=" + conver + "&skin=vodOrange&title=" + title + "&claritybutton=disable&lang=zh_CN";
+        }
+
+        $(function () {
+            /**延迟1s加载**/
+            setTimeout(function () {
+                $("#videoContext").html($(".subtitles_layout").html());
+                $("#divVideo .subtitles_layout").remove();
+                $("#divVideo .player_layout").css({ width: '100%' });
+                $("#videoContext").find(".subtitles_layout").removeClass("subtitles_layout");
+            }, 1000);
+        });
+    </script>
+}

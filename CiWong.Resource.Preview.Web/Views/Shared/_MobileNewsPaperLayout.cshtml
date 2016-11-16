@@ -1,0 +1,32 @@
+﻿<!doctype html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<link rel="dns-prefetch" href="//style.ciwong.net">
+	<link rel="dns-prefetch" href="//rimg2.ciwong.net">
+	<title>@(ViewBag.Title ?? "习网作业中心_电子作业_多媒体作业")</title>
+	<meta name="keywords" content="习网作业中心_电子作业_多媒体作业">
+	<meta name="description" content="习网作业中心_电子作业_多媒体作业">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+	@Html.Scripts("default/scripts", "require.js?v=1.0.0.10", "jquery-1.8.0.min.js")
+    @Html.Scripts("audiojs", "audio.js")
+    @*<script>
+        audiojs.events.ready(function () {
+            audiojs.createAll();//不能在这里实例化所有音频对象，因为ko渲染可能尚未完成从而找不到音频对象
+        });
+    </script>*@
+	<script type="text/javascript">
+		var _czc = _czc || [];
+		_czc.push(["_setAccount", "1253156366"]);
+	</script>
+</head>
+<body>
+    @RenderBody()
+    <div style="height: 50%; display: block; width: 100%;"></div>
+    @RenderSection("scripts", false)
+    <script type="text/javascript">
+        var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+        document.write(unescape("%3Cspan style='display:none' id='cnzz_stat_icon_1253156366'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "w.cnzz.com/q_stat.php%3Fid%3D1253156366%26l%3D2' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</body>
+</html>

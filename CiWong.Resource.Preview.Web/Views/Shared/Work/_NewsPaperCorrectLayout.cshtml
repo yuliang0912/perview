@@ -1,0 +1,50 @@
+﻿@{
+	Layout = "~/Views/Shared/_NewsPaperLayout.cshtml";
+
+	var baseParam = ViewBag.baseParam as WorkParam;
+
+	ViewBag.Title = ViewBag.Title ?? "电子报_作业_" + baseParam.WorkResource.ResourceName;
+}
+
+<div id="_newspaper_top">
+	<div class="header">
+		<div class="main cf" style="position:relative;">
+			<p class="grade fl" data-bind="text: grade"></p>
+			<p class="edition fl yh" data-bind="text: bookVersion"></p>
+			<p class="area yh tc fr" data-bind="text:area"></p>
+			<div class="service cf">
+				<a href="http://chat.live800.com/live800/chatClient/chatbox.jsp?companyID=92071&amp;configID=115414&amp;jid=2459128748" target="_blank" title="服务时间：8：30-21：30" class="onl fr"></a>
+			</div>
+		</div>
+	</div>
+
+	<div class="main top cf">
+		<em class="top-l"></em><em class="top-r"></em>
+		<div class="fl menu menu-wk cf">
+			<h4 class="tit fb"><i class="ico-menu fl"></i><span class="txt fl">@baseParam.DoWorkBase.WorkName</span><i data-bind="attr:{ 'class': works().length > 0 ? 'arrowD':'' }"></i></h4>
+		</div>
+	</div>
+</div>
+
+<p class="tc mt20" id="nw_loading">
+	<img src="/content/default/images/enter-loading.gif" alt="loading..." />
+	<span>请稍等，正在加载中......</span>
+</p>
+
+@RenderBody()
+<div class="foot tc" id="newspaper_foot" style="display:none">Copyright © 2008 - @(DateTime.Now.Year) CiWong.Inc. All Rights Reserved</div>
+@RenderSection("scripts", false)
+<script type="text/javascript">
+	require(["ko", "newspaper"], function (ko, newspaper) {
+		var settingOptions = {
+			packageId: "@baseParam.Package.PackageId",
+			taskId: "@baseParam.WorkResource.TaskId",
+			gradeId: "@baseParam.Package.GradeId",
+			bookVersion: "@baseParam.Package.BookVersion",
+			areaName: "@baseParam.Package.CityName" || "@baseParam.Package.ProvincelName"
+		};
+
+		ko.applyBindings(new newspaper.viewModel.preView(settingOptions), document.getElementById("_newspaper_top"));
+	});
+</script>
+

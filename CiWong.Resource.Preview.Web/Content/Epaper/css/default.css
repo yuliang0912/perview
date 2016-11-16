@@ -1,0 +1,31 @@
+﻿@charset "utf-8";
+/*Author:lilong*/
+html{ _background-image:url(about/blank); filter:expression(document.execCommand("BackgroundImageCache", false, true)); height:100%;}
+body,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,input,textarea,p,tr,th,td{ padding:0; margin:0; }/*word-wrap:break-word; word-break:break-all;*/
+i,em { font-style:normal; padding:0; margin:0;}
+body{ font-family:"microsoft yahei" Arial, sans-serif,"simsun"; color:#666;  font-size: 100%;  height:100%;}
+h1,h2,h3,h4,h5,h6{ font-size:100%; font-weight:normal;}
+input[type="button"], input[type="submit"],button{ outline:none; }
+input[type="text"],textarea,select {outline:none;}
+textarea {resize:none;}
+table {	border-collapse:collapse; border-spacing:0; border:none;}
+ul,ol{list-style:none;}
+img { border:none; margin:0; padding:0; vertical-align:middle; }
+a{text-decoration:none; cursor:pointer; noFocusLine:expression(this.onFocus=this.blur()); outline:none; color:#46c43c;}
+a:hover{color:#71ce31; text-decoration:none;}
+
+.cf:after,.cf:before {content:""; display:table;}
+.cf:after {clear:both;}
+.tc{text-align: center;}
+
+.topTit{font-family:"microsoft yahei"; height: 70px; line-height: 70px; font-size: 30px; text-align: center; color: #fff; background: #19b200; position:fixed; left: 0 ;top: 0; width: 100%; z-index: 10;  _position:absolute; _top:expression(documentElement.scrollTop);}
+.boxMain{ width: 920px; margin:0 auto; padding: 110px 0 10px}
+
+.newsBox{ color: #66667c; margin-bottom: 10px; line-height: 34px;  }
+.newsTit{font-size: 32px; color:#11262e; text-align: center; margin-bottom: 20px;}
+.newsBox p{ font-size:16px;}
+.newsBox img{ margin-bottom: 20px; max-width: 920px; _width:expression(this.width > 920 ? "920px" : this.width)}
+.dicWord i{float: left; height: 53px; line-height: 53px; width: 200px; overflow: hidden; border: solid 1px #eee; background: #f8f8f8; font-size:16px; text-align: center; border-radius: 2px; margin: 25px 0 0 25px; border-radius: 5px;}
+.lessonTab{ height: 44px; border-bottom: solid 1px #dcdcdc; font-size:18px; _overflow: hidden; margin-bottom: 20px;}
+.lessonTab li{ cursor: pointer; height: 43px; line-height: 42px; padding: 0 20px; border-radius: 8px 8px 0 0; float: left; margin-right: 10px; background: #f4f4f4; border:solid 1px #dcdcdc; border-bottom: solid 1px #dcdcdc;}
+.lessonTab li.curr{color: #000; height: 42px; background: #fff;  border-bottom: solid 1px #fff; position: relative; bottom: -1px}

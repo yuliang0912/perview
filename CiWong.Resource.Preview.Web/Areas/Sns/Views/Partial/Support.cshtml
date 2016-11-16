@@ -1,0 +1,43 @@
+﻿<script type="text/html" id="SupportTemplate">
+    <a onclick="support(0); $('#like-ico').attr('class','ico-liked');"><i id="like-ico" class="ico-like"></i>
+        <p><em id="emNum">-</em></p>
+    </a>
+    <a style="display: none;" class="ico-liked"></a>
+    <p id="addOne" class="addOne">+1</p>
+	<input type="hidden" id="hiddArticleId" data-bind="attr:{ 'value':$data }" />
+</script>
+<script>
+    function support(status) {
+        var articleId = $("#hiddArticleId").val();
+        var num = 0;
+        var params = {
+            status: status,
+            articleId: articleId
+        };
+        ciwong.ajax.getJSON("/Sns/Partial/setSupport", params, function (result) {
+            if (result == "1") {
+                $.alert("您已经赞过啦！");
+            }
+            else {
+                if (status == 0) {
+                    num = parseInt($("#emNum").text()) + 1;
+                    $("#emNum").text(num);
+                    score();
+                }
+                if (status == 1) {
+                    num = parseInt($("#emLowNum").text()) + 1;
+                    $("#emLowNum").text(num);
+                }
+            }
+        });
+    }
+
+    function score() {
+        $("#addOne").show();
+        $("#addOne").css({ top: "20px" });
+        if ($.browser.msie) { $("#addOne").animate({ top: "-20px" }, 800, function () { $("#addOne").hide() }) } else {
+            $("#addOne").animate({ opacity: "0", top: "-20px" }, 800, function () { $("#addOne").hide() });
+        }
+    }
+</script>
+

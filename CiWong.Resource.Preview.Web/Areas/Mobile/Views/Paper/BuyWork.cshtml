@@ -1,0 +1,23 @@
+﻿@{
+    Layout = "~/Views/Shared/_MobileNewsPaperLayout.cshtml";
+}
+@model WorkParam 
+    <div class="buyingTips cf">
+        <img src="/Content/default/images/tipsimg.jpg" alt="" class="fl">
+        <p class="txt yh">
+            @(Model.PackagePermission == null ? "亲，您还没有购买该商品哦！" : "亲，您的使用期已经结束了哦！")<br />如要使用，请先购买！
+        </p>
+        <p><a href="/jump/buy?packageId=@Model.WorkResource.PackageId" class="btn-1 yh">立即购买</a></p>
+    </div> 
+<style>
+    .buyingTips {background: #fff;width: 320px;text-align: center;max-width: 90%;margin: 0 auto;padding-top: 30px;}
+    .buyingTips .txt {color: #333;font-size: 24px;line-height: 48px;padding: 30px 0;}
+    .btn-1 {width: 200px;height: 51px;display: inline-block;line-height: 51px;text-align: center;font-size: 24px;color: #fff;background: #e6343c;border-radius: 5px;text-decoration: none;}
+    .btn-1:hover {color: #fff;text-decoration: none;}
+</style>
+<script type="text/javascript">
+    $("#nw_loading").hide();
+    $(function () {
+        $("#newspaper_foot").toggle();
+    })
+</script>

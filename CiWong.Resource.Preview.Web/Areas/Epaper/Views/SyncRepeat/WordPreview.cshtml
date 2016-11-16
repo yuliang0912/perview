@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "单词列表预览";
+    Layout = "~/Views/Shared/_EpaperLayout.cshtml";
+}
+
+<div id="_article_panel" data-bind="with: entity">
+    <h1 class="topTit" data-bind="html:name"></h1>
+    <div class="boxMain">
+        <p class="dicWord cf " data-bind="foreach:$data.parts">
+            <!-- ko if:id=="word"-->
+            <!-- ko foreach:list -->
+            <i data-bind="html:name"></i>
+            <!--/ko-->
+            <!--/ko-->
+        </p>
+    </div>
+</div>
+<script type="text/javascript">
+    require(["ko", "epapersyncrepeat"], function (ko, epapersyncrepeat) {
+        ko.applyBindings(new epapersyncrepeat.viewModel.previewModel({ id: '@Model.VersionId' }));
+    });
+</script>

@@ -1,0 +1,44 @@
+﻿@{
+    Layout = Model.Layout;
+}
+@model ResourceParam
+<div id="_guidance_panel" class="work-wrapper-dx area" data-bind="if: guidance">
+    <section class="work-quesBox" data-bind="visible: guidance().stepList.length > 0,with: guidance" style="display: none">
+        <div class="read-step" style="margin-top: -60px">
+            <ul class="tepList cf" style="padding-left: 0;" data-bind="foreach: stepList" id="_step_change">
+                <li>
+                    <i class="ico"></i>
+                    <p class="qt"><em data-bind="text: '步骤'+ ($index() + 1)"></em><i class="arrow a-t"></i><i class="arrow a-in-t"></i></p>
+                </li>
+            </ul>
+        </div>
+        <div data-bind="foreach: stepList">
+            <div data-bind="visible: $index() == 0, attr:{ id: 'step_' + $index() }">
+                <div class="work-t read-com" style="padding: 20px;">
+                    <h4 class="f18 tc" data-bind="text:name"></h4>
+                    <div class="t2em" data-bind="html:content"></div>
+                </div>
+                <nav class="work-quesT" data-bind="visible:questions().list().length > 0">
+                    <h3 class="t"><i></i>练一练</h3>
+                </nav>
+                <div data-bind="template: { name: 'questionListTemplate', data: questions, afterRender: $root.afterRender }">
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="work-footer">
+        <div class="area">
+            <div class="fl signBar">
+                <a data-bind="click: correctQuestion,visible:viewType() == 1" class="sub-btn">提交并查看答案</a>
+                <a href="javascript:;" onclick="ciwong.colsePage()" class="w-btn ">关闭页面</a>
+            </div>
+        </div>
+    </footer>
+</div>
+@section scripts{
+<script type="text/javascript">
+	require(["ko", "guidance"], function (ko, guidance) {
+		ko.applyBindings(new guidance.viewModel.preView({ id: "@(Model.VersionId)" }), document.getElementById("_guidance_panel"));
+	});
+</script>
+}

@@ -1,0 +1,51 @@
+﻿@{
+	Layout = Model.Layout;
+}
+@model ResourceParam
+<div class="main mt1" id="_article_panel" data-bind="if: article">
+	<div class="p20" style="background: #fff" data-bind="with: article">
+		<h4 class="newsDlgT tc" data-bind="text:name"></h4>
+		<div class="newsCont mt20">
+			<div class="tc mt20" data-bind="if: parts.length > 0,visible: parts.length > 0" style="display: none">
+				<!--ko if: parts[0].list.length > 0  -->
+				<img data-bind="attr:{ 'src': parts[0].list[0].url }" />
+				<!--/ko-->
+				<!--ko if: parts[1].list.length > 0  -->
+				<div id="divVideo" style="height: 500px;" data-bind="with:parts[1].list[0]">
+					<script type="text/javascript" data-bind="attr:{ 'src':getPlayerUrl(source_id,name,cover_url) }"></script>
+				</div>
+				<!--/ko-->
+			</div>
+			<div class="mt20"><p data-bind="html:content"></p></div>
+			<div class="tc mt20" data-bind="visible: $root.viewType() == 1"><a data-bind="click: $root.submitWork" class="btn-big">完成版本阅读</a></div>
+		</div>
+	</div>
+	<span id="timer" style="display: none">00:00:00</span>
+	<!--ko template: { afterRender: afterRender } -->
+	<!--/ko-->
+</div>
+<div id="Jihuajiyi" style="display: none"></div>
+@Html.Scripts("default/scripts", "/haici/huaci.js")
+@section scripts{
+<script type="text/javascript">
+	require(["ko", "article"], function (ko, article) {
+		$(function () {
+			ko.applyBindings(new article.viewModel.preView(settingOptions), document.getElementById("_article_panel"));
+		});
+	});
+
+    var timer = null;
+    var settingOptions = {
+        id: "@(Model.VersionId)",
+        viewType: 3,
+        afterRender: function () {
+            timer = $("#timer").timer().start();
+        }
+    };
+
+	function getPlayerUrl(sourceId, title, conver) {
+		conver = conver || "";
+		return "/Content/Default/scripts/sewisePlayer/SewiseSubtitles.js?autostart=false&logo=/content/default/images/vplaylogo.png&server=vod&sourceid=" + sourceId + "&buffer=5&poster=" + conver + "&skin=vodOrange&title=" + title + "&claritybutton=disable&lang=zh_CN";
+	}
+</script>
+}

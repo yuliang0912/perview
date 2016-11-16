@@ -1,0 +1,36 @@
+﻿@{
+    Layout = "~/Views/Shared/_MobileNewsPaperLayout.cshtml";
+}
+@model WorkParam
+<div class="testCont" data-bind="template:{ name: 'paperTemplate', data: paper, afterRender: afterRender }"></div>
+<p class="submit cf"><span class=" fl ml10 time">你写作业用时：<time id="timer">00:00:00</time></span><span class="score fr mr10" id="_totalScore">得分<i>@Model.UnitWork.ActualScore.ToRound()</i>分</span></p>
+@section scripts{
+    <script type="text/javascript">
+        require(["ko", "mobilepaper"], function(ko, paper) {
+            ko.applyBindings(new paper.viewModel.resultView(settingOptions));
+        });
+
+        var settingOptions = {
+            id: "@(Model.WorkResource.VersionId)",
+            doId: "@(Model.UnitWork.DoId)",
+            isShowAnswer: '@(Model.IsCan ? 1 : 0)',
+            isShowThinking: '@(Model.IsCan ? 1 : 0)',
+            afterRender: function() {
+                $("#timer").timer({ startTimeLine: "@Model.UnitWork.WorkLong" });
+            }
+        };
+        //提交作业后回调android或ios客户端的方法并传递其所需的分数等参数,
+        //但由于ajax提交作业的后端公共处理方法只返回作业Id不支持这里返回分数的个性化需求，
+        //所以将客户端回调延迟到刷新页面显示系统自动批改作业结果时
+        var agentInfo = window.navigator.userAgent;
+        var totalScore = parseFloat('@Model.UnitWork.ActualScore');
+        if (agentInfo.indexOf("Android") > -1) {
+            window.WebLoad.getResultScore(totalScore); //获取试卷分数或者听说模考的批改分数float score;
+        } else if (agentInfo.indexOf("iPhone") > -1 || agentInfo.indexOf("iPad") > -1 || agentInfo.indexOf("iPod") > -1) {
+            //var url = "ciwong_jingsai://" + 1; //iphone调用     
+            //document.location.href = url; //iPhone调用 
+        }
+    </script>
+}
+
+

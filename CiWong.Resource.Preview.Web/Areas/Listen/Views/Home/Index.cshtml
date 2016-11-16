@@ -1,0 +1,88 @@
+﻿@{
+    Layout = Model.Layout;
+}
+@model ResourceParam
+<script>
+	$("#nw_loading").hide();
+</script>
+<div class="main" id="_listen_panel">
+    <div class="trainCon cf">
+        <div class="trainL fl">
+            <ul class="trainMenu">
+                @if (null != Model.CategoryContent)
+                {
+                    foreach (var item in Model.CategoryContent.ResultContents.Where(t => t.ModuleId == 15))
+                    {
+                        <li data-version="@item.ResourceVersionId"><p><a href="javascript:;" class="dot"></a><a href="/listen?packageId=@item.PackageId&cid=@item.PackageCatalogueId&versionId=@item.ResourceVersionId">@(item.ResourceName)</a></p></li>
+					}
+				}
+				else
+				{
+					<li class="curr"><p><a href="javascript:;" class="dot"></a><a href="javascript:;" id="resourceName"></a></p></li>
+				}
+            </ul>
+        </div>
+        <div class="trainConIn">
+            @if (!Model.IsCan)
+            {
+                <div class="trainChoice" style="background:white">
+                    <div class="testTit cf ovh">
+                        <img src="/content/default/images/face4.jpg" alt="">
+                        <p class="tit">完全按照@((Model.Package != null && Model.Package.PeriodId == 1003) ? "中考" : "")听说考试题型和考试模式设置，两种训练方式自由切换</p>
+						<p><i class="ico-clock"></i><em class="f14">购买后才能答题喔!</em><a href="/jump/buy?packageId=@Model.Package.PackageId" target="_blank" class="btn ml20">立即购买</a></p>
+                    </div>
+                    <div id="_paper_panel" data-bind="if:paper,visible: paper">
+                        <!--ko template:{ name: 'paperTemplate', data: paper, afterRender: afterRender } --><!-- /ko -->
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="trainChoice">
+                    <h4 class="trainTit yh tc" id="listen_tips">完全按照@((Model.Package != null && Model.Package.PeriodId == 1003) ? "中考" : "")听说考试题型和考试模式设置，两种训练方式自由切换 @*<a href="javascript:;" class="closed"></a>*@</h4>
+                    <div style="display:none" id="listen_content">
+                        <p class="tc" style="padding:50px 0;"><img src="/content/default/images/face.jpg" alt=""></p>
+                        <!--ko template: { name: 'listenTemplate'} --><!--/ko-->
+                    </div>
+                    <div class="tc mt20" id="listen_loading">
+                        <img src="/content/default/images/enter-loading.gif" alt="loading..." />
+                        <span>请稍等，正在加载中......</span>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+@Html.Partial("~/Views/Shared/_download.cshtml")
+@section scripts{
+    <script type="text/javascript">
+		if ($("#_paper_panel").length == 1) {
+			require(["ko", "paper"], function (ko, paper) {
+				ko.applyBindings(new paper.viewModel.preView(settingOptions), document.getElementById("_listen_panel"));
+			});
+		} else {
+			require(["ko", "listen"], function (ko, listen) {
+				ko.applyBindings(new listen.viewModel.preView(settingOptions), document.getElementById("_listen_panel"));
+			});
+		}
+
+        var settingOptions = {
+            user_id: "@(Model.User.UserID)",
+            user_name: "@(Model.User.UserName)",
+            id: "@(Model.VersionId)",//版本ID
+            moduleId: "e9430760-9f2e-4256-af76-3bd8980a9de4",
+            afterRender: function () {
+                $('a.goUp').live("click", function () {
+                    $('html,body').animate({ scrollTop: 0 }, 300);
+                });
+                $("#resourceName").text(this.paper().title);
+            }
+        };
+
+        $("#listen_tips a").click(function () {
+            $("#listen_tips").hide();
+        });
+        $("ul.trainMenu li[data-version=@Model.VersionId]").addClass("curr");
+        _czc.push(["_setCustomVar", "自主练习", "听力模考", 1]);
+    </script>
+}

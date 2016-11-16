@@ -1,0 +1,127 @@
+﻿@{
+    Layout = "~/Views/Shared/_NewsPaperLayout.cshtml";
+
+    var baseParam = ViewBag.baseParam as ResourceParam;
+
+    ViewBag.Title = ViewBag.Title ?? baseParam.Package.BookName + "_多媒体电子报";
+
+	var style = baseParam.Package.TeamId == 433466191 ? "header-dido" : baseParam.Package.TeamId == 4732467 ? "header-ew" : baseParam.Package.TeamId == 463076173 ? "header-xxb" : baseParam.Package.TeamId == 484685069 ? "header-yya" : "";
+}
+
+<div class="mainwrap">
+    <div class="commend-listwrap">
+        <div id="_newspaper_top">
+            <div style="position: relative; z-index: 100" class="header @(style)">
+                <div class="main cf" style="position: relative;">
+                    <p class="grade fl" data-bind="text: grade"></p>
+                    <p class="edition fl yh" data-bind="text: bookVersion"></p>
+                    <p class="area yh tc fr" data-bind="text: area"></p>
+                    @if (baseParam.Package.TeamId != 4732467)
+                    {
+                        <div class="service cf">
+                            <a href="http://chat.live800.com/live800/chatClient/chatbox.jsp?companyID=92071&amp;configID=115414&amp;jid=2459128748" target="_blank" title="服务时间：8：30-21：30" class="onl fr"></a>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="main top cf">
+                <em class="top-l"></em><em class="top-r"></em>
+                <div class="fl menu st">
+                    <h4 class="tit fb tc"><em data-bind="text: currCatalogueName">loading</em><i class="arrowD"></i></h4>
+                </div>
+                <div class="pageMenu fr cf">
+                    <ul class="menuBar fl">
+                        @foreach (var item in baseParam.CategoryContent.ToNewsPaperResults())
+                        {
+                            <li class="@(item.ModuleId.Equals(baseParam.TaskResultContent.ModuleId) ? "curr" : string.Empty)">
+                                @if (!item.ResourceList.Any())
+                                {
+                                    <a href="@(string.Format("{0}?packageId={1}&cid={2}&versionId={3}", RedirectHelper.GetRedirectUrl(item.ModuleId.ToString()), baseParam.TaskResultContent.PackageId, baseParam.TaskResultContent.PackageCatalogueId, item.ResourceVersionId))" class="fir">@item.ModuleName</a>
+                                }
+                                else
+                                {
+                                    <a href="javascript:void(0)" class="fir">@item.ModuleName</a>
+                                    <p class="sub">
+                                        @foreach (var resource in item.ResourceList)
+                                        {
+                                            <a href="@(string.Format("{0}?packageId={1}&cid={2}&versionId={3}", RedirectHelper.GetRedirectUrl(item.ModuleId.ToString()), baseParam.TaskResultContent.PackageId, baseParam.TaskResultContent.PackageCatalogueId, resource.Key))">@resource.Value</a>
+                                        }
+                                    </p>
+                                }
+                            </li>
+                        }
+                    </ul>
+                    @if (baseParam.Package.TeamId != 433466191)
+                    {
+                        <a href="http://sunshine.ciwong.com/show?grade=@baseParam.Package.GradeId" target="_blank" class="hdfx fr">互动分享</a>
+                    }
+                </div>
+                <div class="menuBox menuBox2 yh">
+                    <ul class="cf" data-bind="foreach: catalogues">
+                        <li data-bind="css:{ 'curr':'@(baseParam.TaskResultContent.PackageCatalogueId)' == id },text: name, click: function(data){ location.href='/jump/preview?packageId=@(baseParam.PackageId)&cid='+data.id; }"></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <p class="tc mt20" id="nw_loading">
+            <img src="/content/default/images/enter-loading.gif" alt="loading..." />
+            <span>请稍等，正在加载中......</span>
+        </p>
+        @RenderBody()
+        <div class="foot tc" id="newspaper_foot" style="display:none">Copyright © 2008 - @(DateTime.Now.Year) CiWong.Inc. All Rights Reserved</div>
+    </div>
+</div>
+<div class="rightTip">
+    @if (baseParam.PackagePermission == null || baseParam.PackagePermission.ExpirationDate < DateTime.Now)
+    {
+        <div class="buyTip">
+            <a href="/jump/buy?packageId=@baseParam.PackageId" target="_blank" class="buy"></a>
+        </div>
+    }
+    else if (baseParam.PackagePermission.ExpirationDate < DateTime.Now.AddDays(30))
+    {
+        <div class="buyTip">
+            <a href="/jump/buy?packageId=@baseParam.PackageId" target="_blank" class="renew">@((baseParam.PackagePermission.ExpirationDate - DateTime.Now).Days)</a>
+        </div>
+    }
+    <a href="http://bbs.ciwong.com/yangguangyingyu/list.aspx" target="_black" class="faqTip"></a>
+</div>
+@RenderSection("scripts", false)
+<script type="text/javascript">
+    require(["ko", "newspaper"], function (ko, newspaper) {
+        var settingOptions = {
+            packageId: "@(baseParam.PackageId)",
+            catalogueId: "@baseParam.CatalogueId",
+            gradeId: "@baseParam.Package.GradeId",
+            bookVersion: "@baseParam.Package.BookVersion",
+            areaName: "@baseParam.Package.CityName" || "@baseParam.Package.ProvincelName"
+        };
+        ko.applyBindings(new newspaper.viewModel.preView(settingOptions), document.getElementById("_newspaper_top"));
+    });
+
+    var isHover = false;
+    $("#_newspaper_top .menu").hover(
+		function () {
+		    $('.menuBox').css("display", "block");
+		},
+		function () {
+		    var cuurBox = $('.menuBox');
+		    setTimeout(function () {
+		        if (isHover == false) { cuurBox.css("display", "none") }
+		    }, 100)
+		}
+	);
+    $("#_newspaper_top .menuBox").hover(
+		function () { isHover = true; },
+		function () { $(this).css("display", "none"); isHover = false; }
+	);
+
+    //$("#_newspaper_top ul.menuBar li").hover(function () {
+    //	$(this).toggleClass("curr");
+    //	$(this).find(".sub").toggle();
+    //})
+
+    $('.menuBar li .fir,.menuBar li .sub').hover(function () {
+        $(this).parent("li").toggleClass('hover');
+    })
+</script>

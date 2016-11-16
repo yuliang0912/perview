@@ -1,0 +1,141 @@
+﻿@{
+    Layout = Model.Layout;
+}
+@model WorkParam
+<div id="_paper_panel" data-bind="if: paper, visible: paper" style="display:none">
+    <div class="testQues" id="testQues">
+        <div class="main testT  mt1 cf">
+            <div class="tit fl">
+                <h4 data-bind="text:paper().title"></h4>
+                <p>
+                    你写作业用时：
+                    <span id="timer">00:00:00</span>
+                    <i data-bind="visible: viewType()== 1" id="_timer_tools">
+                        <span class="timeSet"><i></i><em>暂停计时</em></span>
+                        <span class="timeSet continue" style="display:none"><i></i><em>继续答题</em></span>
+                    </i>
+                </p>
+            </div>
+            <div class="score fl tc" id="_score">
+                <a data-bind="click:submitWork">交作业</a>
+            </div>
+            @if (!(Model.WorkResource.ModuleId == 5 && Model.PackageType == 3) && !Model.IsCan)
+            {
+                <div class="opeVipTestBg"></div><!---遮罩层---->
+                <div class="opeVipTest cf">
+                    <img src="/content/default/images/clock.png" alt="">
+                    <p class="f14">购买后才能提交喔!</p>
+					<a href="/jump/buy?packageId=@Model.Package.PackageId" target="_blank" class="btnOpeVip mt10">立即购买</a>
+                </div>
+            }
+        </div>
+        <div class="quesFastWay" data-bind="visible: viewType()== 1">
+            <a href="javascript:;" class="tog" title="展开题型列表"></a>
+            <ul class="numList"></ul>
+            <a href="javascript:;" class="up"></a>
+        </div>
+    </div>
+    <div class="main">
+        <div class="testCont" data-bind="template:{ name: 'paperTemplate', data: paper, afterRender: afterRender }"></div>
+    </div>
+    <div class="testContrlBox">
+        <a href="javascript:;" class="goUp"></a>
+    </div>
+</div>
+@section scripts{
+    <script type="text/javascript">
+        require(["ko", "paper"], function (ko, paper) {
+            ko.applyBindings(new paper.viewModel.preView(settingOptions), document.getElementById("_paper_panel"));
+        });
+
+        var settingOptions = {
+            id: "@(Model.WorkResource.VersionId)",
+            afterRender: function () {
+                timer = $("#timer").timer().start();
+                htmlEventHanlder();
+            },
+            submitWork: function () {
+                var model = this;
+                var userAnswers = model.getUserAnswer();
+                var postData = {
+                    workScore: model.paper().ref_score,
+                    content: JSON.stringify(userAnswers),
+                    questionCount: model.allSingleQuestions.length,
+                    workLong: timer.getTime()
+                };
+                if (userAnswers.length != postData.questionCount) {
+                    $.confirm("您的题目还未全部完成,是否确定提交?", function () {
+                        postData.workLong = timer.getTime();
+                        postWork(postData)
+                    }, null);
+                } else {
+                    postWork(postData);
+                }
+            }
+        };
+
+        function postWork(postData) {
+            ciwong.ajax.postJSON("/paper/submitwork?doWorkId=@(Model.DoWorkBase.DoWorkID)&contentId=@(Model.WorkResource.ContentId)", postData, function (data) {
+                timer.stop();
+                $.succeed("作业提交成功!", function () { location.reload(); });
+            }, null, null, true, function () { ciwong.ajax.isPreventRequest = true; });
+        }
+
+        var timer = null;
+        function htmlEventHanlder() {
+            var lis = $('#_paper_panel .quesFastWay ul.numList').empty(),
+                numTog = $('.quesFastWay .tog');
+
+            for (var i = 1, j = $('div.testCont article.work-quesCon').length; i <= j; i++) {
+                lis.append('<li><a href="javascript:;">' + i + '</a></li>');
+            }
+
+            lis.find("li").click(function () {
+                var i = $(this).index(),
+                    y = $('div.testCont article.work-quesCon').eq(i).offset().top - 104;
+                $('html,body').animate({ scrollTop: y }, 200);
+            });
+
+            numTog.live('click', function () {
+                if ($(this).hasClass("shrink")) {
+                    lis.hide();
+                    $(this).removeClass("shrink").attr("title", "展开题型列表");
+                } else {
+                    lis.show();
+                    $(this).addClass("shrink").attr("title", "收起题型列表");
+                }
+            });
+
+            $('a.goUp').live("click", function () {
+                $('html,body').animate({ scrollTop: 0 }, 300);
+            });
+
+            $("#_timer_tools span").die().live("click", function () {
+                timer.stop();
+                $.content('<div class="tc pauseDlg yh"><h4>当前已暂停答题</h4><a href="javascript:void(0);" id="_timer_tools_continue" class="btn" title="点击继续答题"></a></div>', function () {
+                    timer.start();
+                    $("#_timer_tools span").toggle();
+                });
+                $("div.d-mask").css({ "filter": "alpha(opacity=80)", "opacity": ".8" });
+                $("#_timer_tools span").toggle();
+            });
+
+            $("#_timer_tools_continue").die().live("click", function () {
+                $.dialog.list["content"].close();
+            });
+
+            $(window).scroll(function () {
+                if ($(this).scrollTop() < 118) {
+                    $("#testQues").removeClass("testQuesFiex").addClass("testQues");
+                } else {
+                    $("#testQues").removeClass("testQues").addClass("testQuesFiex");
+                }
+            })
+        }
+    </script>
+}
+
+
+
+
+

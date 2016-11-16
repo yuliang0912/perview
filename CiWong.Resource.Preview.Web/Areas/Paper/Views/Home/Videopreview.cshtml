@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>视频播放</title>
+    @Html.Scripts("default/scripts", "jquery-1.8.0.min.js")
+</head>
+<body style="overflow: hidden; margin: 0 auto;">
+    <div id="divVideo" style="width: 850px; height: 500px;">
+        @if (Model.Ret == 0)
+        {
+            <script type="text/javascript" src="/Content/Default/scripts/sewisePlayer/SewiseSubtitles.js?autostart=false&logo=/content/default/images/vplaylogo.png&server=vod&sourceid=@Model.Data.SourceId&skin=vodOrange&title=@Model.Data.Name&onplay=1&claritybutton=disable&lang=zh_CN&poster=@Model.Data.CoverUrl"></script>
+        }
+        else
+        {
+            <div>@Model.Message</div>
+        }
+    </div>
+</body>
+</html>

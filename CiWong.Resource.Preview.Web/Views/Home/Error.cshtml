@@ -1,0 +1,38 @@
+﻿@model HandleErrorInfo
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+	<title>错误提示</title>
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
+    <style>
+	*{ margin:0; padding:0}
+	img { border:none; }
+	h2,h4{ font-size:100%; font-weight:normal;}
+	.errorPage{ width:900px; margin:100px auto 0; color:#4c74a6; font-family:arial,"microsoft yahei","simsun";}
+	.errorPage h2{ font-size:60px; line-height:2; }
+	.errorPage h4{ font-size:24px; line-height:30px;}
+	.tc{ text-align:center;}
+	a{ color:#4996f6}
+	.btn{ width:120px; height:38px; line-height:38px; display:inline-block; background:#4996f6; color:#fff; font-size:14px; text-align:center; text-decoration:none; margin:30px 10px 0}
+	.btn:hover{ color:#fff; opacity:0.9}
+	</style>
+</head>
+<body>
+    <div class="errorPage">
+        <p class="tc">
+            <img src="/Content/default/images/error.png" /></p>
+        <h2>@(string.IsNullOrWhiteSpace(ViewBag.message) ? "糟糕，这个页面打不开了..." : ViewBag.message)</h2>
+        <h4>-->请检查您输入的网址是否正确。<br />
+            -->如果您不能确认网址是否正确，请点击 <a href="javascript:;" onclick="javascript:window.history.back();">返回上一页</a> 浏览其他页面。<br />
+            -->如果您无法载入任何页面，请检查您计算机的网络连接
+        </h4>
+		@if (null != Model) 
+		{ 
+		<div style="display:none">@Html.Raw(Model.Exception.ToString())</div>
+		}
+    </div>
+</body>
+</html>

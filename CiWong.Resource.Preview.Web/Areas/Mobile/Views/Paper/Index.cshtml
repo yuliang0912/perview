@@ -1,0 +1,72 @@
+﻿@{
+    Layout = "~/Views/Shared/_MobileNewsPaperLayout.cshtml";
+}
+@model ResourceParam
+<div class="testCont" data-bind="template:{ name: 'paperTemplate', data: paper, afterRender: afterRender }"></div>
+<time class="timeTips" id="timer">00:00:00</time>
+@if (Model.IsCan)
+{
+    <p class="submit tc" style="z-index:5"><a href="javascript:;" data-bind="click:correctQuestion" class="btn-01">提交作业</a><a href="javascript:;" class="btn-02">暂停答题</a><span class="score" id="_totalScore"></span></p>
+}
+else
+{
+    <p class="submit tc" style="z-index:5"><a href="javascript:;" data-bind="click:OpenServise" class="btn-01">开通会员</a></p>
+}
+@if (Model.TaskResultContent != null)
+{
+    <script type="text/javascript">
+        _czc.push(["_setCustomVar", "自主练习", "@(Model.TaskResultContent.ModuleId == 5 ? "单元测试" : "技能训练" )", 1]);
+    </script>
+}
+@section scripts
+{
+    <script type="text/javascript">
+        require(['ko', 'mobilepaper'], function (ko, mobilepaper) {
+            ko.applyBindings(new mobilepaper.viewModel.preView(settingOptions));
+        });
+        var timer = null;
+        var settingOptions = {
+            id: "@(Model.VersionId)",
+            isShowAnswer: false,
+            isShowThinking: false,
+            afterRender: function () {
+                if (this.viewType() == 1) {
+                    !timer && (function () {
+                        timer = $("#timer").timer().start();
+                    })();
+
+                    htmlEventHanlder();
+                } else {
+                    timer.stop();
+                }
+            },
+            correctComplete: function (data) {
+                var score = 0;
+                $.each(data, function () {
+                    score += this.score;
+                });
+                $('.submit .btn-01').hide();
+                $('.submit .btn-02').hide();
+                $("#_score").html('客观题得分<i>{0}</i>分'.format(parseFloat(score.toFixed(2))));
+                var agentInfo = window.navigator.userAgent;
+                if (agentInfo.indexOf("Android") > -1) {
+                    //window.WebLoad.getResultScore(parseFloat(score.toFixed(2))); 自主练习页面分值不需要保存
+                } else if (agentInfo.indexOf("iPhone") > -1 || agentInfo.indexOf("iPad") > -1 || agentInfo.indexOf("iPod") > -1) {
+
+                }
+            }
+        };
+
+        function htmlEventHanlder() {
+            $('.submit .btn-02').die().live('click', function () {
+                if ($(this).html() == '暂停答题') {
+                    timer.stop();
+                    $(this).html('继续答题');
+                } else {
+                    timer.start();
+                    $(this).html('暂停答题');
+                }
+            });
+        }
+    </script>
+}

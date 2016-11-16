@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CiWong.Resource.Preview.Web", "CiWong.Resource.Preview.Web\CiWong.Resource.Preview.Web.csproj", "{7B858532-58E6-4B7D-AEBE-EF586DFF0968}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CiWong.Resource.Preview.DataContracts", "CiWong.Resource.Preview.DataContracts\CiWong.Resource.Preview.DataContracts.csproj", "{C498F420-F363-491B-86E2-A2129EC39D6A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CiWong.Resource.Preview", "CiWong.Resource.Preview\CiWong.Resource.Preview.csproj", "{91E2467F-2CFB-41BF-ABE0-6970BC58822B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CiWong.Resource.Preview.OutsideDate", "CiWong.Resource.Preview.OutsideDate\CiWong.Resource.Preview.OutsideDate.csproj", "{E98452B2-2BFC-4FB8-A61F-6A7672AD4AD4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{73E394FD-15CA-49F1-BFC6-C0EFCB5D0953}"
+	ProjectSection(SolutionItems) = preProject
+		.build\compressor.bat = .build\compressor.bat
+		.build\yuicompressor.jar = .build\yuicompressor.jar
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CiWong.Resource.Preview.Common", "CiWong.Resource.Preview.Common\CiWong.Resource.Preview.Common.csproj", "{42BC0526-125C-4380-99BC-2B178DADB249}"
+EndProject
+Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7B858532-58E6-4B7D-AEBE-EF586DFF0968}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B858532-58E6-4B7D-AEBE-EF586DFF0968}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B858532-58E6-4B7D-AEBE-EF586DFF0968}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B858532-58E6-4B7D-AEBE-EF586DFF0968}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C498F420-F363-491B-86E2-A2129EC39D6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C498F420-F363-491B-86E2-A2129EC39D6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C498F420-F363-491B-86E2-A2129EC39D6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C498F420-F363-491B-86E2-A2129EC39D6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91E2467F-2CFB-41BF-ABE0-6970BC58822B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91E2467F-2CFB-41BF-ABE0-6970BC58822B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91E2467F-2CFB-41BF-ABE0-6970BC58822B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91E2467F-2CFB-41BF-ABE0-6970BC58822B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E98452B2-2BFC-4FB8-A61F-6A7672AD4AD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E98452B2-2BFC-4FB8-A61F-6A7672AD4AD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E98452B2-2BFC-4FB8-A61F-6A7672AD4AD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E98452B2-2BFC-4FB8-A61F-6A7672AD4AD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42BC0526-125C-4380-99BC-2B178DADB249}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42BC0526-125C-4380-99BC-2B178DADB249}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42BC0526-125C-4380-99BC-2B178DADB249}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42BC0526-125C-4380-99BC-2B178DADB249}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
